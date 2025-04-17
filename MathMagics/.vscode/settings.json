@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Math Magics.sln"
+    "dotnet.defaultSolution": "MathMagics.sln"
 }
