@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a21109d8ab59d6b43b0a0cde9af905c0
+guid: 63777116eb5889f48b3ccb49a3f79aac
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: SubtractionWand
+  - name: WIPMainCharacter
     originalName: 
-    pivot: {x: 0.47619045, y: -0.10619469}
+    pivot: {x: 0.105590045, y: -1.1714287}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 21
-      height: 113
-    spriteID: 56522b7aa08949b4190899103a149e83
+      width: 322
+      height: 175
+    spriteID: 933aa2c7fef35654b9f7e8088be0d062
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,21 +144,21 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1592230722
-    name: SubtractionWand
+    guid: -231566166
+    name: WIPMainCharacter
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: SubtractionWand
+    - name: WIPMainCharacter
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 5
-        y: 12
-        width: 21
-        height: 113
-      spriteId: 56522b7aa08949b4190899103a149e83
+        x: 446
+        y: 205
+        width: 322
+        height: 175
+      spriteId: 933aa2c7fef35654b9f7e8088be0d062
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -177,4 +177,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 30, y: 130}
+  canvasSize: {x: 960, y: 540}
