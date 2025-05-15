@@ -1,15 +1,20 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class EnemySentry : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
-    public enum BehaviorMode { Sentry, Chase }
+    public enum BehaviorMode { Sentry, Chase, Automatic }
+    private enum InternalMode { Sentry, Chase }
+
     [Header("Behavior")]
-    public BehaviorMode mode = BehaviorMode.Sentry;
+    public BehaviorMode mode = BehaviorMode.Automatic;
     public Transform player;
+    [SerializeField] private float chaseRadius = 5f;
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float waitTimeBetweenMoves = 1f;
+    [SerializeField] private Vector2 collisionBoxSize = Vector2.one * 0.8f;
 
     private bool isMoving = false;
     private Vector3 startPosition;
@@ -44,17 +49,29 @@ public class EnemySentry : MonoBehaviour
             waitTimer -= Time.deltaTime;
             if (waitTimer <= 0f)
             {
-                switch (mode)
+                InternalMode actualMode = GetCurrentBehavior();
+                switch (actualMode)
                 {
-                    case BehaviorMode.Sentry:
+                    case InternalMode.Sentry:
                         MoveRandomly();
                         break;
-                    case BehaviorMode.Chase:
+                    case InternalMode.Chase:
                         MoveTowardsPlayer();
                         break;
                 }
             }
         }
+    }
+
+    InternalMode GetCurrentBehavior()
+    {
+        if (mode == BehaviorMode.Automatic && player != null)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            return (distanceToPlayer <= chaseRadius) ? InternalMode.Chase : InternalMode.Sentry;
+        }
+
+        return (InternalMode)System.Enum.Parse(typeof(InternalMode), mode.ToString());
     }
 
     void MoveRandomly()
@@ -67,29 +84,12 @@ public class EnemySentry : MonoBehaviour
     {
         if (player == null) return;
 
-        Vector3 bestDirection = Vector3.zero;
-        float shortestDistance = float.MaxValue;
-
-        foreach (Vector3 dir in directions)
+        List<Vector3> path = GridPathfinding.FindPath(transform.position, player.position);
+        if (path != null && path.Count > 1)
         {
-            Vector3 testPos = transform.position + dir;
-            float dist = Vector3.Distance(testPos, player.position);
-
-            // Check for collision
-            Collider2D hit = Physics2D.OverlapBox(testPos, Vector2.one * 0.8f, 0f);
-            if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player")))
-                continue;
-
-            if (dist < shortestDistance)
-            {
-                shortestDistance = dist;
-                bestDirection = dir;
-            }
-        }
-
-        if (bestDirection != Vector3.zero)
-        {
-            TryMove(bestDirection);
+            Vector3 nextStep = path[1]; // path[0] is current position
+            Vector3 direction = (nextStep - transform.position).normalized;
+            TryMove(direction);
         }
     }
 
@@ -98,8 +98,7 @@ public class EnemySentry : MonoBehaviour
         Vector3 nextPosition = transform.position + direction;
         lastDirection = direction;
 
-        Collider2D hit = Physics2D.OverlapBox(nextPosition, Vector2.one * 0.8f, 0f);
-
+        Collider2D hit = Physics2D.OverlapBox(nextPosition, collisionBoxSize, 0f);
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player")))
         {
             return;
@@ -113,9 +112,13 @@ public class EnemySentry : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        if (!Application.isPlaying) return;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, chaseRadius);
 
-        Gizmos.color = mode == BehaviorMode.Chase ? Color.yellow : Color.red;
-        Gizmos.DrawWireCube(transform.position + lastDirection, Vector3.one * 0.8f);
+        if (Application.isPlaying)
+        {
+            Gizmos.color = GetCurrentBehavior() == InternalMode.Chase ? Color.yellow : Color.red;
+            Gizmos.DrawWireCube(transform.position + lastDirection, collisionBoxSize);
+        }
     }
 }

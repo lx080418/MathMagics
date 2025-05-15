@@ -1,31 +1,15 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private bool testingMode = false; // ← Toggle this in Inspector
-    private const string WALL_TAG = "Wall";
+    [SerializeField] private bool testingMode = false;
+    [SerializeField] private Vector2 collisionBoxSize = Vector2.one * 0.8f;
 
     private bool isMoving = false;
     private Vector3 startPosition;
     private Vector3 targetPosition;
     private float moveProgress = 0f;
-    private Tilemap wallTilemap;
-
-    void Start()
-    {
-        GameObject wallObject = GameObject.FindGameObjectWithTag(WALL_TAG);
-        if (wallObject != null)
-        {
-            wallTilemap = wallObject.GetComponent<Tilemap>();
-        }
-
-        if (wallTilemap == null)
-        {
-            Debug.LogError("Wall tilemap not found! Make sure the tilemap is tagged 'Wall'.");
-        }
-    }
 
     void OnEnable()
     {
@@ -39,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Skip turn check if testing mode is enabled
         if (!testingMode && (!TurnManager.Instance || !TurnManager.Instance.IsPlayerTurn()))
             return;
 
@@ -64,23 +47,42 @@ public class PlayerMovement : MonoBehaviour
 
     public void TryMove(Vector2 direction)
     {
-        if (isMoving || wallTilemap == null)
+        Debug.Log($"[PlayerMovement] TryMove called with direction: {direction}");
+
+        if (isMoving)
             return;
 
         Vector3 proposedPosition = transform.position + new Vector3(direction.x, direction.y, 0f);
-        Vector3Int cell = wallTilemap.WorldToCell(proposedPosition);
 
-        if (wallTilemap.GetTile(cell) == null)
+        // Wall check using OverlapBox
+        Collider2D hit = Physics2D.OverlapBox(proposedPosition, collisionBoxSize, 0f);
+        if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player")))
         {
-            startPosition = transform.position;
-            targetPosition = proposedPosition;
-            isMoving = true;
-            moveProgress = 0f;
+            Debug.Log("Move blocked by wall or another player.");
+            return;
         }
+        else
+        {
+            Debug.Log($"No collider hit at {proposedPosition}");
+        }
+
+        Debug.Log("Move allowed");
+        startPosition = transform.position;
+        targetPosition = proposedPosition;
+        isMoving = true;
+        moveProgress = 0f;
     }
 
     public bool IsMoving()
     {
         return isMoving;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (!Application.isPlaying) return;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(targetPosition, collisionBoxSize);
     }
 }
