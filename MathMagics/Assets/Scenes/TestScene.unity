@@ -193,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 158171123}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.59, y: -2.5756, z: 0}
+  m_LocalPosition: {x: 8.83, y: -1.46, z: 0}
   m_LocalScale: {x: 1, y: 3.8888, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -375,7 +375,7 @@ Transform:
   m_GameObject: {fileID: 445865220}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -761,7 +761,7 @@ Transform:
   m_GameObject: {fileID: 1215819319}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 6.99, y: 2.65, z: 0}
+  m_LocalPosition: {x: 5.88, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 8, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -891,7 +891,7 @@ Transform:
   m_GameObject: {fileID: 1315470874}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 6.91, y: -3.51, z: 0}
+  m_LocalPosition: {x: 5.05, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 8, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 1442584989}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2231,7 +2231,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 238891416509110502, guid: 5aa1d75421840bd40ad47a90b2dba453, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.21
       objectReference: {fileID: 0}
     - target: {fileID: 238891416509110502, guid: 5aa1d75421840bd40ad47a90b2dba453, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2284,6 +2284,10 @@ PrefabInstance:
     - target: {fileID: 6690224075751811390, guid: 5aa1d75421840bd40ad47a90b2dba453, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8991871587702718854, guid: 5aa1d75421840bd40ad47a90b2dba453, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
