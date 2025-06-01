@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 proposedPosition = transform.position + new Vector3(direction.x, direction.y, 0f);
         Debug.Log($"{proposedPosition} with size {collisionBoxSize}");
         // Wall check using OverlapBox
-        Collider2D hit = Physics2D.OverlapBox(proposedPosition, collisionBoxSize, 0f);
+        Collider2D hit = Physics2D.OverlapBox(new Vector3(proposedPosition.x+.5f, proposedPosition.y+.5f), collisionBoxSize, 0f);
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player")))
         {
             Debug.Log("Move blocked by wall or another player.");
