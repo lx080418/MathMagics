@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         Vector3 proposedPosition = transform.position + new Vector3(direction.x, direction.y, 0f);
-
+        Debug.Log($"{proposedPosition} with size {collisionBoxSize}");
         // Wall check using OverlapBox
         Collider2D hit = Physics2D.OverlapBox(proposedPosition, collisionBoxSize, 0f);
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player")))
