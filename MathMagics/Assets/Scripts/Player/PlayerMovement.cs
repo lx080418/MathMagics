@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         Collider2D hit = Physics2D.OverlapBox(proposedPosition, collisionBoxSize, 0f);
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player")))
         {
-            Debug.Log("Move blocked by wall or another player.");
+            Debug.Log($"Move blocked by wall or another player. {hit.name}");
             return;
         }
         else
