@@ -2,50 +2,68 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private string maxHealthExpression = "3";
-    private Fraction maxHealth;
+    public static PlayerHealth instance;
+
+    [Header("Player Health")]
+    [SerializeField] private string startingHealth = "20";
     private Fraction currentHealth;
 
-    void Start()
-    {
-        maxHealth = EvaluateExpression(maxHealthExpression);
-        currentHealth = maxHealth;
+    [Header("References")]
+    [SerializeField] private GameObject loseScreen;
 
-        Debug.Log($"[PlayerHealth] Initialized: {currentHealth} HP");
+    // Events
+    public delegate void HealthChanged(Fraction newHealth);
+    public event HealthChanged OnHealthChanged;
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        currentHealth = Evaluate(startingHealth);
+        OnHealthChanged?.Invoke(currentHealth);
+    }
+
+    public void UpdatePlayerHP(string expression)
+    {
+        ExpressionTree tree = new ExpressionTree();
+        tree.BuildFromInfix(currentHealth.ToString() + expression);
+        currentHealth = tree.Evaluate();
+
+        Debug.Log($"[PlayerHealth] HP changed to: {currentHealth}");
+
+        if (currentHealth.Numerator == 0)
+        {
+            currentHealth = new Fraction(0);
+            OnHealthChanged?.Invoke(currentHealth);
+            HandleDeath();
+        }
+        else
+        {
+            OnHealthChanged?.Invoke(currentHealth);
+        }
     }
 
     public void TakeDamage(string damageExpression)
     {
-        if (IsDead())
-        {
-            Debug.Log("[PlayerHealth] Already dead, ignoring damage.");
-            return;
-        }
-
-        Fraction damage = EvaluateExpression(damageExpression);
-        currentHealth -= damage;
-
-        if (currentHealth.Numerator < 0)
-            currentHealth = new Fraction(0);
-
-        Debug.Log($"[PlayerHealth] Took {damage} damage. Remaining HP: {currentHealth}");
-
-        if (IsDead())
-            Die();
+        Debug.Log($"[PlayerHealth] Taking damage: {damageExpression}");
+        UpdatePlayerHP("-" + damageExpression);
     }
 
-    public bool IsDead()
-    {
-        return currentHealth.Numerator <= 0;
-    }
-
-    private void Die()
+    private void HandleDeath()
     {
         Debug.Log("[PlayerHealth] Player has died!");
-        // Add game-over, animation, disable movement, etc.
+        if (loseScreen != null)
+            loseScreen.SetActive(true);
+        Destroy(gameObject);
     }
 
-    private Fraction EvaluateExpression(string expr)
+    public Fraction GetCurrentHealth() => currentHealth;
+
+    public Fraction Evaluate(string expr)
     {
         try
         {
@@ -55,11 +73,8 @@ public class PlayerHealth : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"[PlayerHealth] Error evaluating expression '{expr}': {e.Message}");
+            Debug.LogError($"[PlayerHealth] Invalid expression '{expr}': {e.Message}");
             return new Fraction(0);
         }
     }
-
-    public Fraction GetCurrentHealth() => currentHealth;
-    public Fraction GetMaxHealth() => maxHealth;
 }

@@ -6,26 +6,28 @@ public class PlayerHealthUI : MonoBehaviour
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private TextMeshProUGUI hpText;
 
-    void Start()
+    private void Start()
     {
         if (playerHealth == null)
             playerHealth = FindObjectOfType<PlayerHealth>();
 
-        UpdateUI(); // show initial HP
+        // Subscribe to health updates
+        playerHealth.OnHealthChanged += UpdateUI;
+
+        // Initialize UI immediately
+        UpdateUI(playerHealth.GetCurrentHealth());
     }
 
-    void Update()
+    private void OnDestroy()
     {
-        UpdateUI();
+        // Unsubscribe when destroyed
+        if (playerHealth != null)
+            playerHealth.OnHealthChanged -= UpdateUI;
     }
 
-    void UpdateUI()
+    private void UpdateUI(Fraction currentHealth)
     {
-        if (playerHealth == null || hpText == null) return;
-
-        string current = playerHealth.GetCurrentHealth().ToString();
-        string max = playerHealth.GetMaxHealth().ToString();
-
-        hpText.text = $"HP: {current} / {max}";
+        if (hpText != null)
+            hpText.text = $"HP: {currentHealth}";
     }
 }
