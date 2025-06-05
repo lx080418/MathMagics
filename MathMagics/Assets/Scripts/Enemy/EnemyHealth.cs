@@ -1,18 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static EnemyHealth instance;
+
+    [Header("Enemy Health")]
+    [SerializeField] private string startingHealth = "20";
+    private Fraction currentHealth;
+
+    [Header("References")]
+    [SerializeField] private GameObject loseScreen;
+
+    // Events
+    public delegate void HealthChanged(Fraction newHealth);
+    public event HealthChanged OnHealthChanged;
+
+    private void Awake()
     {
-        
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        currentHealth = Evaluate(startingHealth);
+        OnHealthChanged?.Invoke(currentHealth);
+    }
+
+    public void UpdatePlayerHP(string expression)
+    {
+        ExpressionTree tree = new ExpressionTree();
+        tree.BuildFromInfix(currentHealth.ToString() + expression);
+        currentHealth = tree.Evaluate();
+
+        Debug.Log($"[PlayerHealth] HP changed to: {currentHealth}");
+
+        if (currentHealth.Numerator == 0)
+        {
+            currentHealth = new Fraction(0);
+            OnHealthChanged?.Invoke(currentHealth);
+            HandleDeath();
+        }
+        else
+        {
+            OnHealthChanged?.Invoke(currentHealth);
+        }
+    }
+
+    public void TakeDamage(string damageExpression)
+    {
+        Debug.Log($"[PlayerHealth] Taking damage: {damageExpression}");
+        UpdatePlayerHP("-" + damageExpression);
+    }
+
+    private void HandleDeath()
+    {
+        Debug.Log("[PlayerHealth] Player has died!");
+        if (loseScreen != null)
+            loseScreen.SetActive(true);
+        Destroy(gameObject);
+    }
+
+    public Fraction GetCurrentHealth() => currentHealth;
+
+    public Fraction Evaluate(string expr)
+    {
+        try
+        {
+            ExpressionTree tree = new ExpressionTree();
+            tree.BuildFromInfix(expr);
+            return tree.Evaluate();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"[PlayerHealth] Invalid expression '{expr}': {e.Message}");
+            return new Fraction(0);
+        }
     }
 }
