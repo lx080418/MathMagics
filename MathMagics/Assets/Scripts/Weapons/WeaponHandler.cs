@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject weaponHitboxPrefab;
+    [SerializeField] private Transform hitboxSpawnPoint;
+    [SerializeField] private float hitboxLifetime = 0.2f;
+
     public static WeaponHandler Instance;
     private Weapon w1 = new Weapon("Subtract", 1, "-");
     private Weapon w2 = new Weapon("Add", 1, "+");
@@ -60,9 +64,13 @@ public class WeaponHandler : MonoBehaviour
     private void PerformAttack()
     {
         string damageExpr = currentWeapon.GetDamageExpression();
-        Debug.Log($"[WeaponHandler] Attacking with: {currentWeapon.getName()} (Level {currentWeapon.getLevel()}, Op: {currentWeapon.getOperation()}) → Expression: {damageExpr}");
+        Debug.Log($"[WeaponHandler] Attacking with: {damageExpr}");
 
-        // Later you’ll call ApplyDamageExpression(damageExpr) on an enemy here
+        GameObject hitbox = Instantiate(weaponHitboxPrefab, hitboxSpawnPoint.position, Quaternion.identity);
+        WeaponHitbox2D hitboxScript = hitbox.GetComponent<WeaponHitbox2D>();
+        hitboxScript.damageExpression = damageExpr;
+
+        Destroy(hitbox, hitboxLifetime);
     }
 
     public Weapon GetCurrentWeapon() => currentWeapon;
