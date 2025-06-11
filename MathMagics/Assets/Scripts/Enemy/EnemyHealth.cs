@@ -2,68 +2,36 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public static EnemyHealth instance;
-
     [Header("Enemy Health")]
-    [SerializeField] private string startingHealth = "20";
+    [SerializeField] private string startingHealth = "3";
     private Fraction currentHealth;
-
-    [Header("References")]
-    [SerializeField] private GameObject loseScreen;
-
-    // Events
-    public delegate void HealthChanged(Fraction newHealth);
-    public event HealthChanged OnHealthChanged;
-
-    private void Awake()
-    {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
-    }
 
     private void Start()
     {
         currentHealth = Evaluate(startingHealth);
-        OnHealthChanged?.Invoke(currentHealth);
     }
 
-    public void UpdatePlayerHP(string expression)
+    public void ApplyDamageExpression(string expression)
     {
         ExpressionTree tree = new ExpressionTree();
         tree.BuildFromInfix(currentHealth.ToString() + expression);
         currentHealth = tree.Evaluate();
 
-        Debug.Log($"[PlayerHealth] HP changed to: {currentHealth}");
+        Debug.Log($"[EnemyHealth] New HP: {currentHealth}");
 
         if (currentHealth.Numerator == 0)
         {
-            currentHealth = new Fraction(0);
-            OnHealthChanged?.Invoke(currentHealth);
-            HandleDeath();
-        }
-        else
-        {
-            OnHealthChanged?.Invoke(currentHealth);
+            Die();
         }
     }
 
-    public void TakeDamage(string damageExpression)
+    private void Die()
     {
-        Debug.Log($"[PlayerHealth] Taking damage: {damageExpression}");
-        UpdatePlayerHP("-" + damageExpression);
-    }
-
-    private void HandleDeath()
-    {
-        Debug.Log("[PlayerHealth] Player has died!");
-        if (loseScreen != null)
-            loseScreen.SetActive(true);
+        Debug.Log($"[EnemyHealth] {gameObject.name} has died.");
         Destroy(gameObject);
     }
 
-    public Fraction GetCurrentHealth() => currentHealth;
-
-    public Fraction Evaluate(string expr)
+    private Fraction Evaluate(string expr)
     {
         try
         {
@@ -73,8 +41,10 @@ public class EnemyHealth : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"[PlayerHealth] Invalid expression '{expr}': {e.Message}");
+            Debug.LogError($"[EnemyHealth] Invalid expression '{expr}': {e.Message}");
             return new Fraction(0);
         }
     }
+
+    public Fraction GetCurrentHealth() => currentHealth;
 }

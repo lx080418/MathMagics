@@ -11,8 +11,8 @@ public class WeaponHandler : MonoBehaviour
     public static WeaponHandler Instance;
     private Weapon w1 = new Weapon("Subtract", 1, "-");
     private Weapon w2 = new Weapon("Add", 1, "+");
-    private Weapon w3 = new Weapon("Multiply", 1, "*");
-    private Weapon w4 = new Weapon("Divide", 1, "/");
+    private Weapon w3 = new Weapon("Multiply", 2, "*");
+    private Weapon w4 = new Weapon("Divide", 2, "/");
     private Weapon[] weapons;
     private Weapon currentWeapon;
     private void OnEnable()
@@ -67,8 +67,6 @@ public class WeaponHandler : MonoBehaviour
         Debug.Log($"[WeaponHandler] Attacking with: {damageExpr}");
 
         GameObject hitbox = Instantiate(weaponHitboxPrefab, hitboxSpawnPoint.position, Quaternion.identity);
-        WeaponHitbox2D hitboxScript = hitbox.GetComponent<WeaponHitbox2D>();
-        hitboxScript.damageExpression = damageExpr;
 
         Destroy(hitbox, hitboxLifetime);
     }
