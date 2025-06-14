@@ -741,7 +741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7191138468919753024}
   m_Layer: 0
-  m_Name: Preset3.1 11x11 1
+  m_Name: Preset3(1) 11x11 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
