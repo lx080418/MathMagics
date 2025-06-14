@@ -36,6 +36,8 @@ public class TilemapSetup : MonoBehaviour
 
     [Header("Tiles")]
     public TileBase boundaryTile;
+    public TileBase grassTile;
+    public TileBase wallTile;
 
 
     //* ----------------- Internal Usage ----------------- */
@@ -119,12 +121,17 @@ public class TilemapSetup : MonoBehaviour
         currentY = 0;
         previousRoom = GenerateNewRoom(currentX, currentY);
         Tilemap previousRoomTilemap = previousRoom.transform.GetChild(1).GetComponent<Tilemap>();
+        Tilemap previousRoomBackground = previousRoom.transform.GetChild(0).GetComponent<Tilemap>();
         RoomPreset spawnedPreset = previousRoom.GetComponent<RoomPreset>();
 
         //Destroy west walls on first room since Spawn room is always to the left
         previousRoomTilemap.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, -1), null);
         previousRoomTilemap.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, 0), null);
         previousRoomTilemap.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, 1), null);
+
+        previousRoomBackground.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, -1), grassTile);
+        previousRoomBackground.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, 0), grassTile);
+        previousRoomBackground.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, 1), grassTile);
 
         Tilemap enemyTilemap = previousRoom.transform.GetChild(2).GetComponent<Tilemap>();
         //now can get all tiles on this map, each one will be an enemy spawn location.
@@ -155,10 +162,16 @@ public class TilemapSetup : MonoBehaviour
                 if (previousRoom != null)
                 {
                     Tilemap prevRoomTilemap = previousRoom.transform.GetChild(1).GetComponent<Tilemap>();
+                    Tilemap roomBackground = previousRoom.transform.GetChild(0).GetComponent<Tilemap>();
                     RoomPreset previousPreset = previousRoom.GetComponent<RoomPreset>();
-                    prevRoomTilemap.SetTile(new Vector3Int(-1, previousPreset.roomHeight/2), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(0, previousPreset.roomHeight/2), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(1, previousPreset.roomHeight/2), null);
+
+                    prevRoomTilemap.SetTile(new Vector3Int(-1, previousPreset.roomHeight / 2), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(0, previousPreset.roomHeight / 2), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(1, previousPreset.roomHeight / 2), null);
+                    
+                    roomBackground.SetTile(new Vector3Int(-1, previousPreset.roomHeight/2), grassTile);
+                    roomBackground.SetTile(new Vector3Int(0, previousPreset.roomHeight/2), grassTile);
+                    roomBackground.SetTile(new Vector3Int(1, previousPreset.roomHeight/2), grassTile);
                 }
                 currentY++;
                 //GenerateBossRoom(currentX, currentY, GameManager.instance.GetCurrentLevel());
@@ -173,13 +186,38 @@ public class TilemapSetup : MonoBehaviour
                 if (previousRoom != null)
                 {
                     RoomPreset prevRoomPreset = previousRoom.GetComponent<RoomPreset>();
-                    Debug.Log($"Destroying tiles on tilemap {previousRoom.name} at positions \n {-1}, {prevRoomPreset.roomHeight-1} \n {0}, {prevRoomPreset.roomHeight}\n {1},{prevRoomPreset.roomHeight}");
+                    Debug.Log($"Destroying tiles on tilemap {previousRoom.name} at positions \n {-1}, {prevRoomPreset.roomHeight - 1} \n {0}, {prevRoomPreset.roomHeight}\n {1},{prevRoomPreset.roomHeight}");
 
                     Tilemap prevRoomTilemap = previousRoom.transform.GetChild(1).GetComponent<Tilemap>();
+                    Tilemap roomBackgrnd = previousRoom.transform.GetChild(0).GetComponent<Tilemap>();
 
-                    prevRoomTilemap.SetTile(new Vector3Int(-1, prevRoomPreset.roomHeight/2), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(0, prevRoomPreset.roomHeight/2), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(1, prevRoomPreset.roomHeight/2), null);
+                    //Destroy North 3 walls
+                    prevRoomTilemap.SetTile(new Vector3Int(-1, prevRoomPreset.roomHeight / 2), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(0, prevRoomPreset.roomHeight / 2), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(1, prevRoomPreset.roomHeight / 2), null);
+
+                    //Draw the bridge
+                    for (int i = -2; i <= 2; i++)
+                    {
+                        for (int j = prevRoomPreset.roomHeight / 2; j < cellWidth / 2; j++)
+                        {
+                            if (i == -2 || i == 2)
+                            {
+                                prevRoomTilemap.SetTile(new Vector3Int(i, j), wallTile);
+                            }
+                            else
+                            {
+                                roomBackgrnd.SetTile(new Vector3Int(i, j), grassTile);
+                            }
+                        }
+                    }
+                    
+
+                    
+                    //Set top 3 walls to grass
+                    roomBackgrnd.SetTile(new Vector3Int(-1, prevRoomPreset.roomHeight/2), grassTile);
+                    roomBackgrnd.SetTile(new Vector3Int(0, prevRoomPreset.roomHeight/2), grassTile);
+                    roomBackgrnd.SetTile(new Vector3Int(1, prevRoomPreset.roomHeight/2), grassTile);
                 }
 
                 currentY++;
@@ -191,10 +229,17 @@ public class TilemapSetup : MonoBehaviour
                 RoomPreset roomPreset = room.GetComponent<RoomPreset>();
                 //delete three tiles on the bottom
                 Tilemap roomTilemap = room.transform.GetChild(1).GetComponent<Tilemap>();
+                Tilemap roomBackground = room.transform.GetChild(0).GetComponent<Tilemap>();
+
                 roomTilemap.SetTile(new Vector3Int(-1, -roomPreset.roomHeight/2), null);
                 roomTilemap.SetTile(new Vector3Int(0, -roomPreset.roomHeight/2), null);
                 roomTilemap.SetTile(new Vector3Int(1, -roomPreset.roomHeight/2), null);
 
+                roomBackground.SetTile(new Vector3Int(-1, -roomPreset.roomHeight/2), grassTile);
+                roomBackground.SetTile(new Vector3Int(0, -roomPreset.roomHeight/2), grassTile);
+                roomBackground.SetTile(new Vector3Int(1, -roomPreset.roomHeight/2), grassTile);
+
+                //create the bridge 
 
                 enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
                 //now can get all tiles on this map, each one will be an enemy spawn location.\
@@ -227,13 +272,18 @@ public class TilemapSetup : MonoBehaviour
                 if (previousRoom != null)
                 {
                     Tilemap prevRoomTilemap = previousRoom.transform.GetChild(1).GetComponent<Tilemap>();
+                    Tilemap roomBagd = previousRoom.transform.GetChild(0).GetComponent<Tilemap>();
                     RoomPreset prevRoomPreset = previousRoom.GetComponent<RoomPreset>();
-                    Debug.Log($"Destroying tiles on tilemap {previousRoom.name} at positions \n {-1}, {prevRoomPreset.roomHeight-1} \n {0}, {prevRoomPreset.roomHeight}\n {1},{prevRoomPreset.roomHeight}");
+                    Debug.Log($"Destroying tiles on tilemap {previousRoom.name} at positions \n {-1}, {prevRoomPreset.roomHeight - 1} \n {0}, {prevRoomPreset.roomHeight}\n {1},{prevRoomPreset.roomHeight}");
 
 
-                    prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth/2, 1), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth/2, 0), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth/2, -1), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth / 2, 1), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth / 2, 0), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth / 2, -1), null);
+                    
+                    roomBagd.SetTile(new Vector3Int(prevRoomPreset.roomWidth/2, 1), grassTile);
+                    roomBagd.SetTile(new Vector3Int(prevRoomPreset.roomWidth/2, 0), grassTile);
+                    roomBagd.SetTile(new Vector3Int(prevRoomPreset.roomWidth/2, -1), grassTile);
                 }
                 currentX++;
                 //generate new room here
@@ -244,9 +294,15 @@ public class TilemapSetup : MonoBehaviour
 
 
                 Tilemap roomTilemap = room.transform.GetChild(1).GetComponent<Tilemap>();
+                Tilemap roomBackground = room.transform.GetChild(0).GetComponent<Tilemap>();
+
                 roomTilemap.SetTile(new Vector3Int(-roomPreset.roomWidth/2, 1), null);
                 roomTilemap.SetTile(new Vector3Int(-roomPreset.roomWidth/2, 0), null);
                 roomTilemap.SetTile(new Vector3Int(-roomPreset.roomWidth/2, -1), null);
+
+                roomBackground.SetTile(new Vector3Int(-roomPreset.roomWidth/2, 1), grassTile);
+                roomBackground.SetTile(new Vector3Int(-roomPreset.roomWidth/2, 0), grassTile);
+                roomBackground.SetTile(new Vector3Int(-roomPreset.roomWidth/2, -1), grassTile);
 
 
                 enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();

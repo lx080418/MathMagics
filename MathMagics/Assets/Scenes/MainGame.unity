@@ -568,6 +568,7 @@ MonoBehaviour:
   level4Boss: {fileID: 0}
   cellWidth: 15
   boundaryTile: {fileID: 11400000, guid: 20df96c6f1bb4444d999caeab955018e, type: 2}
+  grassTile: {fileID: 11400000, guid: 9919efc07e4ce9840ae585650075118d, type: 2}
 --- !u!4 &1641873754
 Transform:
   m_ObjectHideFlags: 0
