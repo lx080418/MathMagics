@@ -199,7 +199,7 @@ public class TilemapSetup : MonoBehaviour
                     //Draw the bridge
                     for (int i = -2; i <= 2; i++)
                     {
-                        for (int j = prevRoomPreset.roomHeight / 2; j < cellWidth / 2; j++)
+                        for (int j = prevRoomPreset.roomHeight / 2; j <= cellWidth / 2; j++)
                         {
                             if (i == -2 || i == 2)
                             {
@@ -234,6 +234,21 @@ public class TilemapSetup : MonoBehaviour
                 roomTilemap.SetTile(new Vector3Int(-1, -roomPreset.roomHeight/2), null);
                 roomTilemap.SetTile(new Vector3Int(0, -roomPreset.roomHeight/2), null);
                 roomTilemap.SetTile(new Vector3Int(1, -roomPreset.roomHeight/2), null);
+
+                for (int i = -2; i <= 2; i++)
+                {
+                    for (int j = -roomPreset.roomHeight / 2; j >= -cellWidth / 2; j--)
+                    {
+                        if (i == -2 || i == 2)
+                        {
+                            roomTilemap.SetTile(new Vector3Int(i, j), wallTile);
+                        }
+                        else
+                        {
+                            roomBackground.SetTile(new Vector3Int(i, j), grassTile);
+                        }
+                    }
+                }
 
                 roomBackground.SetTile(new Vector3Int(-1, -roomPreset.roomHeight/2), grassTile);
                 roomBackground.SetTile(new Vector3Int(0, -roomPreset.roomHeight/2), grassTile);
@@ -280,6 +295,21 @@ public class TilemapSetup : MonoBehaviour
                     prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth / 2, 1), null);
                     prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth / 2, 0), null);
                     prevRoomTilemap.SetTile(new Vector3Int(prevRoomPreset.roomWidth / 2, -1), null);
+
+                    for (int j = -2; j <= 2; j++)
+                    {
+                        for (int i = prevRoomPreset.roomHeight / 2; i <= cellWidth / 2; i++)
+                        {
+                            if (j == -2 || j == 2)
+                            {
+                                prevRoomTilemap.SetTile(new Vector3Int(i, j), wallTile);
+                            }
+                            else
+                            {
+                                roomBagd.SetTile(new Vector3Int(i, j), grassTile);
+                            }
+                        }
+                    }
                     
                     roomBagd.SetTile(new Vector3Int(prevRoomPreset.roomWidth/2, 1), grassTile);
                     roomBagd.SetTile(new Vector3Int(prevRoomPreset.roomWidth/2, 0), grassTile);
@@ -299,6 +329,21 @@ public class TilemapSetup : MonoBehaviour
                 roomTilemap.SetTile(new Vector3Int(-roomPreset.roomWidth/2, 1), null);
                 roomTilemap.SetTile(new Vector3Int(-roomPreset.roomWidth/2, 0), null);
                 roomTilemap.SetTile(new Vector3Int(-roomPreset.roomWidth/2, -1), null);
+
+                for (int j = -2; j <= 2; j++)
+                {
+                    for (int i = -roomPreset.roomHeight / 2; i >= -cellWidth / 2; i--)
+                    {
+                        if (j == -2 || j == 2)
+                        {
+                            roomTilemap.SetTile(new Vector3Int(i, j), wallTile);
+                        }
+                        else
+                        {
+                            roomBackground.SetTile(new Vector3Int(i, j), grassTile);
+                        }
+                    }
+                }
 
                 roomBackground.SetTile(new Vector3Int(-roomPreset.roomWidth/2, 1), grassTile);
                 roomBackground.SetTile(new Vector3Int(-roomPreset.roomWidth/2, 0), grassTile);
