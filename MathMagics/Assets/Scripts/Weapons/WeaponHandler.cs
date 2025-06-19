@@ -1,3 +1,21 @@
+/// <summary>
+/// WeaponHandler.cs
+/// 
+/// This script manages the player's current weapon, switching between available weapons,
+/// tracking weapon level, and performing attacks.
+/// 
+/// Features:
+/// - Listens for input to switch weapons (1–4 keys)
+/// - Tracks weapon levels and operations (e.g., "+", "-", "*", "/")
+/// - Spawns a weapon hitbox in the direction of the player's last movement when attacking
+/// - Automatically destroys the hitbox after a short duration
+/// 
+/// Requires:
+/// - A hitbox prefab (e.g., with a 2D collider and damage logic)
+/// - A child transform to use as the spawn origin for hitboxes
+/// - PlayerInput.cs with a static lastDirection and OnAttackInput event
+/// </summary>
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,10 +84,26 @@ public class WeaponHandler : MonoBehaviour
         string damageExpr = currentWeapon.GetDamageExpression();
         Debug.Log($"[WeaponHandler] Attacking with: {damageExpr}");
 
-        GameObject hitbox = Instantiate(weaponHitboxPrefab, hitboxSpawnPoint.position, Quaternion.identity);
+        Vector3 spawnDirection = new Vector3(PlayerInput.lastDirection.x, PlayerInput.lastDirection.y, 0f);
+        Vector3 spawnPosition = hitboxSpawnPoint.position + spawnDirection;
+
+        GameObject hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
 
         Destroy(hitbox, hitboxLifetime);
     }
 
     public Weapon GetCurrentWeapon() => currentWeapon;
+
+    public Weapon GetWeaponByName(string weaponName)
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            if (weapon.getName() == weaponName)
+            {
+                return weapon;
+            }
+        }
+        Debug.LogWarning($"[WeaponHandler] Weapon with name '{weaponName}' not found.");
+        return null;
+    }
 }
