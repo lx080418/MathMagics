@@ -42,6 +42,11 @@ public class Weapon
         }
     }
 
+    public void IncreaseLevelBy(int amount)
+    {
+        maxLevel += amount;
+    }
+
     public void DecreaseLevel()
     {
         if (level == minLevel)
