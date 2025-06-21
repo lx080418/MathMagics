@@ -129,6 +129,21 @@ public class TilemapSetup : MonoBehaviour
         previousRoomTilemap.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, 0), null);
         previousRoomTilemap.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, 1), null);
 
+        for (int j = -2; j <= 2; j++)
+                {
+                    for (int i = -spawnedPreset.roomHeight / 2; i >= -cellWidth / 2; i--)
+                    {
+                        if (j == -2 || j == 2)
+                        {
+                            previousRoomTilemap.SetTile(new Vector3Int(i, j), wallTile);
+                        }
+                        else
+                        {
+                            previousRoomBackground.SetTile(new Vector3Int(i, j), grassTile);
+                        }
+                    }
+                }
+
         previousRoomBackground.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, -1), grassTile);
         previousRoomBackground.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, 0), grassTile);
         previousRoomBackground.SetTile(new Vector3Int(-spawnedPreset.roomWidth / 2, 1), grassTile);
@@ -154,10 +169,10 @@ public class TilemapSetup : MonoBehaviour
         numRooms -= 1;
         while (numRooms > 0)
         {
+            //Check if we are spwaning the boss room
+                //Boss room always spawns to the right
             if (numRooms == 1)
             {
-                //BOSS ROOM SPAWNING
-                //boss room always spawns up.
 
                 if (previousRoom != null)
                 {
@@ -165,15 +180,30 @@ public class TilemapSetup : MonoBehaviour
                     Tilemap roomBackground = previousRoom.transform.GetChild(0).GetComponent<Tilemap>();
                     RoomPreset previousPreset = previousRoom.GetComponent<RoomPreset>();
 
-                    prevRoomTilemap.SetTile(new Vector3Int(-1, previousPreset.roomHeight / 2), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(0, previousPreset.roomHeight / 2), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(1, previousPreset.roomHeight / 2), null);
-                    
-                    roomBackground.SetTile(new Vector3Int(-1, previousPreset.roomHeight/2), grassTile);
-                    roomBackground.SetTile(new Vector3Int(0, previousPreset.roomHeight/2), grassTile);
-                    roomBackground.SetTile(new Vector3Int(1, previousPreset.roomHeight/2), grassTile);
+                    prevRoomTilemap.SetTile(new Vector3Int(previousPreset.roomWidth/2, 1), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(previousPreset.roomWidth/2, 0), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(previousPreset.roomWidth/2, -1), null);
+
+                    for (int j = -2; j <= 2; j++)
+                    {
+                        for (int i = previousPreset.roomHeight / 2; i <= cellWidth / 2; i++)
+                        {
+                            if (j == -2 || j == 2)
+                            {
+                                prevRoomTilemap.SetTile(new Vector3Int(i, j), wallTile);
+                            }
+                            else
+                            {
+                                roomBackground.SetTile(new Vector3Int(i, j), grassTile);
+                            }
+                        }
+                    }
+
+                    roomBackground.SetTile(new Vector3Int(previousPreset.roomWidth/2, 1), grassTile);
+                    roomBackground.SetTile(new Vector3Int(previousPreset.roomWidth/2, 0), grassTile);
+                    roomBackground.SetTile(new Vector3Int(previousPreset.roomWidth/2, -1), grassTile);
                 }
-                currentY++;
+                currentX++;
                 //GenerateBossRoom(currentX, currentY, GameManager.instance.GetCurrentLevel());
                 //! TEMP
                 GenerateBossRoom(currentX, currentY, 1);
@@ -406,11 +436,26 @@ public class TilemapSetup : MonoBehaviour
         spawned.transform.SetParent(mainGrid.transform);
         toBeDestroyedOnReset.Add(spawned);
 
-
+        Tilemap backgroundTilemap = spawned.transform.GetChild(0).GetComponent<Tilemap>();
         Tilemap roomTilemap = spawned.transform.GetChild(1).GetComponent<Tilemap>();
         roomTilemap.SetTile(new Vector3Int(spawnedPreset.roomWidth / 2, -1), null);
         roomTilemap.SetTile(new Vector3Int(spawnedPreset.roomWidth / 2, 0), null);
         roomTilemap.SetTile(new Vector3Int(spawnedPreset.roomWidth / 2, 1), null);
+
+        for (int j = -2; j <= 2; j++)
+        {
+            for (int i = spawnedPreset.roomHeight / 2; i <= cellWidth / 2; i++)
+            {
+                if (j == -2 || j == 2)
+                {
+                    roomTilemap.SetTile(new Vector3Int(i, j), wallTile);
+                }
+                else
+                {
+                    backgroundTilemap.SetTile(new Vector3Int(i, j), grassTile);
+                }
+            }
+        }
 
     }
 
