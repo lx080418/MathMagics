@@ -29,6 +29,12 @@ public class EnemyHealth : MonoBehaviour
     {
         Debug.Log($"[EnemyHealth] {gameObject.name} has died.");
         Destroy(gameObject);
+
+        RewardSystem rewardSystem = FindObjectOfType<RewardSystem>();
+        if (rewardSystem != null)
+        {
+            rewardSystem.ShowRewardOptions();
+        }
     }
 
     private Fraction Evaluate(string expr)

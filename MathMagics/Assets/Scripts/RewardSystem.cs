@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +10,14 @@ public class RewardSystem : MonoBehaviour
     public GameObject rewardUI;
     public TMP_Text[] rewardTexts;
     private List<RewardOption> rewardPool = new();
+
+    private Dictionary<string, float> weaponDropChances = new Dictionary<string, float>()
+    {
+        {"Subtract", 0.3f},
+        {"Add", 0.3f},
+        {"Multiply", 0.2f},
+        {"Divide", 0.2f},
+    };
     void Start()
     {
         rewardUI.SetActive(false);
@@ -33,6 +43,8 @@ public class RewardSystem : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
+            string chosenWeapon = GetRandomWeaponByDropChance();
+
             Rarity rarity = GetRandomRarity();
             int level = rarity switch
             {
@@ -41,6 +53,9 @@ public class RewardSystem : MonoBehaviour
                 Rarity.Epic => 3,
                 _ => 1
             };
+
+            RewardOption option = new RewardOption(chosenWeapon, rarity, level);
+            rewardPool.Add(option);
         }
     }
 
@@ -59,9 +74,44 @@ public class RewardSystem : MonoBehaviour
         Debug.Log($"[RewardSystem] Chose: {chosen.rarity} → +{chosen.levelIncrease} to w1");
 
         // Apply reward to w1
-        WeaponHandler.Instance.GetWeaponByName("Subtract")?.IncreaseLevelBy(chosen.levelIncrease);
+        WeaponHandler.Instance.GetWeaponByName(chosen.weaponName)?.IncreaseLevelBy(chosen.levelIncrease);
 
         rewardUI.SetActive(false);
         Time.timeScale = 1f; // resume game
     }
+
+    private string GetRandomWeaponByDropChance()
+    {
+        float total = 0f;
+        foreach (float weight in weaponDropChances.Values)
+            total += weight;
+
+        float roll = Random.value * total;
+        float cumulative = 0f;
+
+        foreach (var pair in weaponDropChances)
+        {
+            cumulative += pair.Value;
+            if (roll <= cumulative)
+                return pair.Key;
+        }
+
+        // Fallback
+        return weaponDropChances.Keys.First();
+    }
+
+    public void SetWeaponDropChance(string weaponName, float newChance)
+    {
+        if (weaponDropChances.ContainsKey(weaponName))
+        {
+            weaponDropChances[weaponName] = newChance;
+            Debug.Log($"[RewardSystem] Drop chance for {weaponName} set to {newChance}");
+        }
+        else
+        {
+            Debug.LogWarning($"[RewardSystem] Weapon '{weaponName}' not found in drop chance dictionary.");
+        }
+    }
+
+
 }

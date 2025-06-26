@@ -5,11 +5,13 @@ public class RewardOption
     public string description;
     public Rarity rarity;
     public int levelIncrease;
+    public string weaponName;
 
-    public RewardOption(string desc, Rarity rarity, int levelIncrease)
+    public RewardOption(string weaponName, Rarity rarity, int levelIncrease)
     {
-        this.description = desc;
+        this.weaponName = weaponName;
         this.rarity = rarity;
         this.levelIncrease = levelIncrease;
+        this.description = $"Upgrade {weaponName}";
     }
 }
