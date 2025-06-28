@@ -16,6 +16,7 @@
 /// - PlayerInput.cs with a static lastDirection and OnAttackInput event
 /// </summary>
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +34,8 @@ public class WeaponHandler : MonoBehaviour
     private Weapon w4 = new Weapon("Divide", 2, "/");
     private Weapon[] weapons;
     private Weapon currentWeapon;
+    public event Action<int> weaponSelected;
+
     private void OnEnable()
     {
         PlayerInput.OnAttackInput += PerformAttack;
@@ -81,6 +84,7 @@ public class WeaponHandler : MonoBehaviour
             if (weapons[index].getIsLocked()) return;
             currentWeapon = weapons[index];
             Debug.Log($"[WeaponHandler] Switched to: {currentWeapon.getName()}");
+            weaponSelected?.Invoke(index);
         }
     }
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ea96224d4a676846b0ebd8b510cbe6c
+guid: d3d11923cff8ef949ba29e099ca259d5
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 32
+    spritePixelsToUnits: 38
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -71,7 +71,7 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 0
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -84,7 +84,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 0
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638867130132459373
+  platformSettingsDirtyTick: 638867132144263106
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: SlotLock
+  - name: Slot3Label
     originalName: 
-    pivot: {x: 0.5, y: -0.0625}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 1, y: 1, z: 1, w: 1}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 32
-      height: 32
-    spriteID: c7ed36f9133c2d84e99a69cbdf89f546
+      width: 38
+      height: 38
+    spriteID: a43fca77fc37e3047ae958bf0db2afbe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,24 +141,49 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  spriteSheetImportData: []
+  spriteSheetImportData:
+  - name: Slot3Label
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 38
+      height: 38
+    spriteID: a43fca77fc37e3047ae958bf0db2afbe
+    spriteBone: []
+    spriteOutline:
+    - outline:
+      - {x: -18, y: -18}
+      - {x: -18, y: 18}
+      - {x: 18, y: 18}
+      - {x: 18, y: -18}
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
-    guid: -525263529
-    name: SlotLock
+    guid: -709716107
+    name: Slot3Label
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: SlotLock
+    - name: Slot2Label
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 2
-        y: 2
-        width: 32
-        height: 32
-      spriteId: c7ed36f9133c2d84e99a69cbdf89f546
+        x: 0
+        y: 0
+        width: 38
+        height: 38
+      spriteId: a43fca77fc37e3047ae958bf0db2afbe
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -213,4 +238,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 36, y: 36}
+  canvasSize: {x: 38, y: 38}
