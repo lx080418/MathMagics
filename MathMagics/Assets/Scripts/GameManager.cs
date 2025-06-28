@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
 
 
     //* ------------ Public Accesor Variables -------- */
-    public int level = 1;
+    public int currentLevel = 1;
+    public int highestLevel;
     public int numOfEnemy = 1;
     public bool easyMode = false;
 
@@ -38,37 +39,47 @@ public class GameManager : MonoBehaviour
    
     void Start()
     {
-        //Call the InitGame function to initialize the first level 
+        //Call the InitGame function to initialize the first currentLevel 
         InitGame();
     }
 
     public int GetCurrentLevel()
     {
-        return level;
+        return currentLevel;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log($"Completing Level {currentLevel}");
+            LevelCompleted();
+        }
     }
 
     public void LevelCompleted()
     {
-        level++;
+        currentLevel++;
+        highestLevel = Mathf.Max(currentLevel, highestLevel);
         numOfEnemy = 1;
-        if (level > 4)
+        if (currentLevel > 4)
         {
             Debug.Log("Game is over! You won!");
             //winScreen.SetActive(true);
         }
         else
         {
-            TilemapSetup.Instance.NewLevel(level);
-            beatLevel?.Invoke(level);
+            TilemapSetup.Instance.NewLevel(currentLevel);
+            beatLevel?.Invoke(currentLevel);
         }
     }
 
-    //Initializes the game for each level.
+    //Initializes the game for each currentLevel.
     void InitGame()
     {
-        //Call the SetupScene function of the BoardManager script, pass it current level number.
-        //boardScript.SetupScene(level);
-        TilemapSetup.Instance.NewLevel(level);
+        //Call the SetupScene function of the BoardManager script, pass it current currentLevel number.
+        //boardScript.SetupScene(currentLevel);
+        TilemapSetup.Instance.NewLevel(currentLevel);
     }
 
 

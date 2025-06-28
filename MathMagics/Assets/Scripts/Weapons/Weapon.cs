@@ -9,14 +9,16 @@ public class Weapon
     private int minLevel;
     private int maxLevel;
     private string operation;
+    private bool islocked;
 
-    public Weapon(string name, int level, string operation)
+    public Weapon(string name, int level, string operation, bool isLocked = true)
     {
         this.name = name;
         this.level = level;
         this.minLevel = level;
         this.maxLevel = level;
         this.operation = operation;
+        this.islocked = isLocked;
     }
 
     public string getName() => name;
@@ -24,6 +26,7 @@ public class Weapon
     public int getMinLevel() => minLevel;
     public int getMaxLevel() => maxLevel;
     public string getOperation() => operation;
+    public bool getIsLocked() => islocked;
 
     public string GetDamageExpression()
     {
@@ -62,5 +65,10 @@ public class Weapon
     public void UnlockNextLevel()
     {
         maxLevel++;
+    }
+
+    public void UnlockWeapon()
+    {
+        this.islocked = false;
     }
 }

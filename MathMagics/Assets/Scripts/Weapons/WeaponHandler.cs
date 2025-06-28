@@ -36,11 +36,13 @@ public class WeaponHandler : MonoBehaviour
     private void OnEnable()
     {
         PlayerInput.OnAttackInput += PerformAttack;
+        GameManager.beatLevel += HandleBeatLevel;
     }
 
     private void OnDisable()
     {
         PlayerInput.OnAttackInput -= PerformAttack;
+        GameManager.beatLevel -= HandleBeatLevel;
     }
 
     private void Awake()
@@ -55,6 +57,7 @@ public class WeaponHandler : MonoBehaviour
     {
         weapons = new Weapon[] { w1, w2, w3, w4 };
         currentWeapon = weapons[0];
+        weapons[0].UnlockWeapon();
 
         Debug.Log($"[WeaponHandler] Starting weapon: {currentWeapon.getName()}");
     }
@@ -74,6 +77,8 @@ public class WeaponHandler : MonoBehaviour
     {
         if (index >= 0 && index < weapons.Length)
         {
+            //if we haven't unlocked that weapon yet, return.
+            if (weapons[index].getIsLocked()) return;
             currentWeapon = weapons[index];
             Debug.Log($"[WeaponHandler] Switched to: {currentWeapon.getName()}");
         }
@@ -105,5 +110,10 @@ public class WeaponHandler : MonoBehaviour
         }
         Debug.LogWarning($"[WeaponHandler] Weapon with name '{weaponName}' not found.");
         return null;
+    }
+
+    public void HandleBeatLevel(int level)
+    {
+        weapons[level - 1].UnlockWeapon();
     }
 }
