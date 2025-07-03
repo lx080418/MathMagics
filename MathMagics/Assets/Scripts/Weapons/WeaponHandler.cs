@@ -81,7 +81,7 @@ public class WeaponHandler : MonoBehaviour
         if (index >= 0 && index < weapons.Length)
         {
             //if we haven't unlocked that weapon yet, return.
-            if (weapons[index].getIsLocked()) return;
+            //if (weapons[index].getIsLocked()) return;
             currentWeapon = weapons[index];
             Debug.Log($"[WeaponHandler] Switched to: {currentWeapon.getName()}");
             weaponSelected?.Invoke(index);

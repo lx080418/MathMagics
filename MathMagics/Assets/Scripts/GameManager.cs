@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
 
     //* ------------ Public Accesor Variables -------- */
-    public int currentLevel = 1;
+    public int stageLevel = 1;
     public int highestLevel;
     public int numOfEnemy = 1;
     public bool easyMode = false;
@@ -39,47 +39,47 @@ public class GameManager : MonoBehaviour
    
     void Start()
     {
-        //Call the InitGame function to initialize the first currentLevel 
+        //Call the InitGame function to initialize the first stageLevel 
         InitGame();
     }
 
-    public int GetCurrentLevel()
+    public int GetStageLevel()
     {
-        return currentLevel;
+        return stageLevel;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Debug.Log($"Completing Level {currentLevel}");
+            Debug.Log($"Completing Level {stageLevel}");
             LevelCompleted();
         }
     }
 
     public void LevelCompleted()
     {
-        currentLevel++;
-        highestLevel = Mathf.Max(currentLevel, highestLevel);
+        stageLevel++;
+        highestLevel = Mathf.Max(stageLevel, highestLevel);
         numOfEnemy = 1;
-        if (currentLevel > 4)
+        if (stageLevel > 4)
         {
             Debug.Log("Game is over! You won!");
             //winScreen.SetActive(true);
         }
         else
         {
-            TilemapSetup.Instance.NewLevel(currentLevel);
-            beatLevel?.Invoke(currentLevel);
+            TilemapSetup.Instance.NewLevel(stageLevel);
+            beatLevel?.Invoke(stageLevel);
         }
     }
 
-    //Initializes the game for each currentLevel.
+    //Initializes the game for each stageLevel.
     void InitGame()
     {
-        //Call the SetupScene function of the BoardManager script, pass it current currentLevel number.
-        //boardScript.SetupScene(currentLevel);
-        TilemapSetup.Instance.NewLevel(currentLevel);
+        //Call the SetupScene function of the BoardManager script, pass it current stageLevel number.
+        //boardScript.SetupScene(stageLevel);
+        TilemapSetup.Instance.NewLevel(stageLevel);
     }
 
 
