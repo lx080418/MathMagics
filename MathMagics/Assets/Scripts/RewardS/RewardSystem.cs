@@ -8,7 +8,7 @@ using UnityEngine;
 public class RewardSystem : MonoBehaviour
 {
     public GameObject rewardUI;
-    public TMP_Text[] rewardTexts;
+    public RewardCard[] rewardCards;
     private List<RewardOption> rewardPool = new();
 
     private Dictionary<int, Dictionary<string, float>> weaponDropChances = new Dictionary<int, Dictionary<string, float>>()
@@ -61,10 +61,10 @@ public class RewardSystem : MonoBehaviour
 
         GenerateRewardPool();
 
-        for (int i = 0; i < rewardTexts.Length; i++)
+        for (int i = 0; i < rewardCards.Length; i++)
         {
             RewardOption option = rewardPool[i];
-            rewardTexts[i].text = $"{option.rarity} - {option.description} (+{option.levelIncrease})";
+            rewardCards[i].Initialize(option);
         }
     }
 
@@ -87,7 +87,7 @@ public class RewardSystem : MonoBehaviour
                     _ => 5
                 };
 
-                rewardPool.Add(new RewardOption("Gain Potion (+HP)", rarity, healthAmount, RewardType.Health));
+                rewardPool.Add(new RewardOption("Potion", "Gain Potion (+HP)", rarity, healthAmount, RewardType.Health));
             }
             else
             {
@@ -101,7 +101,7 @@ public class RewardSystem : MonoBehaviour
                     _ => 1
                 };
 
-                rewardPool.Add(new RewardOption(chosenWeapon, rarity, level));
+                rewardPool.Add(new RewardOption(chosenWeapon, $"Upgrade {chosenWeapon}", rarity, level, RewardType.Weapon));
             }
         }
     }
