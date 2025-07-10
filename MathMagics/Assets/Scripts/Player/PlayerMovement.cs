@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -76,6 +77,30 @@ public class PlayerMovement : MonoBehaviour
     public bool IsMoving()
     {
         return isMoving;
+    }
+
+    public void ForceMoveTo(Vector2 targetPosition, float speed)
+    {
+        if (isMoving) return;
+        StartCoroutine(ForceMoveRoutine(targetPosition, speed));
+    }
+
+    private IEnumerator ForceMoveRoutine(Vector2 target, float speed)
+    {
+        Vector3 start = transform.position;
+        float t = 0f;
+
+        isMoving = true;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * speed;
+            transform.position = Vector3.Lerp(start, target, t);
+            yield return null;
+        }
+
+        transform.position = target;
+        isMoving = false;
     }
 
     void OnDrawGizmosSelected()
