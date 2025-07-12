@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerPotion : MonoBehaviour
@@ -13,6 +14,7 @@ public class PlayerPotion : MonoBehaviour
     {
         if (playerHealth == null)
             playerHealth = GetComponent<PlayerHealth>();
+        SetPotion("10");
     }
 
     private void Update()
@@ -36,7 +38,9 @@ public class PlayerPotion : MonoBehaviour
     public void SetPotion(string value)
     {
         potionHealth = playerHealth.Evaluate(value);
-        hasPotion = potionHealth.Numerator > 0;
+        Debug.Log($"Setting potion to {value}, numerator = {potionHealth.Numerator}");
+
+        hasPotion = potionHealth.Numerator != 0;
         OnPotionChanged?.Invoke(potionHealth, hasPotion);
     }
 

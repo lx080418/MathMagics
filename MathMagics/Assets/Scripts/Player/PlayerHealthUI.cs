@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerHealthUI : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
-    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TMP_Text hpText;
 
     private void Start()
     {
@@ -28,6 +28,6 @@ public class PlayerHealthUI : MonoBehaviour
     private void UpdateUI(Fraction currentHealth)
     {
         if (hpText != null)
-            hpText.text = $"HP: {currentHealth}";
+            hpText.text = $"{currentHealth}";
     }
 }

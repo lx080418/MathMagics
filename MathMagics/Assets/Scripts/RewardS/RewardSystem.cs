@@ -101,7 +101,7 @@ public class RewardSystem : MonoBehaviour
                     _ => 1
                 };
 
-                rewardPool.Add(new RewardOption(chosenWeapon, $"Upgrade {chosenWeapon}", rarity, level, RewardType.Weapon));
+                rewardPool.Add(new RewardOption(chosenWeapon, $"Upgrade {chosenWeapon} by {level} level", rarity, level, RewardType.Weapon));
             }
         }
     }
@@ -128,10 +128,10 @@ public class RewardSystem : MonoBehaviour
         }
         else if (chosen.rewardType == RewardType.Health)
         {
-            PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
-            if (playerHealth != null)
+            PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
+            if (playerPotion != null)
             {
-                playerHealth.UpdatePlayerHP("+" + chosen.levelIncrease.ToString());
+                playerPotion.SetPotion(chosen.levelIncrease.ToString());
             }
         }
 
