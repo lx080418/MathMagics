@@ -35,6 +35,7 @@ public class WeaponHandler : MonoBehaviour
     private Weapon[] weapons;
     private Weapon currentWeapon;
     public event Action<int> weaponSelected;
+    public event Action<Weapon> HandleWeaponLevelChanged;
 
     private void OnEnable()
     {
@@ -72,8 +73,17 @@ public class WeaponHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
         if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchWeapon(3);
 
-        if (Input.GetKeyDown(KeyCode.Q)) currentWeapon.DecreaseLevel();
-        if (Input.GetKeyDown(KeyCode.E)) currentWeapon.IncreaseLevel();
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            currentWeapon.DecreaseLevel();
+            HandleWeaponLevelChanged?.Invoke(currentWeapon);
+
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            currentWeapon.IncreaseLevel();
+            HandleWeaponLevelChanged?.Invoke(currentWeapon);
+        } 
     }
 
     private void SwitchWeapon(int index)
@@ -81,6 +91,7 @@ public class WeaponHandler : MonoBehaviour
         if (index >= 0 && index < weapons.Length)
         {
             //if we haven't unlocked that weapon yet, return.
+            if (weapons[index].getIsLocked()) return;
             //if (weapons[index].getIsLocked()) return;
             currentWeapon = weapons[index];
             Debug.Log($"[WeaponHandler] Switched to: {currentWeapon.getName()}");
