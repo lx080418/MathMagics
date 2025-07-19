@@ -87,7 +87,27 @@ public class RewardSystem : MonoBehaviour
                     _ => 5
                 };
 
-                rewardPool.Add(new RewardOption("Potion", "Gain Potion (+HP)", rarity, healthAmount, RewardType.Health));
+                PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
+                if (playerPotion != null && playerPotion.HasPotion())
+                {
+                    rewardPool.Add(new RewardOption(
+                        "Potion",
+                        $"Upgrade Potion (+{healthAmount} HP)",
+                        rarity,
+                        healthAmount,
+                        RewardType.Health
+                    ));
+                }
+                else
+                {
+                    rewardPool.Add(new RewardOption(
+                        "Potion",
+                        $"Gain Potion",
+                        rarity,
+                        healthAmount,
+                        RewardType.Health
+                    ));
+                }
             }
             else
             {
@@ -131,7 +151,14 @@ public class RewardSystem : MonoBehaviour
             PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
             if (playerPotion != null)
             {
-                playerPotion.SetPotion(chosen.levelIncrease.ToString());
+                if (playerPotion.HasPotion())
+                    {
+                        playerPotion.ModifyPotionAmount("+" + chosen.levelIncrease.ToString());
+                    }
+                else
+                    {
+                        playerPotion.SetPotion(chosen.levelIncrease.ToString());
+                    }
             }
         }
 

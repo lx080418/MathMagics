@@ -452,7 +452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -600, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &93752452
@@ -484,8 +484,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278255407
+  m_fontColor: {r: 0.18358183, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1652,6 +1652,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045935562}
   m_CullTransparentMesh: 1
+--- !u!4 &1070950134 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4887476282293675373, guid: f70718885782e0846800f2da234dade6, type: 3}
+  m_PrefabInstance: {fileID: 9205625540236811291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1118898253
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,7 +2690,7 @@ GameObject:
   - component: {fileID: 1743244367}
   - component: {fileID: 1743244366}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: PlayerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2767,7 +2772,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 93752451}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1070950134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3099,7 +3104,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4887476282293675373, guid: f70718885782e0846800f2da234dade6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1743244369}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f70718885782e0846800f2da234dade6, type: 3}
 --- !u!1660057539 &9223372036854775807
@@ -3114,7 +3122,6 @@ SceneRoots:
   - {fileID: 6353653615976393589}
   - {fileID: 204726487}
   - {fileID: 1710059720}
-  - {fileID: 1743244369}
   - {fileID: 842045342}
   - {fileID: 1830312304}
   - {fileID: 547162341}
