@@ -12,10 +12,13 @@ public class WeaponHandlerUI : MonoBehaviour
     public GameObject[] lockImages;
     public GameObject[] weaponImages;
     public GameObject[] labelImages;
+    public WeaponLevelUI[] weaponLevelUIs;
+
+    private int currentWeaponIndex;
 
     private void OnEnable()
     {
-        
+
         foreach (GameObject go in lockImages)
         {
             go.SetActive(true);
@@ -37,12 +40,14 @@ public class WeaponHandlerUI : MonoBehaviour
     private void Start()
     {
         GameManager.beatLevel += HandleBeatLevel;
-        WeaponHandler.Instance.weaponSelected += HandleWeaponSelected;   
+        WeaponHandler.Instance.weaponSelected += HandleWeaponSelected;
+        WeaponHandler.Instance.HandleWeaponLevelChanged += HandleWeaponLevelChanged;
     }
     private void OnDisable()
     {
         GameManager.beatLevel -= HandleBeatLevel;
         WeaponHandler.Instance.weaponSelected -= HandleWeaponSelected;
+        WeaponHandler.Instance.HandleWeaponLevelChanged -= HandleWeaponLevelChanged;
 
     }
 
@@ -60,7 +65,13 @@ public class WeaponHandlerUI : MonoBehaviour
             img.sprite = slotSprite;
         }
         images[level].sprite = slotSelectedSprite;
+        currentWeaponIndex = level;
     }
-    
 
+    private void HandleWeaponLevelChanged(Weapon weapon)
+    {
+        weaponLevelUIs[currentWeaponIndex].ChangeWeaponLevelText(weapon.getLevel());
+    }
+
+  
 }
