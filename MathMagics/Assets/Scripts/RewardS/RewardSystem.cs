@@ -152,13 +152,13 @@ public class RewardSystem : MonoBehaviour
             if (playerPotion != null)
             {
                 if (playerPotion.HasPotion())
-                    {
-                        playerPotion.ModifyPotionAmount("+" + chosen.levelIncrease.ToString());
-                    }
+                {
+                    playerPotion.ModifyPotionAmount("+" + chosen.levelIncrease.ToString());
+                }
                 else
-                    {
-                        playerPotion.SetPotion(chosen.levelIncrease.ToString());
-                    }
+                {
+                    playerPotion.SetPotion(chosen.levelIncrease.ToString());
+                }
             }
         }
 
@@ -214,6 +214,73 @@ public class RewardSystem : MonoBehaviour
             Debug.LogWarning($"[RewardSystem] Weapon '{weaponName}' not found in stage {stage} drop table.");
         }
     }
+
+public void ShowBossRewardOptions()
+{
+    Time.timeScale = 0f;
+    rewardUI.SetActive(true);
+
+    GenerateBossRewardPool();
+
+    for (int i = 0; i < rewardCards.Length; i++)
+    {
+        RewardOption option = rewardPool[i];
+        rewardCards[i].Initialize(option);
+    }
+}
+
+private void GenerateBossRewardPool()
+{
+    rewardPool.Clear();
+
+    string[] weaponNames = new string[] { "Subtract", "Add", "Multiply", "Divide" };
+
+    for (int i = 0; i < 3; i++)
+    {
+        Rarity rarity = Rarity.Epic; // Always epic
+
+        if (Random.value < 0.2f) // 20% chance to offer health reward
+        {
+            int healthAmount = 15; // Epic value
+
+            PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
+            if (playerPotion != null && playerPotion.HasPotion())
+            {
+                rewardPool.Add(new RewardOption(
+                    "Potion",
+                    $"Upgrade Potion (+{healthAmount} HP)",
+                    rarity,
+                    healthAmount,
+                    RewardType.Health
+                ));
+            }
+            else
+            {
+                rewardPool.Add(new RewardOption(
+                    "Potion",
+                    $"Gain Potion",
+                    rarity,
+                    healthAmount,
+                    RewardType.Health
+                ));
+            }
+        }
+        else
+        {
+            string chosenWeapon = GetRandomWeaponByDropChance();
+            int level = 3; // Epic level
+
+            rewardPool.Add(new RewardOption(
+                chosenWeapon,
+                $"Upgrade {chosenWeapon} by {level} level",
+                rarity,
+                level,
+                RewardType.Weapon
+            ));
+        }
+    }
+}
+
 
 
 

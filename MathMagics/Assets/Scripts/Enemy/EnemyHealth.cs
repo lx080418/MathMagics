@@ -33,8 +33,17 @@ public class EnemyHealth : MonoBehaviour
         RewardSystem rewardSystem = FindObjectOfType<RewardSystem>();
         if (rewardSystem != null)
         {
-            rewardSystem.ShowRewardOptions();
+            if (CompareTag("Boss"))
+            {
+                rewardSystem.ShowBossRewardOptions();
+            }
+            else
+            {
+                rewardSystem.ShowRewardOptions();
+            }
         }
+
+        Destroy(gameObject);
     }
 
     private Fraction Evaluate(string expr)
