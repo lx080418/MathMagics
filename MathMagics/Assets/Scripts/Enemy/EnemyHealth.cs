@@ -8,11 +8,27 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
+        if (CompareTag("Boss"))
+        {
+            int level = GameManager.instance != null ? GameManager.instance.stageLevel : 1;
+
+            startingHealth = level switch
+            {
+                1 => "66",
+                2 => "-77",
+                3 => "101/105",
+                4 => "999999",
+                _ => "100"
+            };
+
+            Debug.Log($"[EnemyHealth] Boss detected. Setting HP for level {level}: {startingHealth}");
+        }
         currentHealth = Evaluate(startingHealth);
     }
 
     public void ApplyDamageExpression(string expression)
     {
+        Debug.Log($"[EnemyHealth] ApplyDamageExpression called on {gameObject.name} with expression: {expression}");
         ExpressionTree tree = new ExpressionTree();
         tree.BuildFromInfix(currentHealth.ToString() + expression);
         currentHealth = tree.Evaluate();
