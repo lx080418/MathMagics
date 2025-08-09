@@ -11,6 +11,7 @@ public class VideoPlayerBrain : MonoBehaviour
     private void Awake()
     {
         videoPlayer.loopPointReached += HandleVideoFinished;
+        skipButton.SetActive(false);
     }
 
     private void HandleVideoFinished(VideoPlayer source)

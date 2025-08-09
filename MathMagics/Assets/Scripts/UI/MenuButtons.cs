@@ -10,6 +10,9 @@ public class MenuButtons : MonoBehaviour
     private void Awake()
     {
         videoPlayerBrain.OnVideoFinished += HandleVideoFinished;
+        mainMenuUI.SetActive(true);
+        howToPlayUI.SetActive(false);
+        
     }
 
     public void PlayButton()
