@@ -1,33 +1,31 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
     public GameObject mainMenuUI;
-    public VideoPlayer videoPlayer;
+    public GameObject howToPlayUI;
+    public VideoPlayerBrain videoPlayerBrain;
+
     private void Awake()
     {
-        videoPlayer.loopPointReached += HandleVideoFinished;
-    }
-
-    private void HandleVideoFinished(VideoPlayer source)
-    {
-        source.Stop();
-        source.gameObject.SetActive(false);
-        print("Video Done.");
+        videoPlayerBrain.OnVideoFinished += HandleVideoFinished;
     }
 
     public void PlayButton()
     {
         mainMenuUI.SetActive(false);
-        videoPlayer.Play();
+        videoPlayerBrain.StartVideo();
     }
 
     private void HandleVideoFinished()
     {
+        mainMenuUI.SetActive(false);
+        howToPlayUI.SetActive(true);
+    }
 
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
