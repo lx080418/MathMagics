@@ -1,6 +1,7 @@
 using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -472,6 +473,11 @@ public class TilemapSetup : MonoBehaviour
             toBeDestroyedOnReset.Add(spawned); //add to be destroyed on game load
             //set this grid position to 1
             gridPositions[x, y] = 1;
+
+            //Enemy spawning
+            //Should delegate the spawning logic to the room itself
+            //spawnedPreset.SpawnEnemies();
+            
             return spawned;
         }
         else

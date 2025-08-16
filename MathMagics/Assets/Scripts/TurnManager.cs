@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     private bool isPlayerTurn = true;
     private bool hasActed = false;
+    public event Action OnPlayerTurnEnded;
 
     void Awake()
     {
@@ -48,6 +50,12 @@ public class TurnManager : MonoBehaviour
         isPlayerTurn = false;
         UpdateInputState();
         // Add enemy turn logic here
+
+        //Idea
+            //Enemies in Chase mode one by one take their turns
+            //enemies in Sentry mode take their turns all at once.
+        print("Player Turn Ended!");
+        OnPlayerTurnEnded?.Invoke();
     }
 
     private void UpdateInputState()
@@ -64,7 +72,7 @@ public class TurnManager : MonoBehaviour
         if (!hasActed)
         {
             hasActed = true;
-            //EndPlayerTurn();
+            EndPlayerTurn();
         }
     }
 }

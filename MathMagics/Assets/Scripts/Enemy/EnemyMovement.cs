@@ -13,14 +13,12 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
-    public float waitTimeBetweenMoves = 1f;
     [SerializeField] private Vector2 collisionBoxSize = Vector2.one * 0.8f;
 
     private bool isMoving = false;
     private Vector3 startPosition;
     private Vector3 targetPosition;
     private float moveProgress = 0f;
-    private float waitTimer = 0f;
     private Vector3 lastDirection = Vector3.zero;
 
     private readonly Vector3[] directions = {
@@ -29,6 +27,11 @@ public class EnemyMovement : MonoBehaviour
         Vector3.left,
         Vector3.right
     };
+
+    private void Start()
+    {
+        TurnManager.Instance.OnPlayerTurnEnded += TakeTurn;
+    }
 
     void Update()
     {
@@ -41,24 +44,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 transform.position = targetPosition;
                 isMoving = false;
-                waitTimer = waitTimeBetweenMoves;
-            }
-        }
-        else
-        {
-            waitTimer -= Time.deltaTime;
-            if (waitTimer <= 0f)
-            {
-                InternalMode actualMode = GetCurrentBehavior();
-                switch (actualMode)
-                {
-                    case InternalMode.Sentry:
-                        MoveRandomly();
-                        break;
-                    case InternalMode.Chase:
-                        MoveTowardsPlayer();
-                        break;
-                }
+                TurnManager.Instance.BeginPlayerTurn();
             }
         }
     }
@@ -87,6 +73,7 @@ public class EnemyMovement : MonoBehaviour
         List<Vector3> path = GridPathfinding.FindPath(transform.position, player.position);
         if (path != null && path.Count > 1)
         {
+            print($"Enemy moving to {path[1]}");
             Vector3 nextStep = path[1]; // path[0] is current position
             Vector3 direction = (nextStep - transform.position).normalized;
             TryMove(direction);
@@ -119,6 +106,20 @@ public class EnemyMovement : MonoBehaviour
         {
             Gizmos.color = GetCurrentBehavior() == InternalMode.Chase ? Color.yellow : Color.red;
             Gizmos.DrawWireCube(transform.position + lastDirection, collisionBoxSize);
+        }
+    }
+
+    private void TakeTurn()
+    {
+        InternalMode actualMode = GetCurrentBehavior();
+        switch (actualMode)
+        {
+            case InternalMode.Sentry:
+                MoveRandomly();
+                break;
+            case InternalMode.Chase:
+                MoveTowardsPlayer();
+                break;
         }
     }
 }
