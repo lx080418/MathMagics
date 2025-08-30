@@ -71,10 +71,10 @@ public class TurnManager : MonoBehaviour
 
     private void TryEndTurn()
     {
-        if (!hasActed)
-        {
-            hasActed = true;
-            EndPlayerTurn();
-        }
+        // if (!hasActed)
+        // {
+        //     hasActed = true;
+        //     EndPlayerTurn();
+        // }
     }
 }

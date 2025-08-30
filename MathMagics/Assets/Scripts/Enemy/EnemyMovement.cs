@@ -91,7 +91,7 @@ public class EnemyMovement : MonoBehaviour
         lastDirection = direction;
 
         Collider2D hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + .5f, nextPosition.y+.5f, 0), collisionBoxSize, 0f);
-        if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player")))
+        if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player") || hit.CompareTag("Enemy")))
         {
             
             return;
