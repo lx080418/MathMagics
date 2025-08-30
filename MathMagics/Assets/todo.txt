@@ -1,0 +1,1 @@
+in GridFindingPath, figure out why enemies are moving into walls, primarily from the bottom.

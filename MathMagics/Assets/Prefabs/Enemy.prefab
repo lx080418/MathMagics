@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b5ba3b494528b44ad9b25a3de8f00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  mode: 2
   player: {fileID: 0}
   chaseRadius: 10
   moveSpeed: 10

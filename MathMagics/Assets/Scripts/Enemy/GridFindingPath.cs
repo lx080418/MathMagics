@@ -7,13 +7,13 @@ public static class GridPathfinding
         Vector2.up, Vector2.down, Vector2.left, Vector2.right
     };
 
-    public static List<Vector3> FindPath(Vector3 startPos, Vector3 endPos, int maxSteps = 100)
+    public static List<Vector3> FindPath(Transform startPos, Vector3 endPos, int maxSteps = 100)
     {
         Queue<Node> openSet = new Queue<Node>();
         HashSet<Vector3> visited = new HashSet<Vector3>();
         Dictionary<Vector3, Vector3> cameFrom = new Dictionary<Vector3, Vector3>();
 
-        Vector3 start = Round(startPos);
+        Vector3 start = Round(startPos.position);
         Vector3 goal = Round(endPos);
 
         openSet.Enqueue(new Node(start, 0));
@@ -30,9 +30,10 @@ public static class GridPathfinding
             {
                 Vector3 neighbor = current.position + new Vector3(dir.x, dir.y, 0f);
                 if (visited.Contains(neighbor)) continue;
+            
 
                 Collider2D hit = Physics2D.OverlapBox(neighbor, Vector2.one * 0.8f, 0f);
-                if (hit != null && hit.CompareTag("Wall")) continue;
+                if (hit != null && (hit.CompareTag("Wall") || (hit.CompareTag("Enemy") && hit.transform.parent != startPos))) continue;
 
                 visited.Add(neighbor);
                 cameFrom[neighbor] = current.position;

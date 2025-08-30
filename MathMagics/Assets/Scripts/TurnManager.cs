@@ -35,6 +35,7 @@ public class TurnManager : MonoBehaviour
 
     public void BeginPlayerTurn()
     {
+        Debug.Log("Beginning player's turn.");
         isPlayerTurn = true;
         hasActed = false;
         UpdateInputState();
@@ -47,6 +48,7 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        Debug.Log("Ending player's turn.");
         isPlayerTurn = false;
         UpdateInputState();
         // Add enemy turn logic here

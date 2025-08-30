@@ -28,6 +28,11 @@ public class EnemyMovement : MonoBehaviour
         Vector3.right
     };
 
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;       
+    }
+
     private void Start()
     {
         TurnManager.Instance.OnPlayerTurnEnded += TakeTurn;
@@ -70,7 +75,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if (player == null) return;
 
-        List<Vector3> path = GridPathfinding.FindPath(transform.position, player.position);
+        List<Vector3> path = GridPathfinding.FindPath(transform, player.position);
         if (path != null && path.Count > 1)
         {
             print($"Enemy moving to {path[1]}");
@@ -88,6 +93,7 @@ public class EnemyMovement : MonoBehaviour
         Collider2D hit = Physics2D.OverlapBox(nextPosition, collisionBoxSize, 0f);
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player")))
         {
+            
             return;
         }
 
@@ -115,11 +121,12 @@ public class EnemyMovement : MonoBehaviour
         switch (actualMode)
         {
             case InternalMode.Sentry:
-                MoveRandomly();
+                //MoveRandomly();
                 break;
             case InternalMode.Chase:
                 MoveTowardsPlayer();
                 break;
         }
+        TurnManager.Instance.BeginPlayerTurn();
     }
 }
