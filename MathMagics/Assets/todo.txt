@@ -1,1 +1,4 @@
 
+removed pixel perfection
+ortho size to 4
+put the wand as a child of the player sprite

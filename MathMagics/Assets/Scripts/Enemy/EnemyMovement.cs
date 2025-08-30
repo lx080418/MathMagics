@@ -38,6 +38,11 @@ public class EnemyMovement : MonoBehaviour
         TurnManager.Instance.OnPlayerTurnEnded += TakeTurn;
     }
 
+    private void OnDestroy()
+    {
+        TurnManager.Instance.OnPlayerTurnEnded -= TakeTurn;
+    }
+
     void Update()
     {
         if (isMoving)

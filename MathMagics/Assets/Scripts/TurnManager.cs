@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -54,10 +55,18 @@ public class TurnManager : MonoBehaviour
         // Add enemy turn logic here
 
         //Idea
-            //Enemies in Chase mode one by one take their turns
-            //enemies in Sentry mode take their turns all at once.
+        //Enemies in Chase mode one by one take their turns
+        //enemies in Sentry mode take their turns all at once.
         print("Player Turn Ended!");
         OnPlayerTurnEnded?.Invoke();
+
+        //If there are no enemies, immediately start the player's turn again.
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 0)
+        {
+            BeginPlayerTurn();
+        }
+
     }
 
     private void UpdateInputState()
