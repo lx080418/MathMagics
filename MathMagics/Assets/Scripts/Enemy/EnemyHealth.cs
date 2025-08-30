@@ -5,6 +5,10 @@ public class EnemyHealth : MonoBehaviour
     [Header("Enemy Health")]
     [SerializeField] private string startingHealth = "3";
     private Fraction currentHealth;
+    private void Awake()
+    {
+        currentHealth = Evaluate(startingHealth);
+    }
 
     private void Start()
     {
@@ -23,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
 
             Debug.Log($"[EnemyHealth] Boss detected. Setting HP for level {level}: {startingHealth}");
         }
-        currentHealth = Evaluate(startingHealth);
+       
     }
 
     public void ApplyDamageExpression(string expression)

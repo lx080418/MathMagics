@@ -6,7 +6,7 @@ public class EnemyHealthUI : MonoBehaviour
     [SerializeField] private EnemyHealth enemyHealth;
     [SerializeField] private TextMeshProUGUI hpText;    
 
-    private void LateUpdate()
+    private void Update()
     {
         if (enemyHealth == null || hpText == null) return;
 
