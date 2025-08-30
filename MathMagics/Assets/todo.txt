@@ -1,1 +1,3 @@
 in GridFindingPath, figure out why enemies are moving into walls, primarily from the bottom.
+
+When player tries to move into an ememy, instead of moving, just faces that direction

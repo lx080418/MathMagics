@@ -31,8 +31,9 @@ public static class GridPathfinding
                 Vector3 neighbor = current.position + new Vector3(dir.x, dir.y, 0f);
                 if (visited.Contains(neighbor)) continue;
             
-
-                Collider2D hit = Physics2D.OverlapBox(neighbor, Vector2.one * 0.8f, 0f);
+                
+                Collider2D hit = Physics2D.OverlapBox(new Vector3(neighbor.x + .5f, neighbor.y +.5f, 0), Vector2.one * 0.8f, 0f);
+                
                 if (hit != null && (hit.CompareTag("Wall") || (hit.CompareTag("Enemy") && hit.transform.parent != startPos))) continue;
 
                 visited.Add(neighbor);
