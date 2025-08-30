@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638830852471276241
+  platformSettingsDirtyTick: 638920851595094151
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -136,7 +136,12 @@ ScriptedImporter:
     spriteBone: []
     spriteOutline: []
     vertices: []
-    spritePhysicsOutline: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: -16, y: 9}
+      - {x: -16, y: -24}
+      - {x: 16, y: -24}
+      - {x: 16, y: 9}
     indices: 
     edges: []
     tessellationDetail: 0
@@ -210,7 +215,7 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
-  generatePhysicsShape: 0
+  generatePhysicsShape: 1
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 32, y: 48}

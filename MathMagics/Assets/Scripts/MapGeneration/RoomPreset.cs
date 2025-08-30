@@ -27,7 +27,8 @@ public class RoomPreset : MonoBehaviour
             //Spawn an enemy
             Vector2 randomLocation = tempList[Random.Range(0, tempList.Count)];
 
-            Instantiate(enemyPrefab, randomLocation, Quaternion.identity, transform);
+            GameObject enemy = Instantiate(enemyPrefab, transform);
+            enemy.transform.localPosition = randomLocation;
             tempList.Remove(randomLocation);
         }
     }
