@@ -7,7 +7,8 @@ public class WeaponHitbox2D : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            Debug.Log("Hit an enemy!");
+            EnemyHealth enemyHealth = other.GetComponentInParent<EnemyHealth>();
             if (enemyHealth != null && WeaponHandler.Instance != null)
             {
                 String damageExpression = WeaponHandler.Instance.GetCurrentWeapon().GetDamageExpression();

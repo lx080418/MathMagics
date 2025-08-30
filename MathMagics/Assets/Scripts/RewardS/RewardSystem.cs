@@ -116,7 +116,7 @@ public class RewardSystem : MonoBehaviour
                 int level = rarity switch
                 {
                     Rarity.Common => 1,
-                    Rarity.Rare => Random.Range(1, 3),
+                    Rarity.Rare => 2,
                     Rarity.Epic => 3,
                     _ => 1
                 };

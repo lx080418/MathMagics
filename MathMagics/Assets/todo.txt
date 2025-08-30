@@ -1,4 +1,2 @@
-
-removed pixel perfection
-ortho size to 4
-put the wand as a child of the player sprite
+1. Player Health not appearing
+2. Enemy attacking
