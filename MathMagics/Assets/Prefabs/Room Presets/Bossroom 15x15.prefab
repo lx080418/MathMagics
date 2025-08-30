@@ -49,6 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomWidth: 15
   roomHeight: 15
+  enemies: []
+  enemySpawnPositions: []
+  enemyPrefab: {fileID: 2186231137161594557, guid: 5aa1d75421840bd40ad47a90b2dba453, type: 3}
+  maxNumEnemies: 2
 --- !u!1 &6438367439483002594
 GameObject:
   m_ObjectHideFlags: 0

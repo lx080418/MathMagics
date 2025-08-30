@@ -52,9 +52,9 @@ MonoBehaviour:
   enemies: []
   enemySpawnPositions:
   - {x: 1, y: 1}
-  - {x: 0, y: 0}
+  - {x: -1, y: 1}
   enemyPrefab: {fileID: 2186231137161594557, guid: 5aa1d75421840bd40ad47a90b2dba453, type: 3}
-  maxNumEnemies: 2
+  maxNumEnemies: 1
 --- !u!1 &2051008618819132685
 GameObject:
   m_ObjectHideFlags: 0

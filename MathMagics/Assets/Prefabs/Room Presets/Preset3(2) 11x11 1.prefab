@@ -781,8 +781,10 @@ MonoBehaviour:
   roomWidth: 11
   roomHeight: 11
   enemies: []
-  enemySpawnPositions: []
-  enemyPrefab: {fileID: 0}
+  enemySpawnPositions:
+  - {x: -1, y: 4}
+  - {x: 3, y: 0}
+  enemyPrefab: {fileID: 2186231137161594557, guid: 5aa1d75421840bd40ad47a90b2dba453, type: 3}
   maxNumEnemies: 2
 --- !u!1 &3205134509569094876
 GameObject:
