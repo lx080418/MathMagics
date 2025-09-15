@@ -2793,6 +2793,11 @@ MonoBehaviour:
   - {fileID: 1571771580856778237, guid: 7d9e6a0269d81ec4eb25eec51d872532, type: 3}
   - {fileID: 8623860149053368053, guid: 7d9e6a0269d81ec4eb25eec51d872532, type: 3}
   - {fileID: -964356640174561279, guid: 7d9e6a0269d81ec4eb25eec51d872532, type: 3}
+--- !u!4 &1062824866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4887476282293675373, guid: f70718885782e0846800f2da234dade6, type: 3}
+  m_PrefabInstance: {fileID: 1732468682}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1073786559
 GameObject:
   m_ObjectHideFlags: 0
@@ -4307,7 +4312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1534032658
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4315,16 +4320,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534032657}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1732468683}
+  m_Father: {fileID: 1062824866}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.75}
+  m_AnchoredPosition: {x: 0.5, y: 1.25}
   m_SizeDelta: {x: 12.518, y: 0.7939}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534032659
@@ -4351,15 +4356,15 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7004c1b02e38835468e0e05d8864e840, type: 2}
-  m_sharedMaterial: {fileID: -5078936784943188344, guid: 7004c1b02e38835468e0e05d8864e840, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283101774
-  m_fontColor: {r: 0.30446535, g: 0.94716984, b: 0.29129934, a: 1}
+    rgba: 4287975696
+  m_fontColor: {r: 0.06345675, g: 0.316732, b: 0.5849056, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4441,7 +4446,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5078936784943188344, guid: 7004c1b02e38835468e0e05d8864e840, type: 2}
+  - {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4461,7 +4466,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1547177100
 GameObject:
@@ -4813,6 +4818,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5444266601238524591, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8892181547931638669, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: moveTime
       value: 0.2
@@ -4828,8 +4837,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5149507160185349037, guid: f70718885782e0846800f2da234dade6, type: 3}
-      insertIndex: -1
+    - targetCorrespondingSourceObject: {fileID: 4887476282293675373, guid: f70718885782e0846800f2da234dade6, type: 3}
+      insertIndex: 0
       addedObject: {fileID: 1534032658}
     - targetCorrespondingSourceObject: {fileID: 5149507160185349037, guid: f70718885782e0846800f2da234dade6, type: 3}
       insertIndex: -1

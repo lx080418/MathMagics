@@ -1,2 +1,6 @@
-1. Player Health not appearing
+
 2. Enemy attacking
+
+make player attack count as their turn
+enemies can move into eachother
+    - some sort of turn queue, enemies take their turns one at a time instead of all at once.

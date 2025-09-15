@@ -1,10 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Timeline;
+using System.Runtime.CompilerServices;
+using System.Collections;
+using UnityEditor.Animations;
+using UnityEditor.Experimental.GraphView;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public enum BehaviorMode { Sentry, Chase, Automatic }
-    private enum InternalMode { Sentry, Chase }
+    public enum BehaviorMode { Sentry, Chase, Automatic, Attack, PreAttack }
+    private enum InternalMode { Sentry, Chase, Attack, PreAttack }
 
     [Header("Behavior")]
     public BehaviorMode mode = BehaviorMode.Automatic;
@@ -14,12 +19,19 @@ public class EnemyMovement : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     [SerializeField] private Vector2 collisionBoxSize = Vector2.one * 0.8f;
+    [SerializeField] private float bumpAttackTime;
+    [SerializeField] private GameObject exclamationMark;
+
+    [Header("Animation")]
+    [SerializeField] private Animator _ac;
+    [SerializeField] private GameObject spriteObject;
 
     private bool isMoving = false;
     private Vector3 startPosition;
     private Vector3 targetPosition;
     private float moveProgress = 0f;
     private Vector3 lastDirection = Vector3.zero;
+    private bool isPreAttacking = false;
 
     private readonly Vector3[] directions = {
         Vector3.up,
@@ -36,6 +48,7 @@ public class EnemyMovement : MonoBehaviour
     private void Start()
     {
         TurnManager.Instance.OnPlayerTurnEnded += TakeTurn;
+        _ac.SetTrigger("Idle");
     }
 
     private void OnDestroy()
@@ -54,6 +67,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 transform.position = targetPosition;
                 isMoving = false;
+                _ac.SetBool("isWalking", false);
                 TurnManager.Instance.BeginPlayerTurn();
             }
         }
@@ -64,7 +78,27 @@ public class EnemyMovement : MonoBehaviour
         if (mode == BehaviorMode.Automatic && player != null)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-            return (distanceToPlayer <= chaseRadius) ? InternalMode.Chase : InternalMode.Sentry;
+            Debug.Log(distanceToPlayer);
+            if (isPreAttacking)
+            {
+                return InternalMode.Attack;
+            }
+            else if (distanceToPlayer <= 1.7)
+            {
+                Debug.Log("Attack");
+                return InternalMode.PreAttack;
+            }
+            else if (distanceToPlayer <= chaseRadius)
+            {
+                Debug.Log("Chase");
+                return InternalMode.Chase;
+            }
+            else
+            {
+                Debug.Log("Sentry");
+                return InternalMode.Sentry;
+            }
+
         }
 
         return (InternalMode)System.Enum.Parse(typeof(InternalMode), mode.ToString());
@@ -105,7 +139,62 @@ public class EnemyMovement : MonoBehaviour
         startPosition = transform.position;
         targetPosition = new Vector3(nextPosition.x, nextPosition.y, transform.position.z);
         moveProgress = 0f;
+        _ac.SetBool("isWalking", true);
+        if (targetPosition.x < startPosition.x)
+        {
+            spriteObject.transform.localScale = new Vector3(Mathf.Abs(spriteObject.transform.localScale.x) * -1, spriteObject.transform.localScale.y);
+        }
+        else if (targetPosition.x > startPosition.x)
+        {
+            spriteObject.transform.localScale = new Vector3(Mathf.Abs(spriteObject.transform.localScale.x), spriteObject.transform.localScale.y);
+        }
         isMoving = true;
+    }
+
+    private void PreAttack()
+    {
+        isPreAttacking = true;
+        exclamationMark.SetActive(true);
+    }
+    private void Attack()
+    {
+        //Get player's location
+        if (player == null) return;
+
+        StartCoroutine(BumpAttack());
+    }
+
+    private IEnumerator BumpAttack()
+    {
+        Vector3 targetPos = player.position;
+        Vector3 originPosition = transform.position;
+        float elapsed = 0f;
+        _ac.SetBool("isRolling", true);
+        while (elapsed <= bumpAttackTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / bumpAttackTime;
+
+            transform.position = Vector3.Lerp(originPosition, targetPos, t);
+            yield return null;
+        }
+        transform.position = targetPos;
+
+        elapsed = 0f;
+        while (elapsed <= bumpAttackTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / bumpAttackTime;
+
+            transform.position = Vector3.Lerp(targetPos, originPosition, t);
+            yield return null;
+        }
+        _ac.SetBool("isRolling", false);
+        transform.position = originPosition;
+
+        exclamationMark.SetActive(false);
+        isPreAttacking = false;
+
     }
 
     void OnDrawGizmosSelected()
@@ -130,6 +219,12 @@ public class EnemyMovement : MonoBehaviour
                 break;
             case InternalMode.Chase:
                 MoveTowardsPlayer();
+                break;
+            case InternalMode.Attack:
+                Attack();
+                break;
+            case InternalMode.PreAttack:
+                PreAttack();
                 break;
         }
         TurnManager.Instance.BeginPlayerTurn();
