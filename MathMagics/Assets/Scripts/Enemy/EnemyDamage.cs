@@ -1,9 +1,10 @@
 using System;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    public string damageExpression = "-1"; // Can be "1/2", "2 * 0.5", etc.
+    public string damageExpression = "-1"; // Can be "-1/2", "*2", etc.
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,15 +24,28 @@ public class EnemyDamage : MonoBehaviour
 
     private string GenerateDamageExpression(PlayerHealth playerHealth)
     {
-        Fraction health = playerHealth.GetCurrentHealth(); //returns some Fraction 3 / 5
-                                                           //if(health.Numerator < 0)
-
-
-
+        Fraction health = playerHealth.GetCurrentHealth();
+        if (GameManager.instance.easyMode)
+        {
+            if (health.Numerator > 0)
+            {
+                return "-1";
+            }
+            return "+1";
+        }
         //UnityEngine.Random.Range(minInclusive, maxExclusive);
         // return string damage expression
         //
-        return "-1";
+        int num = UnityEngine.Random.Range(1, GameManager.instance.stageLevel * 2 + (int)health.Numerator / 50);
+        if (health.Denominator != 1)
+        {
+            return "*" + num;
+        }
+        if (health.Numerator < 0)
+        {
+            return "+" + num;
+        }
+        return "-" + num;
     }
 
 }
