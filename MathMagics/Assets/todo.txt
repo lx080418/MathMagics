@@ -1,10 +1,17 @@
 
 
-BUG enemies sometimes flip the wrong direction when moving up and down
 
 TODO NEXT
-- Make the enemies deal damage to the player
+ - Make hitbox enabled for less time
+ - Boss
+ - Override EnemyMovement.Attack for boss Attack  
+    - Rolls 3 tiles, doesn't come back
+ - After player beats boss, advance levels.
+- When boss dies, he drops the next weapon (addition), player has to pick it up
 
 BUGS
+ -enemies sometimes flip the wrong direction when moving up and down
 
+What's wrong with the boss?
+- (hypothesis) he's raycasting himself when trying to move, so not moving
 
