@@ -47,12 +47,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(string damageExpression)
-    {
-        Debug.Log($"[PlayerHealth] Taking damage: {damageExpression}");
-        UpdatePlayerHP("-" + damageExpression);
-    }
-
     private void HandleDeath()
     {
         Debug.Log("[PlayerHealth] Player has died!");

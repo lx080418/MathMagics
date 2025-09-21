@@ -110,6 +110,7 @@ public class WeaponHandler : MonoBehaviour
         GameObject hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
 
         Destroy(hitbox, hitboxLifetime);
+        TurnManager.Instance.EndPlayerTurn();
     }
 
     public Weapon GetCurrentWeapon() => currentWeapon;

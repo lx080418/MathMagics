@@ -146,7 +146,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5248649265808977511}
   - component: {fileID: 1082565522400225376}
-  - component: {fileID: 8979927625868796410}
   - component: {fileID: 5825721254119309265}
   - component: {fileID: 7943155313499559860}
   m_Layer: 0
@@ -194,19 +193,6 @@ MonoBehaviour:
   exclamationMark: {fileID: 4679692380563102223}
   _ac: {fileID: 307011074595324045}
   spriteObject: {fileID: 5639197481245150921}
---- !u!114 &8979927625868796410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2186231137161594557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a931196f55b5304394f3d2667bacd2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageExpression: 1
 --- !u!114 &5825721254119309265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +524,8 @@ GameObject:
   - component: {fileID: 275372986097442766}
   - component: {fileID: 6768011434697124082}
   - component: {fileID: 2327140858522885132}
+  - component: {fileID: 1390887470295327100}
+  - component: {fileID: 1173446306746298959}
   m_Layer: 0
   m_Name: EnemyCollision
   m_TagString: Enemy
@@ -633,3 +621,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &1390887470295327100
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769795169322953752}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.09}
+  serializedVersion: 2
+  m_Radius: 0.32
+--- !u!114 &1173446306746298959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769795169322953752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a931196f55b5304394f3d2667bacd2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageExpression: 1

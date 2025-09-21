@@ -4820,7 +4820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5444266601238524591, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: PlayerHitbox
       objectReference: {fileID: 0}
     - target: {fileID: 8892181547931638669, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: moveTime
