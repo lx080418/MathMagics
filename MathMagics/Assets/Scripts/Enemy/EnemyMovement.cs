@@ -32,6 +32,7 @@ public class EnemyMovement : MonoBehaviour
     private float moveProgress = 0f;
     private Vector3 lastDirection = Vector3.zero;
     private bool isPreAttacking = false;
+    private bool isTakingTurn;
 
     private readonly Vector3[] directions = {
         Vector3.up,
@@ -67,6 +68,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 transform.position = targetPosition;
                 isMoving = false;
+                isTakingTurn = false;
                 _ac.SetBool("isWalking", false);
                 TurnManager.Instance.BeginPlayerTurn();
             }
@@ -122,6 +124,10 @@ public class EnemyMovement : MonoBehaviour
             Vector3 direction = (nextStep - transform.position).normalized;
             TryMove(direction);
         }
+        else
+        {
+            isTakingTurn = false;
+        }
     }
 
     void TryMove(Vector3 direction)
@@ -155,6 +161,7 @@ public class EnemyMovement : MonoBehaviour
     {
         isPreAttacking = true;
         exclamationMark.SetActive(true);
+        isTakingTurn = false;
     }
     private void Attack()
     {
@@ -168,6 +175,7 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector3 targetPos = player.position;
         Vector3 originPosition = transform.position;
+        Vector3 dir = (targetPos - originPosition).normalized;
         float elapsed = 0f;
         _ac.SetBool("isRolling", true);
         while (elapsed <= bumpAttackTime)
@@ -175,10 +183,10 @@ public class EnemyMovement : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = elapsed / bumpAttackTime;
 
-            transform.position = Vector3.Lerp(originPosition, targetPos, t);
+            transform.position = Vector3.Lerp(originPosition, originPosition + dir, t);
             yield return null;
         }
-        transform.position = targetPos;
+        transform.position = originPosition + dir;
 
         elapsed = 0f;
         while (elapsed <= bumpAttackTime)
@@ -186,7 +194,7 @@ public class EnemyMovement : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = elapsed / bumpAttackTime;
 
-            transform.position = Vector3.Lerp(targetPos, originPosition, t);
+            transform.position = Vector3.Lerp(originPosition + dir, originPosition, t);
             yield return null;
         }
         _ac.SetBool("isRolling", false);
@@ -194,6 +202,7 @@ public class EnemyMovement : MonoBehaviour
 
         exclamationMark.SetActive(false);
         isPreAttacking = false;
+        isTakingTurn = false;
 
     }
 
@@ -209,13 +218,16 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void TakeTurn()
+    public void TakeTurn()
     {
+        if (isTakingTurn) return;
+        isTakingTurn = true;
         InternalMode actualMode = GetCurrentBehavior();
         switch (actualMode)
         {
             case InternalMode.Sentry:
                 //MoveRandomly();
+                isTakingTurn = false;
                 break;
             case InternalMode.Chase:
                 MoveTowardsPlayer();

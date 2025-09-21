@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -58,7 +59,7 @@ public class TurnManager : MonoBehaviour
         //Enemies in Chase mode one by one take their turns
         //enemies in Sentry mode take their turns all at once.
         print("Player Turn Ended!");
-        OnPlayerTurnEnded?.Invoke();
+        //OnPlayerTurnEnded?.Invoke();
 
         //If there are no enemies, immediately start the player's turn again.
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -66,7 +67,20 @@ public class TurnManager : MonoBehaviour
         {
             BeginPlayerTurn();
         }
+        else
+        {
+            StartCoroutine(TakeEnemyTurns(enemies));
+        }
 
+    }
+
+    private IEnumerator TakeEnemyTurns(GameObject[] enemies)
+    {
+        foreach (GameObject go in enemies)
+        {
+            go.GetComponentInParent<EnemyMovement>().TakeTurn();
+            yield return new WaitForSeconds(.2f);
+        }
     }
 
     private void UpdateInputState()

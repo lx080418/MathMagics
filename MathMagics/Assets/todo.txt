@@ -1,6 +1,12 @@
 
-2. Enemy attacking
 
-make player attack count as their turn
-enemies can move into eachother
-    - some sort of turn queue, enemies take their turns one at a time instead of all at once.
+BUG enemies sometimes flip the wrong direction when moving up and down
+
+TODO NEXT
+- Make the enemies deal damage to the player
+- Make player attack count as their turn
+
+BUGS
+- Enemies move into eachother, they need to decide their turns one by one..?
+- Player atta
+
