@@ -11,7 +11,38 @@ TODO NEXT
 
 BUGS
  -enemies sometimes flip the wrong direction when moving up and down
+ - Boss hitting the player permanently disables movement input
 
 What's wrong with the boss?
 - (hypothesis) he's raycasting himself when trying to move, so not moving
+
+TODO next clas
+   Make a BossGridPathFinding : GridPathFinding
+      override FindPath to have this logic where we raycast
+      
+      if (nextPosition.x > transform.position.x)
+        {
+            Debug.Log($"Boss moving Right {nextPosition}");
+            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1.5f, nextPosition.y + 1f, 0), collisionBoxSize, 0f);
+        }
+        //Left
+        else if (nextPosition.x < transform.position.x)
+        {
+            Debug.Log($"Boss moving Left {nextPosition}");
+            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + .5f, nextPosition.y + 1f, 0), collisionBoxSize, 0f);
+        }
+        //Up
+        else if (nextPosition.y > transform.position.y)
+        {
+            Debug.Log($"Boss moving Up {nextPosition}");
+            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1, nextPosition.y + 1.5f, 0), collisionBoxSize, 0f);
+        }
+        //Down
+        else
+        {
+            Debug.Log($"Boss moving Down {nextPosition}");
+            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1, nextPosition.y +.5f, 0), collisionBoxSize, 0f);
+        }
+
+
 

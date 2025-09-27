@@ -18,21 +18,21 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
-    [SerializeField] private Vector2 collisionBoxSize = Vector2.one * 0.8f;
+    [SerializeField] protected Vector2 collisionBoxSize = Vector2.one * 0.8f;
     [SerializeField] private float bumpAttackTime;
     [SerializeField] private GameObject exclamationMark;
 
     [Header("Animation")]
-    [SerializeField] private Animator _ac;
-    [SerializeField] private GameObject spriteObject;
+    [SerializeField] protected Animator _ac;
+    [SerializeField] protected GameObject spriteObject;
 
-    private bool isMoving = false;
-    private Vector3 startPosition;
-    private Vector3 targetPosition;
-    private float moveProgress = 0f;
-    private Vector3 lastDirection = Vector3.zero;
-    private bool isPreAttacking = false;
-    private bool isTakingTurn;
+    protected bool isMoving = false;
+    protected Vector3 startPosition;
+    protected Vector3 targetPosition;
+    protected float moveProgress = 0f;
+    protected Vector3 lastDirection = Vector3.zero;
+    protected bool isPreAttacking = false;
+    protected bool isTakingTurn;
 
     private readonly Vector3[] directions = {
         Vector3.up,
@@ -130,7 +130,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    void TryMove(Vector3 direction)
+    public virtual void TryMove(Vector3 direction)
     {
         Vector3 nextPosition = transform.position + direction;
         lastDirection = direction;
