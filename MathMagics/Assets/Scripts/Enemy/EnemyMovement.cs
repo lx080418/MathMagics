@@ -112,7 +112,7 @@ public class EnemyMovement : MonoBehaviour
         TryMove(direction);
     }
 
-    void MoveTowardsPlayer()
+    public virtual void MoveTowardsPlayer()
     {
         if (player == null) return;
 
@@ -139,6 +139,7 @@ public class EnemyMovement : MonoBehaviour
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player") || hit.CompareTag("Enemy")))
         {
             isTakingTurn = false;
+            TurnManager.Instance.BeginPlayerTurn();
             return;
         }
 
@@ -162,6 +163,7 @@ public class EnemyMovement : MonoBehaviour
         isPreAttacking = true;
         exclamationMark.SetActive(true);
         isTakingTurn = false;
+        TurnManager.Instance.BeginPlayerTurn();
     }
     private void Attack()
     {
@@ -204,6 +206,8 @@ public class EnemyMovement : MonoBehaviour
         isPreAttacking = false;
         isTakingTurn = false;
 
+        TurnManager.Instance.BeginPlayerTurn();
+
     }
 
     void OnDrawGizmosSelected()
@@ -228,6 +232,7 @@ public class EnemyMovement : MonoBehaviour
             case InternalMode.Sentry:
                 //MoveRandomly();
                 isTakingTurn = false;
+                TurnManager.Instance.BeginPlayerTurn();
                 break;
             case InternalMode.Chase:
                 MoveTowardsPlayer();
@@ -239,6 +244,6 @@ public class EnemyMovement : MonoBehaviour
                 PreAttack();
                 break;
         }
-        TurnManager.Instance.BeginPlayerTurn();
+        //TurnManager.Instance.BeginPlayerTurn();
     }
 }

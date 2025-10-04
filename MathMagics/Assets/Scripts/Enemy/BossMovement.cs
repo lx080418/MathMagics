@@ -32,9 +32,9 @@ public class BossMovement : EnemyMovement
         else
         {
             Debug.Log($"Boss moving Down {nextPosition}");
-            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1, nextPosition.y +.5f, 0), collisionBoxSize, 0f);
+            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1, nextPosition.y + .5f, 0), collisionBoxSize, 0f);
         }
-        
+
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player") || hit.CompareTag("Enemy")))
         {
             isTakingTurn = false;
@@ -54,5 +54,23 @@ public class BossMovement : EnemyMovement
             spriteObject.transform.localScale = new Vector3(Mathf.Abs(spriteObject.transform.localScale.x), spriteObject.transform.localScale.y);
         }
         isMoving = true;
+        isTakingTurn = false;
+    }
+    public override void MoveTowardsPlayer()
+    {
+        if (player == null) return;
+
+        List<Vector3> path = GridPathfinding.FindPath(transform, player.position, pathWidth:2);
+        if (path != null && path.Count > 1)
+        {
+            print($"Boss moving to {path[1]}");
+            Vector3 nextStep = path[1]; // path[0] is current position
+            Vector3 direction = (nextStep - transform.position).normalized;
+            TryMove(direction);
+        }
+        else
+        {
+            isTakingTurn = false;
+        }
     }
 }
