@@ -44,6 +44,19 @@ TODO next clas
             hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1, nextPosition.y +.5f, 0), collisionBoxSize, 0f);
         }
 
+Next class 
+Do DrawGizmos for the boss pathfinding to see what's actually goin on
 
+NEW WAY OF DOING movement
+TurnManager has proven to be more restrictive than helpful
+    Let's go back to just having the enemies listen for when the player moves, and htey all take their turns independently
+    No more beginning/ending turns
 
+    OEN THING TO THINK ABOUT
+    Enemies need to not move into eachother if they all take turns at the same time
+FIRST THING next class, look at MathKnight to see how we got around this.
 
+Need to have them
+    Move at the same time ideally, but not move onto the same spot
+    
+    Path around walls

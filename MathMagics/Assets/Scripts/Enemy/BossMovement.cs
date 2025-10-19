@@ -38,7 +38,9 @@ public class BossMovement : EnemyMovement
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player") || hit.CompareTag("Enemy")))
         {
             isTakingTurn = false;
+            TurnManager.Instance.BeginPlayerTurn();
             return;
+            
         }
 
         startPosition = transform.position;
@@ -71,6 +73,7 @@ public class BossMovement : EnemyMovement
         else
         {
             isTakingTurn = false;
+            TurnManager.Instance.BeginPlayerTurn();
         }
     }
 }
