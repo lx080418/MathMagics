@@ -59,18 +59,18 @@ public class TurnManager : MonoBehaviour
         //Enemies in Chase mode one by one take their turns
         //enemies in Sentry mode take their turns all at once.
         print("Player Turn Ended!");
-        //OnPlayerTurnEnded?.Invoke();
+        OnPlayerTurnEnded?.Invoke();
 
         //If there are no enemies, immediately start the player's turn again.
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length == 0)
-        {
-            BeginPlayerTurn();
-        }
-        else
-        {
-            StartCoroutine(TakeEnemyTurns(enemies));
-        }
+        // GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        // if (enemies.Length == 0)
+        // {
+        //     BeginPlayerTurn();
+        // }
+        // else
+        // {
+        //     StartCoroutine(TakeEnemyTurns(enemies));
+        // }
 
     }
 
