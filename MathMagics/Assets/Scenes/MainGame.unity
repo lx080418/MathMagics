@@ -4732,7 +4732,7 @@ MonoBehaviour:
   - {fileID: 1050016873596838869, guid: ecbd6ca11b6491b458c75bdfe3fe3845, type: 3}
   - {fileID: -4275912178649407333, guid: 6338212bcdc29f54e9e46c15a136a593, type: 3}
   - {fileID: 593425265542808263, guid: 7d0e2d840c55a0d4d9691b0919b10ad4, type: 3}
-  bossRoom: {fileID: -2500017109545375352, guid: 9c830c4edda19ce49a9f969f1dd01131, type: 3}
+  bossRoom: {fileID: 7132816072693655706, guid: 9c830c4edda19ce49a9f969f1dd01131, type: 3}
   enemies:
   - {fileID: 2186231137161594557, guid: 5aa1d75421840bd40ad47a90b2dba453, type: 3}
   level1Boss: {fileID: 0}

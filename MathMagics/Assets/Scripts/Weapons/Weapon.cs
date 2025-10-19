@@ -12,6 +12,8 @@ public class Weapon
     private string operation;
     private bool islocked;
 
+    public event Action<Weapon> OnWeaponLevelChanged;
+
     public Weapon(string name, int level, string operation, bool isLocked = true)
     {
         this.name = name;
@@ -51,6 +53,7 @@ public class Weapon
         maxLevel += amount;
         Debug.Log($"Level set to max");
         level = maxLevel;
+        OnWeaponLevelChanged?.Invoke(this);
         //need to link to UI changing level
     }
 

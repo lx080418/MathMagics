@@ -64,7 +64,19 @@ public class WeaponHandler : MonoBehaviour
         weapons[0].UnlockWeapon();
 
         Debug.Log($"[WeaponHandler] Starting weapon: {currentWeapon.getName()}");
+
+        foreach(Weapon w in weapons)
+        {
+            w.OnWeaponLevelChanged += HandleWeaponLevelChangedWrapper;
+        }
     }
+
+    private void HandleWeaponLevelChangedWrapper(Weapon w)
+    {
+        HandleWeaponLevelChanged?.Invoke(w);
+
+    }
+
 
     public void Update()
     {
