@@ -19,29 +19,6 @@ public class PlayerMovement : MonoBehaviour
         PlayerInput.OnMoveInput -= TryMove;
     }
 
-    void Update()
-    {
-        // if (!testingMode && (!TurnManager.Instance || !TurnManager.Instance.IsPlayerTurn()))
-        //     return;
-
-        // if (!isMoving)
-        //     return;
-
-        // moveProgress += Time.deltaTime * moveSpeed;
-        // moveProgress = Mathf.Min(moveProgress, 1f);
-        // transform.position = Vector3.Lerp(startPosition, targetPosition, moveProgress);
-
-        // if (moveProgress >= 1f)
-        // {
-        //     isMoving = false;
-        //     moveProgress = 0f;
-
-        //     if (!testingMode)
-        //     {
-        //         TurnManager.Instance.EndPlayerTurn();
-        //     }
-        // }
-    }
 
     public void TryMove(Vector2 direction)
     {

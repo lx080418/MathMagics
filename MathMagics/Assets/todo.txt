@@ -44,7 +44,9 @@ TODO next clas
             hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1, nextPosition.y +.5f, 0), collisionBoxSize, 0f);
         }
 
+Next Steps Oooooo
 
-Current Issues
-
-1. Sometimes attacking an enemy deals the damage twiice
+1. Make a portal appear when boss is killed
+    - Boss room has a set position for where the portal spawns
+    - When the player moves into the portal, instantly teleport to new level
+    

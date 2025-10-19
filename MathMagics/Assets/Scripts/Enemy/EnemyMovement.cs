@@ -106,12 +106,6 @@ public class EnemyMovement : MonoBehaviour
         return (InternalMode)System.Enum.Parse(typeof(InternalMode), mode.ToString());
     }
 
-    void MoveRandomly()
-    {
-        Vector3 direction = directions[Random.Range(0, directions.Length)];
-        TryMove(direction);
-    }
-
     public virtual void MoveTowardsPlayer()
     {
         if (player == null) return;

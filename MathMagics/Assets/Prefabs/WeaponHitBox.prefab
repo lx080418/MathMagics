@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4537629796577423695}
   - component: {fileID: 7188270182623493959}
   - component: {fileID: 758307633128241345}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
