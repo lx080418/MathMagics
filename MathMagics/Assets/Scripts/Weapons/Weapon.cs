@@ -49,6 +49,9 @@ public class Weapon
     public void IncreaseLevelBy(int amount)
     {
         maxLevel += amount;
+        Debug.Log($"Level set to max");
+        level = maxLevel;
+        //need to link to UI changing level
     }
 
     public void DecreaseLevel()
