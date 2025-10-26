@@ -56,3 +56,6 @@ Next Steps Oooooo
     - When the player moves into the portal, instantly teleport to new level
 
 2. Easy Mode (just like Math Knight)
+
+
+3. Make animation for when you beat the level, you see the weapon unlock (woo)

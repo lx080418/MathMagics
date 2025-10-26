@@ -17,7 +17,7 @@ public class RoomPreset : MonoBehaviour
         SpawnEnemies();       
     }
     
-    public void SpawnEnemies()
+    public virtual void SpawnEnemies()
     {
         if (enemyPrefab == null || maxNumEnemies == 0 || enemySpawnPositions.Count == 0) return;
         List<Vector2> tempList = enemySpawnPositions;
@@ -28,6 +28,7 @@ public class RoomPreset : MonoBehaviour
             Vector2 randomLocation = tempList[Random.Range(0, tempList.Count)];
 
             GameObject enemy = Instantiate(enemyPrefab, transform);
+            enemies.Add(enemy);
             enemy.transform.localPosition = randomLocation;
             tempList.Remove(randomLocation);
         }

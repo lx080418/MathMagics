@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -5,8 +6,11 @@ public class EnemyHealth : MonoBehaviour
     [Header("Enemy Health")]
     [SerializeField] private string startingHealth = "3";
     private Fraction currentHealth;
+    public event Action OnEnemyDied;
     private void Awake()
     {
+        //GameManager.instance.stageLevel 
+        
         currentHealth = Evaluate(startingHealth);
     }
 
@@ -48,8 +52,8 @@ public class EnemyHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log($"[EnemyHealth] {gameObject.name} has died.");
-        Destroy(gameObject);
-
+        //Destroy(gameObject);
+        OnEnemyDied?.Invoke();
         RewardSystem rewardSystem = FindObjectOfType<RewardSystem>();
         if (rewardSystem != null)
         {

@@ -54,7 +54,8 @@ MonoBehaviour:
   - {x: 0, y: 0}
   enemyPrefab: {fileID: 7071698766734292929, guid: afc7a0b231061c74899f6b31131f84a3, type: 3}
   maxNumEnemies: 1
-  portalSpawnPosition: {x: 0, y: 0}
+  portalSpawnPosition: {x: 5, y: 0, z: 0}
+  portalPrefab: {fileID: 5839121156701520330, guid: 2a6a0a89f7be29e4198a6f3f96cc55fe, type: 3}
 --- !u!1 &6438367439483002594
 GameObject:
   m_ObjectHideFlags: 0

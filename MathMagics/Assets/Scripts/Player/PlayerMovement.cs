@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     void OnEnable()
     {
         PlayerInput.OnMoveInput += TryMove;
+        GameManager.beatLevel += ResetPlayerPosition;
     }
 
     void OnDisable()
@@ -100,5 +101,10 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(targetPosition, collisionBoxSize);
+    }
+
+    private void ResetPlayerPosition(int level)
+    {
+        transform.position = Vector3.zero;
     }
 }
