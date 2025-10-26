@@ -59,3 +59,9 @@ Next Steps Oooooo
 
 
 3. Make animation for when you beat the level, you see the weapon unlock (woo)
+
+
+NEXT CLASS
+Weapon UI changes
+    current weapon gets changed when upgrading a weapon instead of the proper weapon.
+Boss health needs fixing
