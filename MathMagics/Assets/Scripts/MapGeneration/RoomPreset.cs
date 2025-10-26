@@ -29,6 +29,7 @@ public class RoomPreset : MonoBehaviour
 
             GameObject enemy = Instantiate(enemyPrefab, transform);
             enemies.Add(enemy);
+            GameManager.instance.numOfEnemy++;
             enemy.transform.localPosition = randomLocation;
             tempList.Remove(randomLocation);
         }

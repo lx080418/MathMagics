@@ -292,9 +292,9 @@ public class TilemapSetup : MonoBehaviour
 
                 bounds = enemyTilemap.cellBounds;
 
-                // enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
-                // for (int x = 0; x < bounds.size.x; x++)
-                // {
+                //enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
+                //for (int x = 0; x < bounds.size.x; x++)
+                //{
                 //     for (int y = 0; y < bounds.size.y; y++)
                 //     {
                 //         TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
