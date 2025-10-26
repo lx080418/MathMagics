@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class WeaponHandlerUI : MonoBehaviour
 {
+    public static WeaponHandlerUI Instance;
     public Sprite slotSelectedSprite;
     public Sprite slotSprite;
     public Image[] images;
@@ -18,6 +19,7 @@ public class WeaponHandlerUI : MonoBehaviour
 
     private void OnEnable()
     {
+        Instance = this;
 
         foreach (GameObject go in lockImages)
         {
@@ -35,7 +37,6 @@ public class WeaponHandlerUI : MonoBehaviour
         lockImages[0].SetActive(false);
         weaponImages[0].SetActive(true);
         labelImages[0].SetActive(true);
-
     }
     private void Start()
     {

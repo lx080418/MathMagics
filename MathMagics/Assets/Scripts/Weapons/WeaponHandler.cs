@@ -28,10 +28,10 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] private float hitboxLifetime = 0.2f;
 
     public static WeaponHandler Instance;
-    private Weapon w1 = new Weapon("Subtract", 1, "-");
-    private Weapon w2 = new Weapon("Add", 1, "+");
-    private Weapon w3 = new Weapon("Multiply", 2, "*");
-    private Weapon w4 = new Weapon("Divide", 2, "/");
+    private Weapon w1 = new Weapon("Subtraction", 1, "-");
+    private Weapon w2 = new Weapon("Addition", 1, "+");
+    private Weapon w3 = new Weapon("Multiplication", 2, "*");
+    private Weapon w4 = new Weapon("Division", 2, "/");
     private Weapon[] weapons;
     private Weapon currentWeapon;
     public event Action<int> weaponSelected;
@@ -138,6 +138,11 @@ public class WeaponHandler : MonoBehaviour
         }
         Debug.LogWarning($"[WeaponHandler] Weapon with name '{weaponName}' not found.");
         return null;
+    }
+
+    public Weapon[] GetWeapons()
+    {
+        return weapons;
     }
 
     public void HandleBeatLevel(int level)

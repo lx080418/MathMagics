@@ -32,6 +32,7 @@ public class BossRoomPreset : RoomPreset
     {
         if(enemies.Count > 0)
         {
+            if (enemies[0] == null) return;
             enemies[0].GetComponent<EnemyHealth>().OnEnemyDied -= HandleBossDeath;
         }
         

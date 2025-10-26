@@ -15,34 +15,34 @@ public class RewardSystem : MonoBehaviour
     {
         { 1, new Dictionary<string, float>
             {
-                {"Subtract", 1.0f},
-                {"Add", 0.0f},
-                {"Multiply", 0.0f},
-                {"Divide", 0.0f}
+                {"Subtraction", 1.0f},
+                {"Addition", 0.0f},
+                {"Multiplication", 0.0f},
+                {"Division", 0.0f}
             }
         },
                 { 2, new Dictionary<string, float>
             {
-                {"Subtract", .3f},
-                {"Add", 0.7f},
-                {"Multiply", 0.0f},
-                {"Divide", 0.0f}
+                {"Subtraction", .3f},
+                {"Addition", 0.7f},
+                {"Multiplication", 0.0f},
+                {"Division", 0.0f}
             }
         },
                 { 3, new Dictionary<string, float>
             {
-                {"Subtract", 0.3f},
-                {"Add", 0.3f},
-                {"Multiply", 0.4f},
-                {"Divide", 0.0f}
+                {"Subtraction", 0.3f},
+                {"Addition", 0.3f},
+                {"Multiplication", 0.4f},
+                {"Division", 0.0f}
             }
         },
                 { 4, new Dictionary<string, float>
             {
-                {"Subtract", 0.2f},
-                {"Add", 0.2f},
-                {"Multiply", 0.2f},
-                {"Divide", 0.4f}
+                {"Subtraction", 0.2f},
+                {"Addition", 0.2f},
+                {"Multiplication", 0.2f},
+                {"Division", 0.4f}
             }
         },
 
@@ -72,7 +72,7 @@ public class RewardSystem : MonoBehaviour
     {
         rewardPool.Clear();
 
-        string[] weaponNames = new string[] { "Subtract", "Add", "Multiply", "Divide" };
+        string[] weaponNames = new string[] { "Subtraction", "Addition", "Multiplication", "Division" };
 
         for (int i = 0; i < 3; i++)
         {
@@ -233,7 +233,7 @@ private void GenerateBossRewardPool()
 {
     rewardPool.Clear();
 
-    string[] weaponNames = new string[] { "Subtract", "Add", "Multiply", "Divide" };
+    string[] weaponNames = new string[] { "Subtraction", "Addition", "Multiply", "Divide" };
 
     for (int i = 0; i < 3; i++)
     {

@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ResetPlayerPosition(int level)
     {
+        StopAllCoroutines();
         transform.position = Vector3.zero;
     }
 }
