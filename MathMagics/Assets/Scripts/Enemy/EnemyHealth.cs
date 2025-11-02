@@ -100,6 +100,7 @@ public class EnemyHealth : MonoBehaviour
             };
 
             Debug.Log($"[EnemyHealth] Boss detected. Setting HP for level {level}: {startingHealth}");
+            currentHealth = Evaluate(startingHealth);
         }
        
     }

@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public Image weaponImage;
     public TMP_Text congratulationsText;
     public Sprite[] weaponSprites;
+    private Vector2 originalWeaponSizeDelta;
 
 
     //* --------------- Events ------------*/
@@ -46,12 +47,15 @@ public class GameManager : MonoBehaviour
 
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
             Destroy(gameObject);
+        
     }
 
     void Start()
     {
         //Call the InitGame function to initialize the first stageLevel 
         InitGame();
+        originalWeaponSizeDelta = weaponImage.rectTransform.sizeDelta;
+
     }
 
     public int GetStageLevel()
@@ -88,7 +92,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(.5f);
 
         //SET THE WEAPON IMAGE TO PROPER WEAPON
+        weaponImage.rectTransform.sizeDelta = originalWeaponSizeDelta;
         weaponImage.sprite = weaponSprites[stageLevel];
+        weaponImage.transform.localPosition = Vector2.zero;
+
 
         //Fade in the new weapon
         elapsed = 0f;
@@ -122,12 +129,16 @@ public class GameManager : MonoBehaviour
         float targetHeight = WeaponHandlerUI.Instance.lockImages[stageLevel].GetComponent<RectTransform>().rect.height;
         RectTransform weaponRect = weaponImage.GetComponent<RectTransform>();
         elapsed = 0f;
+        
+        Vector2 startPos = weaponImage.transform.position;
+        float startWidth = weaponRect.rect.width;
+        float startHeight = weaponRect.rect.height;
         while (elapsed < weaponMoveTime)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / weaponMoveTime;
-            weaponImage.transform.position = Vector2.Lerp(weaponImage.transform.position, targetPosition.position, t);
-            weaponRect.sizeDelta = new Vector2(Mathf.Lerp(weaponRect.rect.width, targetWidth, t), Mathf.Lerp(weaponRect.rect.height, targetHeight, t));
+            weaponImage.transform.position = Vector2.Lerp(startPos, targetPosition.position, t);
+            weaponRect.sizeDelta = new Vector2(Mathf.Lerp(startWidth, targetWidth, t), Mathf.Lerp(startHeight, targetHeight, t));
             yield return null;
         }
 

@@ -1,67 +1,44 @@
 
 
 
-TODO NEXT
- - Make hitbox enabled for less time
- - Boss
- - Override EnemyMovement.Attack for boss Attack  
-    - Rolls 3 tiles, doesn't come back
- - After player beats boss, advance levels.
-- When boss dies, he drops the next weapon (addition), player has to pick it up
-
-BUGS
- -enemies sometimes flip the wrong direction when moving up and down
- - Boss hitting the player permanently disables movement input
-
-What's wrong with the boss?
-- (hypothesis) he's raycasting himself when trying to move, so not moving
-
-TODO next clas
-   Make a BossGridPathFinding : GridPathFinding
-      override FindPath to have this logic where we raycast
-      
-      if (nextPosition.x > transform.position.x)
-        {
-            Debug.Log($"Boss moving Right {nextPosition}");
-            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1.5f, nextPosition.y + 1f, 0), collisionBoxSize, 0f);
-        }
-        //Left
-        else if (nextPosition.x < transform.position.x)
-        {
-            Debug.Log($"Boss moving Left {nextPosition}");
-            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + .5f, nextPosition.y + 1f, 0), collisionBoxSize, 0f);
-        }
-        //Up
-        else if (nextPosition.y > transform.position.y)
-        {
-            Debug.Log($"Boss moving Up {nextPosition}");
-            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1, nextPosition.y + 1.5f, 0), collisionBoxSize, 0f);
-        }
-        //Down
-        else
-        {
-            Debug.Log($"Boss moving Down {nextPosition}");
-            hit = Physics2D.OverlapBox(new Vector3(nextPosition.x + 1, nextPosition.y +.5f, 0), collisionBoxSize, 0f);
-        }
-
-
 Current Issues
 1. If you kill all the enemies and theres no more enemy to listen to movement, player movement input is never turned bakc on
 
 
-Next Steps Oooooo
-
-1. Make a portal appear when boss is killed
-    - Boss room has a set position for where the portal spawns
-    - When the player moves into the portal, instantly teleport to new level
-
 2. Easy Mode (just like Math Knight)
 
+Next Steps
+- Easy Mode
+- "You Win" Screen
+    - AFter beating level 4, a special screen appea
+    - Special character that congratulates the player when winning ("You have mastered the basic 4 operations!")
+        - In the very beginning of each level, talks to the player, introduces new weapon/operation
+            - Player has dialogue options, for example
+                - "Do you think Math is fun?" Y/N -> Leads to different dialogue
+- "You Died/lose" screen
+    
+- New background music
+- Update all/most sound effects
+- Main Menu Settings
+- Ready button on Main Menu visuals need fixing
 
-3. Make animation for when you beat the level, you see the weapon unlock (woo)
+
+- Saving players progress
+    - Safe what level they've made it to, not their exact position
+        - level
+        - health
+        - potion amount
+        - weapon levels
+    - When you die, you can Retry(saves weapons) or Quit(doesnt save weapons)
+    - Keep black screen, but instead of unlocking a weapon, they get some amount of health restored
+    
 
 
-NEXT CLASS
-Weapon UI changes
-    current weapon gets changed when upgrading a weapon instead of the proper weapon.
-Boss health needs fixing
+Order of Operations
+1. "You Lose" Screen
+2. "You Win" screen
+3. New Itch build + page
+4. Easy Mode + Settings Screen (volume, whatever else)
+5. Sound Effects / Background music update
+6. Saving (see above)
+

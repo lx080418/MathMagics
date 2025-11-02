@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
@@ -138,6 +139,18 @@ public class WeaponHandler : MonoBehaviour
         }
         Debug.LogWarning($"[WeaponHandler] Weapon with name '{weaponName}' not found.");
         return null;
+    }
+
+    public int GetWeaponIndexByName(string weaponName)
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i].getName() == weaponName)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public Weapon[] GetWeapons()

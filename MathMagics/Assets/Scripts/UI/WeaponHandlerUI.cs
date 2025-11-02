@@ -71,7 +71,7 @@ public class WeaponHandlerUI : MonoBehaviour
 
     private void HandleWeaponLevelChanged(Weapon weapon)
     {
-        weaponLevelUIs[currentWeaponIndex].ChangeWeaponLevelText(weapon.getLevel());
+        weaponLevelUIs[WeaponHandler.Instance.GetWeaponIndexByName(weapon.getName())].ChangeWeaponLevelText(weapon.getLevel());
     }
 
   

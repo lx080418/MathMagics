@@ -32,16 +32,16 @@ public class RewardCard : MonoBehaviour
 
         switch (option.weaponName)
         {
-            case "Subtract":
+            case "Subtraction":
                 itemImage.sprite = weaponSprites[0];
                 break;
-            case "Add":
+            case "Addition":
                 itemImage.sprite = weaponSprites[1];
                 break;
-            case "Multiply":
+            case "Multiplication":
                 itemImage.sprite = weaponSprites[2];
                 break;
-            case "Divide":
+            case "Division":
                 itemImage.sprite = weaponSprites[3];
                 break;
             case "Potion":
