@@ -78,6 +78,7 @@ public class TilemapSetup : MonoBehaviour
         InitializeGridPositions(level);
         ClearPreviousLevel(level);
         Generate();
+        AudioManager.Instance.StartBackgroundMusic();
     }
 
     private void InitializeGridPositions(int level)

@@ -10,6 +10,8 @@ public class RewardSystem : MonoBehaviour
     public GameObject rewardUI;
     public RewardCard[] rewardCards;
     private List<RewardOption> rewardPool = new();
+    [Header("Audio")]
+    [SerializeField] private AudioClip rewardSFX;
 
     private Dictionary<int, Dictionary<string, float>> weaponDropChances = new Dictionary<int, Dictionary<string, float>>()
     {
@@ -140,6 +142,8 @@ public class RewardSystem : MonoBehaviour
         RewardOption chosen = rewardPool[index];
 
         Debug.Log($"[RewardSystem] Selected reward: {chosen.description}");
+
+        AudioManager.Instance.PlayOneShot(rewardSFX, 1f, AudioManager.Instance.sfxAMG);
 
         if (chosen.rewardType == RewardType.Weapon)
         {

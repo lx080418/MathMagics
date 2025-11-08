@@ -3,9 +3,9 @@
 
 Current Issues
 1. If you kill all the enemies and theres no more enemy to listen to movement, player movement input is never turned bakc on
-
-
-2. Easy Mode (just like Math Knight)
+2. Player health + shadow need to disappear when die
+3. Background music plays over intro video
+     -Go to next song after the scene changes
 
 Next Steps
 - Easy Mode
@@ -19,8 +19,10 @@ Next Steps
     
 - New background music
 - Update all/most sound effects
+- Enable clicking on the arrows to change weapon levels
 - Main Menu Settings
 - Ready button on Main Menu visuals need fixing
+
 
 
 - Saving players progress
@@ -35,10 +37,40 @@ Next Steps
 
 
 Order of Operations
-1. "You Lose" Screen
 2. "You Win" screen
 3. New Itch build + page
 4. Easy Mode + Settings Screen (volume, whatever else)
 5. Sound Effects / Background music update
 6. Saving (see above)
 
+
+Audio
+1. Background music
+    - 3
+        https://pixabay.com/music/fantasy-dreamy-childrens-magic-you-can-believe-in-154506/
+        https://pixabay.com/music/happy-childrens-tunes-forest-path-212664/
+        https://pixabay.com/music/cartoons-game-background-fun-and-uplifting-adventure-music-248805/
+
+
+2. SFX
+    - Player Attack
+        - https://pixabay.com/sound-effects/fire-magic-3-378640/
+
+    - Player Hurt
+        - Video gamey sound effect "oof/collision"
+        https://pixabay.com/sound-effects/thud-291047/
+    - Player Walk
+    https://pixabay.com/sound-effects/rustling-grass-4-101281/
+        - Grass/soft
+    - Player reward select
+        https://pixabay.com/sound-effects/retro-coin-1-236677/
+        - boiiiiing
+    - Player drinking potion   
+        - Glug glug
+        https://pixabay.com/sound-effects/gulp-37759/
+    UI click
+        - Short, not distracting, quick
+        https://pixabay.com/sound-effects/mouse-click-4-381779/
+
+    - Player Win   
+        https://pixabay.com/music/introoutro-playful-ukulele-summer-melody-341821/

@@ -7,6 +7,7 @@ public class PlayerPotion : MonoBehaviour
     private Fraction potionHealth = new Fraction(0);
     private bool hasPotion = false;
 
+    public AudioClip potionDrinkSFX;
     public delegate void PotionChanged(Fraction potionAmount, bool hasPotion);
     public event PotionChanged OnPotionChanged;
 
@@ -46,6 +47,7 @@ public class PlayerPotion : MonoBehaviour
 
     public void UsePotion()
     {
+        AudioManager.Instance.PlayOneShot(potionDrinkSFX, 1f, AudioManager.Instance.sfxAMG);
         playerHealth.UpdatePlayerHP("+" + potionHealth.ToString());
         potionHealth = new Fraction(0);
         hasPotion = false;

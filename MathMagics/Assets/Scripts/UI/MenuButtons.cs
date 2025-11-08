@@ -7,6 +7,9 @@ public class MenuButtons : MonoBehaviour
     public GameObject howToPlayUI;
     public VideoPlayerBrain videoPlayerBrain;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip uiClickSFX;
+
     private void Awake()
     {
         videoPlayerBrain.OnVideoFinished += HandleVideoFinished;
@@ -30,5 +33,15 @@ public class MenuButtons : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void PlayUIClick()
+    {
+        AudioManager.Instance.PlayOneShot(uiClickSFX, 1f, AudioManager.Instance.uiAMG);
+    }
+
+    public void FadeOutMusic()
+    {
+        AudioManager.Instance.StopBackgroundMusic();
     }
 }

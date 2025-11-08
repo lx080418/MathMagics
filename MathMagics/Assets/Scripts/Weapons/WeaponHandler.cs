@@ -38,6 +38,9 @@ public class WeaponHandler : MonoBehaviour
     public event Action<int> weaponSelected;
     public event Action<Weapon> HandleWeaponLevelChanged;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip playerAttackSFX;
+
     private void OnEnable()
     {
         PlayerInput.OnAttackInput += PerformAttack;
@@ -120,6 +123,7 @@ public class WeaponHandler : MonoBehaviour
         Vector3 spawnDirection = new Vector3(PlayerInput.lastDirection.x, PlayerInput.lastDirection.y, 0f);
         Vector3 spawnPosition = hitboxSpawnPoint.position + spawnDirection;
 
+        //AudioManager.Instance.PlayOneShotVariedPitch(playerAttackSFX, 1f, AudioManager.Instance.sfxAMG, .03f);
         GameObject hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
 
         Destroy(hitbox, hitboxLifetime);

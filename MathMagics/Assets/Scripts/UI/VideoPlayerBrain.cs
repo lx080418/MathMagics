@@ -20,13 +20,16 @@ public class VideoPlayerBrain : MonoBehaviour
         videoPlayer.gameObject.SetActive(false);
         skipButton.SetActive(false);
         OnVideoFinished?.Invoke();
+        AudioManager.Instance.StartBackgroundMusic();
 
     }
 
     public void StartVideo()
     {
+        StartCoroutine(AudioManager.Instance.StopBackgroundMusic(.25f));
         videoPlayer.Play();
         skipButton.SetActive(true);
+
     }
 
     public void SkipVideo()

@@ -62,6 +62,16 @@ public class Fraction
         );
     }
 
+    public static bool operator <(Fraction a, Fraction b)
+    {
+        return (a.Numerator / a.Denominator) < (b.Numerator / b.Denominator);
+    }
+
+    public static bool operator >(Fraction a, Fraction b)
+    {
+        return (a.Numerator / a.Denominator) > (b.Numerator / b.Denominator);
+    }
+
     public Fraction Negate()
     {
         return new Fraction(-Numerator, Denominator);

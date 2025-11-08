@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveTime;
     private bool isMoving = false;
     private Vector3 targetPosition;
+    [Header("Audio")]
+    [SerializeField] private AudioClip playerWalkSFX;
 
     void OnEnable()
     {
@@ -81,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator MoveRoutine(Vector2 target)
     {
         isMoving = true;
+        AudioManager.Instance.PlayOneShotVariedPitch(playerWalkSFX, 1f, AudioManager.Instance.sfxAMG, .03f);
         Vector3 start = transform.position;
         float elapsed = 0f;
         while (elapsed <= moveTime)

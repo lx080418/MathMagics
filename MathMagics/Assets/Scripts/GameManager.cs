@@ -167,6 +167,7 @@ public class GameManager : MonoBehaviour
             congratulationsText.color = new Color(1, 1, 1, 1 - t);
             yield return null;
         }
+        
     }
 
     //Initializes the game for each stageLevel.

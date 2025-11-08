@@ -11,6 +11,9 @@ public class PlayerHealth : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject loseScreen;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip playerHurtSFX;
+
     // Events
     public delegate void HealthChanged(Fraction newHealth);
     public event HealthChanged OnHealthChanged;
@@ -31,7 +34,13 @@ public class PlayerHealth : MonoBehaviour
     {
         ExpressionTree tree = new ExpressionTree();
         tree.BuildFromInfix(currentHealth.ToString() + expression);
+        Fraction previousHealth = currentHealth;
         currentHealth = tree.Evaluate();
+
+        if(currentHealth < previousHealth)
+        {
+            AudioManager.Instance.PlayOneShotVariedPitch(playerHurtSFX, 1f, AudioManager.Instance.sfxAMG, .03f);
+        }
 
         Debug.Log($"[PlayerHealth] HP changed to: {currentHealth}");
 
