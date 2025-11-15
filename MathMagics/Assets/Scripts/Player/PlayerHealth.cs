@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject loseScreen;
+    [SerializeField] private GameObject playerParentObject;
 
     [Header("Audio")]
     [SerializeField] private AudioClip playerHurtSFX;
@@ -61,7 +63,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("[PlayerHealth] Player has died!");
         if (loseScreen != null)
             loseScreen.SetActive(true);
-        Destroy(gameObject);
+        
+        Destroy(playerParentObject);
     }
 
     public Fraction GetCurrentHealth() => currentHealth;

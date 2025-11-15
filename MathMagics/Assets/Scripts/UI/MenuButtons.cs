@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class MenuButtons : MonoBehaviour
 
     private void Awake()
     {
-        videoPlayerBrain.OnVideoFinished += HandleVideoFinished;
+        if (videoPlayerBrain != null)
+        { 
+            videoPlayerBrain.OnVideoFinished += HandleVideoFinished;
+        }
         mainMenuUI.SetActive(true);
         howToPlayUI.SetActive(false);
         

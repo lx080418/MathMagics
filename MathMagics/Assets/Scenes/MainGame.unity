@@ -3301,7 +3301,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 103964496412927464, guid: f70718885782e0846800f2da234dade6, type: 3}
   m_PrefabInstance: {fileID: 1732468682}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1732468684}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9b985ec9bc3a942a8b89eab6755e55, type: 3}
@@ -3312,7 +3312,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3395253636912596116, guid: f70718885782e0846800f2da234dade6, type: 3}
   m_PrefabInstance: {fileID: 1732468682}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1732468684}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be879537ab1ec2745abbf2b232ffff5e, type: 3}
@@ -5885,6 +5885,14 @@ PrefabInstance:
       propertyPath: playerHurtSFX
       value: 
       objectReference: {fileID: 8300000, guid: 93f0e75a7ca3078479afed49ec0f1df1, type: 3}
+    - target: {fileID: 8842655569662571958, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: startingHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842655569662571958, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: playerParentObject
+      value: 
+      objectReference: {fileID: 1732468684}
     - target: {fileID: 8892181547931638669, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: playerWalkSFX
       value: 
@@ -5904,6 +5912,11 @@ PrefabInstance:
 --- !u!4 &1732468683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5149507160185349037, guid: f70718885782e0846800f2da234dade6, type: 3}
+  m_PrefabInstance: {fileID: 1732468682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1732468684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9069846600061701338, guid: f70718885782e0846800f2da234dade6, type: 3}
   m_PrefabInstance: {fileID: 1732468682}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1767204382

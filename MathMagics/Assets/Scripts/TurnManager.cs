@@ -26,7 +26,7 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("Beginning player's turn.");
         isPlayerTurn = true;
-        UpdateInputState();
+        //UpdateInputState();
     }
 
     public bool IsPlayerTurn()
@@ -38,7 +38,7 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("Ending player's turn.");
         isPlayerTurn = false;
-        UpdateInputState();
+        //UpdateInputState();
         
         OnPlayerTurnEnded?.Invoke();
     }

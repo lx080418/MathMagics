@@ -1,11 +1,7 @@
 
-
-
 Current Issues
 1. If you kill all the enemies and theres no more enemy to listen to movement, player movement input is never turned bakc on
-2. Player health + shadow need to disappear when die
-3. Background music plays over intro video
-     -Go to next song after the scene changes
+
 
 Next Steps
 - Easy Mode
