@@ -20,7 +20,9 @@ public class PlayerMovement : MonoBehaviour
     void OnDisable()
     {
         PlayerInput.OnMoveInput -= TryMove;
+        GameManager.beatLevel -= ResetPlayerPosition;
     }
+
 
 
     public void TryMove(Vector2 direction)

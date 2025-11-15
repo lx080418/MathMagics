@@ -43,6 +43,7 @@ public class WeaponHandlerUI : MonoBehaviour
         GameManager.beatLevel += HandleBeatLevel;
         WeaponHandler.Instance.weaponSelected += HandleWeaponSelected;
         WeaponHandler.Instance.HandleWeaponLevelChanged += HandleWeaponLevelChanged;
+        WeaponHandler.Instance.weaponForceUnlocked += HandleWeaponForceUnlocked;
     }
     private void OnDisable()
     {
@@ -59,6 +60,12 @@ public class WeaponHandlerUI : MonoBehaviour
         labelImages[level - 1].SetActive(true);
     }
 
+    private void HandleWeaponForceUnlocked(int level)
+    {
+        lockImages[level].SetActive(false);
+        weaponImages[level].SetActive(true);
+        labelImages[level].SetActive(true);
+    }
     private void HandleWeaponSelected(int level)
     {
         foreach (Image img in images)

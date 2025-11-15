@@ -1,6 +1,5 @@
 
 Current Issues
-1. If you kill all the enemies and theres no more enemy to listen to movement, player movement input is never turned bakc on
 
 
 Next Steps
@@ -26,9 +25,8 @@ Next Steps
         - level
         - health
         - potion amount
-        - weapon levels
     - When you die, you can Retry(saves weapons) or Quit(doesnt save weapons)
-    - Keep black screen, but instead of unlocking a weapon, they get some amount of health restored
+    - If they beat a level they already have the weapon for: Keep black screen, but instead of unlocking a weapon, they get some amount of health restored
     
 
 

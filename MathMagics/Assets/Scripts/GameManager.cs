@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -75,6 +77,8 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         StartCoroutine(DoLevelCompleted());
+        PlayerPrefs.SetInt("level", stageLevel+1);
+        Debug.Log($"Saved level {PlayerPrefs.GetInt("level")}");
     }
 
     private IEnumerator DoLevelCompleted()
@@ -184,4 +188,19 @@ public class GameManager : MonoBehaviour
         //easyMode = easyModeToggle.isOn;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="levelBeaten">The level the player was at when they reset</param>
+    public void ResetGame()
+    {
+        PlayerPrefs.SetInt("level", stageLevel);
+        //Set the level and all related variables back to normals
+        SceneManager.LoadScene("MainGame");
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("level");
+    }
 }

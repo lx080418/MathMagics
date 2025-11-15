@@ -17,9 +17,15 @@ public class MenuButtons : MonoBehaviour
         { 
             videoPlayerBrain.OnVideoFinished += HandleVideoFinished;
         }
-        mainMenuUI.SetActive(true);
-        howToPlayUI.SetActive(false);
+        if(mainMenuUI != null)
+        {
+            mainMenuUI.SetActive(true);
+        }
         
+        if(howToPlayUI != null)
+        {
+            howToPlayUI.SetActive(false);
+        }
     }
 
     public void PlayButton()

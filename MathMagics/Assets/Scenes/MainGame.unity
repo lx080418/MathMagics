@@ -353,13 +353,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1951891135}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ResetGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2256,6 +2256,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572350625}
   m_CullTransparentMesh: 1
+--- !u!1 &666235723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 666235725}
+  - component: {fileID: 666235724}
+  m_Layer: 0
+  m_Name: SaveLoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &666235724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666235723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb67faa875474a43a5099a460d487ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &666235725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666235723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.821236, y: 36.049236, z: -0.739313}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &734083681
 GameObject:
   m_ObjectHideFlags: 0
@@ -5887,7 +5931,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 93f0e75a7ca3078479afed49ec0f1df1, type: 3}
     - target: {fileID: 8842655569662571958, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: startingHealth
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8842655569662571958, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: playerParentObject
@@ -9079,3 +9123,4 @@ SceneRoots:
   - {fileID: 146838348}
   - {fileID: 1313370482}
   - {fileID: 427474658}
+  - {fileID: 666235725}

@@ -37,6 +37,7 @@ public class WeaponHandler : MonoBehaviour
     private Weapon currentWeapon;
     public event Action<int> weaponSelected;
     public event Action<Weapon> HandleWeaponLevelChanged;
+    public event Action<int> weaponForceUnlocked;
 
     [Header("Audio")]
     [SerializeField] private AudioClip playerAttackSFX;
@@ -73,6 +74,17 @@ public class WeaponHandler : MonoBehaviour
         {
             w.OnWeaponLevelChanged += HandleWeaponLevelChangedWrapper;
         }
+
+        if(PlayerPrefs.HasKey("level"))
+        {
+            int savedLevel = PlayerPrefs.GetInt("level");
+            for(int i = 0; i < savedLevel; i++)
+            {
+                weapons[i].UnlockWeapon();
+                weaponForceUnlocked?.Invoke(i);
+            }
+        }
+
     }
 
     private void HandleWeaponLevelChangedWrapper(Weapon w)
