@@ -12,11 +12,10 @@ Next Steps
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
 - "You Died/lose" screen
     
-- New background music
 - Update all/most sound effects
-- Enable clicking on the arrows to change weapon levels
 - Main Menu Settings
 - Ready button on Main Menu visuals need fixing
+- Red arrow on the floor/on players foot telling them which way theyre facing
 
 Magic Stone Currency
 - Rewarded with a stone IF they beat a level they already have the weapon unlocked for

@@ -14,6 +14,7 @@ public class WeaponHandlerUI : MonoBehaviour
     public GameObject[] weaponImages;
     public GameObject[] labelImages;
     public WeaponLevelUI[] weaponLevelUIs;
+    public Button[] weaponChangeArrows; //1 + 2 are Weapon 1, Subtract and Add, pattern continues
 
     private int currentWeaponIndex;
 
@@ -44,6 +45,8 @@ public class WeaponHandlerUI : MonoBehaviour
         WeaponHandler.Instance.weaponSelected += HandleWeaponSelected;
         WeaponHandler.Instance.HandleWeaponLevelChanged += HandleWeaponLevelChanged;
         WeaponHandler.Instance.weaponForceUnlocked += HandleWeaponForceUnlocked;
+
+        SetupLevelChangingArrows();
     }
     private void OnDisable()
     {
@@ -79,6 +82,22 @@ public class WeaponHandlerUI : MonoBehaviour
     private void HandleWeaponLevelChanged(Weapon weapon)
     {
         weaponLevelUIs[WeaponHandler.Instance.GetWeaponIndexByName(weapon.getName())].ChangeWeaponLevelText(weapon.getLevel());
+    }
+
+    
+    private void SetupLevelChangingArrows()
+    {
+        Debug.Log("Adding Button Logic!");
+        Weapon[] weapons = WeaponHandler.Instance.GetWeapons();
+        weaponChangeArrows[0].onClick.AddListener(weapons[0].DecreaseLevel);
+        weaponChangeArrows[1].onClick.AddListener(weapons[0].IncreaseLevel);
+        weaponChangeArrows[2].onClick.AddListener(weapons[1].DecreaseLevel);
+        weaponChangeArrows[3].onClick.AddListener(weapons[1].IncreaseLevel);
+        weaponChangeArrows[4].onClick.AddListener(weapons[2].DecreaseLevel);
+        weaponChangeArrows[5].onClick.AddListener(weapons[2].IncreaseLevel);
+        weaponChangeArrows[6].onClick.AddListener(weapons[3].DecreaseLevel);
+        weaponChangeArrows[7].onClick.AddListener(weapons[3].IncreaseLevel);
+        
     }
 
   

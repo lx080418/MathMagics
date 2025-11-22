@@ -42,6 +42,8 @@ public class WeaponHandler : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip playerAttackSFX;
 
+
+
     private void OnEnable()
     {
         PlayerInput.OnAttackInput += PerformAttack;
@@ -60,11 +62,13 @@ public class WeaponHandler : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+        
+        weapons = new Weapon[] { w1, w2, w3, w4 };
     }
 
     private void Start()
     {
-        weapons = new Weapon[] { w1, w2, w3, w4 };
+        
         currentWeapon = weapons[0];
         weapons[0].UnlockWeapon();
 
@@ -178,4 +182,5 @@ public class WeaponHandler : MonoBehaviour
     {
         weapons[level - 1].UnlockWeapon();
     }
+
 }

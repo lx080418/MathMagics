@@ -46,6 +46,7 @@ public class Weapon
         {
             level++;
         }
+        OnWeaponLevelChanged?.Invoke(this);
     }
 
     public void IncreaseLevelBy(int amount)
@@ -59,6 +60,7 @@ public class Weapon
 
     public void DecreaseLevel()
     {
+        Debug.Log($"Decreasing level of  {name}");
         if (level == minLevel)
         {
             level = maxLevel;
@@ -67,6 +69,7 @@ public class Weapon
         {
             level--;
         }
+        OnWeaponLevelChanged?.Invoke(this);
     }
 
     public void UnlockNextLevel()
