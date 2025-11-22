@@ -12,6 +12,7 @@ public class VideoPlayerBrain : MonoBehaviour
     {
         videoPlayer.loopPointReached += HandleVideoFinished;
         skipButton.SetActive(false);
+        videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath,"IntroVideo.mp4"); 
     }
 
     private void HandleVideoFinished(VideoPlayer source)

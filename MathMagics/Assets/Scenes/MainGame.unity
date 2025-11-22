@@ -5931,7 +5931,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 93f0e75a7ca3078479afed49ec0f1df1, type: 3}
     - target: {fileID: 8842655569662571958, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: startingHealth
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8842655569662571958, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: playerParentObject
@@ -5941,6 +5941,10 @@ PrefabInstance:
       propertyPath: playerWalkSFX
       value: 
       objectReference: {fileID: 8300000, guid: 3668055250ca8ad4186820d8ea813033, type: 3}
+    - target: {fileID: 8892181547931638669, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 9069846600061701338, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: m_Name
       value: Player
