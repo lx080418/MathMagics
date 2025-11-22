@@ -10,9 +10,8 @@ Next Steps
         - In the very beginning of each level, talks to the player, introduces new weapon/operation
             - Player has dialogue options, for example
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
-- "You Died/lose" screen
-    
 - Update all/most sound effects
+    -Fine for now, just need player attack
 - Main Menu Settings
 - Ready button on Main Menu visuals need fixing
 - Red arrow on the floor/on players foot telling them which way theyre facing
@@ -23,14 +22,6 @@ Magic Stone Currency
 - Click on the weaponUI, if you have a stone, a popup appears saying "Do you want to upgrade this?" 
 - Magic stone count somewhere in the corner
 
-- Saving players progress
-    - Safe what level they've made it to, not their exact position
-        - level
-        - health
-        - potion amount
-    - When you die, you can Retry(saves weapons) or Quit(doesnt save weapons)
-    - If they beat a level they already have the weapon for: Keep black screen, but instead of unlocking a weapon, they get some amount of health restored
-    
 
 Order of Operations
 2. "You Win" screen

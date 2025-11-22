@@ -134,6 +134,11 @@ public class AudioManager : MonoBehaviour
         masterMixer.SetFloat(exposedVolumeParameterString, num);
     }
 
+    public void HandleVolumeSliderChanged(float volume, AudioMixerGroup amg)
+    {
+        amg.audioMixer.SetFloat(exposedVolumeParameterString, volume);
+    }
+
     public IEnumerator StopBackgroundMusic(float fadeTime)
     {
         float elapsed = 0f;
