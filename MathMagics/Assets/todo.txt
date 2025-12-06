@@ -1,5 +1,12 @@
 
+
+be able to bring up the settings menuin the game
+easy mode!
+start implementing the currency
+
+
 Current Issues
+
 
 
 Next Steps

@@ -25,13 +25,13 @@ public class EnemyDamage : MonoBehaviour
     private string GenerateDamageExpression(PlayerHealth playerHealth)
     {
         Fraction health = playerHealth.GetCurrentHealth();
-        if (GameManager.instance.easyMode)
+        if (SettingsManager.Instance.easyMode)
         {
             if (health.Numerator > 0)
             {
-                return "-1";
+                return "+0";
             }
-            return "+1";
+            return "+0";
         }
         //UnityEngine.Random.Range(minInclusive, maxExclusive);
         // return string damage expression

@@ -12,6 +12,9 @@ public class SettingsManager : MonoBehaviour
     public Slider sfxSlider;
     public AudioMixerGroup musicAMG;
     public AudioMixerGroup sfxAMG;
+    public string exposedMusicParamString = "MusicVolume";
+    public string exposedSFXParamString = "SFXVolume";
+    public bool easyMode = false;
     private void Awake()
     {
         if(Instance == null)
@@ -34,11 +37,23 @@ public class SettingsManager : MonoBehaviour
 
     public void ChangeMusicVolume()
     {
-        AudioManager.Instance.HandleVolumeSliderChanged(musicSlider.value, musicAMG);
+        AudioManager.Instance.HandleVolumeSliderChanged(musicSlider.value, exposedMusicParamString);
     }
 
     public void ChangeSFXVolume()
     {
-        AudioManager.Instance.HandleVolumeSliderChanged(sfxSlider.value, sfxAMG);
+        AudioManager.Instance.HandleVolumeSliderChanged(sfxSlider.value, exposedSFXParamString);
+    }
+
+    public void OnEasyModeToggled()
+    {
+        if(easyMode == true)
+        {
+            easyMode = false;
+        }
+        else
+        {
+            easyMode = true;
+        }
     }
 }

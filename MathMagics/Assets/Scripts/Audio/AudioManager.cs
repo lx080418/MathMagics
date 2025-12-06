@@ -22,7 +22,8 @@ public class AudioManager : MonoBehaviour
     private bool backgroundMusicDisabled;
     public AudioMixer masterMixer;
     [SerializeField] private Slider volumeSlider;
-    public string exposedVolumeParameterString = "Volume";
+
+
 
     public AudioMixerGroup sfxAMG;
     public AudioMixerGroup bgmAMG;
@@ -122,21 +123,9 @@ public class AudioManager : MonoBehaviour
         backgroundMusicPlaying = false;
     }
 
-    public void HandleVolumeSliderChanged()
+    public void HandleVolumeSliderChanged(float volume, string param)
     {
-        //float mixerVolume = Mathf.Log10(Mathf.Max(0.0001f, volumeSlider.value)) * 20;
-        masterMixer.SetFloat(exposedVolumeParameterString, volumeSlider.value);
-    }
-
-    public void HandleVolumeSliderChanged(float num)
-    {
-        //float mixerVolume = Mathf.Log10(Mathf.Max(0.0001f, num)) * 20;
-        masterMixer.SetFloat(exposedVolumeParameterString, num);
-    }
-
-    public void HandleVolumeSliderChanged(float volume, AudioMixerGroup amg)
-    {
-        amg.audioMixer.SetFloat(exposedVolumeParameterString, volume);
+        masterMixer.SetFloat(param, volume);
     }
 
     public IEnumerator StopBackgroundMusic(float fadeTime)
