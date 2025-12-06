@@ -54,4 +54,10 @@ public class MenuButtons : MonoBehaviour
     {
         AudioManager.Instance.StopBackgroundMusic();
     }
+
+    public void ToggleSettings()
+    {
+        if(SettingsManager.Instance == null) return;
+        SettingsManager.Instance.ToggleMenu();
+    }
 }

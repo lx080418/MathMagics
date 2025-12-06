@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class SettingsManager : MonoBehaviour
 {
     public static SettingsManager Instance;
+    public GameObject settingsMenu;
     public Slider musicSlider;
     public Slider sfxSlider;
     public AudioMixerGroup musicAMG;
@@ -30,9 +31,12 @@ public class SettingsManager : MonoBehaviour
 
     }
 
-    private void Start()
+    private void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            settingsMenu.SetActive(!settingsMenu.activeSelf);
+        }
     }
 
     public void ChangeMusicVolume()
@@ -43,6 +47,11 @@ public class SettingsManager : MonoBehaviour
     public void ChangeSFXVolume()
     {
         AudioManager.Instance.HandleVolumeSliderChanged(sfxSlider.value, exposedSFXParamString);
+    }
+
+    public void ToggleMenu()
+    {
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
 
     public void OnEasyModeToggled()

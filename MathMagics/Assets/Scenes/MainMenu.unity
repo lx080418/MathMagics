@@ -4778,13 +4778,13 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1889068725}
+        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+        m_MethodName: OnEasyModeToggled
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9260,6 +9260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac219902ae2709f49b3d0878db9d663b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsMenu: {fileID: 2015071402}
   musicSlider: {fileID: 137459784}
   sfxSlider: {fileID: 964622761}
   musicAMG: {fileID: -8369488555493199516, guid: 600ff6ebe26de5f4ea636a8d6f095346, type: 2}
