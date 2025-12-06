@@ -79,15 +79,8 @@ public class WeaponHandler : MonoBehaviour
             w.OnWeaponLevelChanged += HandleWeaponLevelChangedWrapper;
         }
 
-        if(PlayerPrefs.HasKey("level"))
-        {
-            int savedLevel = PlayerPrefs.GetInt("level");
-            for(int i = 0; i < savedLevel; i++)
-            {
-                weapons[i].UnlockWeapon();
-                weaponForceUnlocked?.Invoke(i);
-            }
-        }
+        
+        StartCoroutine(DelayWeaponUnlock());
 
     }
 
@@ -181,6 +174,25 @@ public class WeaponHandler : MonoBehaviour
     public void HandleBeatLevel(int level)
     {
         weapons[level - 1].UnlockWeapon();
+    }
+
+    public IEnumerator DelayWeaponUnlock()
+    {
+        yield return null;
+        if(PlayerPrefs.HasKey("level"))
+        {
+            Debug.Log($"Key: level found! {PlayerPrefs.GetInt("level")}");
+            int savedLevel = PlayerPrefs.GetInt("level");
+            for(int i = 0; i < savedLevel; i++)
+            {
+                weapons[i].UnlockWeapon();
+                weaponForceUnlocked?.Invoke(i);
+            }
+        }
+        else
+        {
+            Debug.Log("Key: level not found");
+        }
     }
 
 }

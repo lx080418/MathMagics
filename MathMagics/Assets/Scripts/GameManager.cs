@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     //* ---------------- Inspector Reference ---------- */
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private PlayerMagicStone playerMagicStone;
     //public Toggle easyModeToggle;
 
     void Awake()
@@ -93,58 +94,18 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(.5f);
+        //If we have the weapon unlocked already, do something different
 
-        //SET THE WEAPON IMAGE TO PROPER WEAPON
-        weaponImage.rectTransform.sizeDelta = originalWeaponSizeDelta;
-        weaponImage.sprite = weaponSprites[stageLevel];
-        weaponImage.transform.localPosition = Vector2.zero;
-
-
-        //Fade in the new weapon
-        elapsed = 0f;
-        while (elapsed < weaponFadeTime)
+        if(WeaponHandler.Instance.GetWeapons()[stageLevel].getIsLocked())
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / blackScreenFadeTime;
-            weaponImage.color = new Color(1, 1, 1, t);
-            yield return null;
+            yield return UnlockNextWeapon();
+        }
+        else
+        {
+            yield return GiveMagicStone();
         }
 
-        yield return new WaitForSeconds(.5f);
-
-        WeaponHandlerUI.Instance.lockImages[stageLevel].gameObject.SetActive(false);
-
-        //Enable, "You unlocked the ..."
-        congratulationsText.color = new Color(1, 1, 1, 0);
-        congratulationsText.text = $"Congratulations!\nYou unlocked the {WeaponHandler.Instance.GetWeapons()[stageLevel].getName()} wand!";
-        elapsed = 0f;
-        while (elapsed < weaponFadeTime)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / blackScreenFadeTime;
-            congratulationsText.color = new Color(1, 1, 1, t);
-            yield return null;
-        }
-
-        //Weapon image lerps size + position down into the slot it belongs t
-        Transform targetPosition = WeaponHandlerUI.Instance.lockImages[stageLevel].transform;
-        float targetWidth = WeaponHandlerUI.Instance.lockImages[stageLevel].GetComponent<RectTransform>().rect.width;
-        float targetHeight = WeaponHandlerUI.Instance.lockImages[stageLevel].GetComponent<RectTransform>().rect.height;
-        RectTransform weaponRect = weaponImage.GetComponent<RectTransform>();
-        elapsed = 0f;
         
-        Vector2 startPos = weaponImage.transform.position;
-        float startWidth = weaponRect.rect.width;
-        float startHeight = weaponRect.rect.height;
-        while (elapsed < weaponMoveTime)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / weaponMoveTime;
-            weaponImage.transform.position = Vector2.Lerp(startPos, targetPosition.position, t);
-            weaponRect.sizeDelta = new Vector2(Mathf.Lerp(startWidth, targetWidth, t), Mathf.Lerp(startHeight, targetHeight, t));
-            yield return null;
-        }
 
         stageLevel++;
         highestLevel = Mathf.Max(stageLevel, highestLevel);
@@ -202,5 +163,68 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.DeleteKey("level");
+    }
+
+    private IEnumerator UnlockNextWeapon()
+    {
+        yield return new WaitForSeconds(.5f);
+
+        //SET THE WEAPON IMAGE TO PROPER WEAPON
+        weaponImage.rectTransform.sizeDelta = originalWeaponSizeDelta;
+        weaponImage.sprite = weaponSprites[stageLevel];
+        weaponImage.transform.localPosition = Vector2.zero;
+        float elapsed = 0f;
+
+        //Fade in the new weapon
+        elapsed = 0f;
+        while (elapsed < weaponFadeTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / blackScreenFadeTime;
+            weaponImage.color = new Color(1, 1, 1, t);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(.5f);
+
+        WeaponHandlerUI.Instance.lockImages[stageLevel].gameObject.SetActive(false);
+
+        //Enable, "You unlocked the ..."
+        congratulationsText.color = new Color(1, 1, 1, 0);
+        congratulationsText.text = $"Congratulations!\nYou unlocked the {WeaponHandler.Instance.GetWeapons()[stageLevel].getName()} wand!";
+        elapsed = 0f;
+        while (elapsed < weaponFadeTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / blackScreenFadeTime;
+            congratulationsText.color = new Color(1, 1, 1, t);
+            yield return null;
+        }
+
+        //Weapon image lerps size + position down into the slot it belongs t
+        Transform targetPosition = WeaponHandlerUI.Instance.lockImages[stageLevel].transform;
+        float targetWidth = WeaponHandlerUI.Instance.lockImages[stageLevel].GetComponent<RectTransform>().rect.width;
+        float targetHeight = WeaponHandlerUI.Instance.lockImages[stageLevel].GetComponent<RectTransform>().rect.height;
+        RectTransform weaponRect = weaponImage.GetComponent<RectTransform>();
+        elapsed = 0f;
+        
+        Vector2 startPos = weaponImage.transform.position;
+        float startWidth = weaponRect.rect.width;
+        float startHeight = weaponRect.rect.height;
+        while (elapsed < weaponMoveTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / weaponMoveTime;
+            weaponImage.transform.position = Vector2.Lerp(startPos, targetPosition.position, t);
+            weaponRect.sizeDelta = new Vector2(Mathf.Lerp(startWidth, targetWidth, t), Mathf.Lerp(startHeight, targetHeight, t));
+            yield return null;
+        }
+    }
+
+    private IEnumerator GiveMagicStone()
+    {
+        yield return null;
+        playerMagicStone.GainMagicStone(1);
+
     }
 }

@@ -6,8 +6,8 @@ start implementing the currency
 
 
 Current Issues
-
-
+- Can keep moving after entering the portal (thats cheating)
+- You Lose screen didnt appear when dying
 
 Next Steps
 - Easy Mode
