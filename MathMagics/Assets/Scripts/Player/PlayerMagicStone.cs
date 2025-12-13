@@ -14,6 +14,14 @@ public class PlayerMagicStone : MonoBehaviour
     private void Awake()
     {
         //TODO load the amount of magic stones from playerprefs
+        if(PlayerPrefs.HasKey("magicStones"))
+        {
+            GainMagicStone(PlayerPrefs.GetInt("magicStones"));
+        }
+        else
+        {
+            _magicStones = 0;
+        }
     }
 
     private void Start()
@@ -26,5 +34,10 @@ public class PlayerMagicStone : MonoBehaviour
     {
         _magicStones += amount;
         onMagicStonesChanged?.Invoke(_magicStones);
+    }
+
+    public int GetMagicStones()
+    {
+        return _magicStones;
     }
 }

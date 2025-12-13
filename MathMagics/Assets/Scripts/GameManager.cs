@@ -24,16 +24,21 @@ public class GameManager : MonoBehaviour
     public float weaponMoveTime;
     public Image blackScreen;
     public Image weaponImage;
+    
     public TMP_Text congratulationsText;
     public Sprite[] weaponSprites;
     private Vector2 originalWeaponSizeDelta;
+    [Header("Magic Stone Reward")]
+    public Image stoneImage;
+    public Transform stoneTarget;
+    private Vector2 originalStoneSizeDelta;
+
 
 
     //* --------------- Events ------------*/
     public static event Action<int> beatLevel;
 
     //* ---------------- Inspector Reference ---------- */
-    [SerializeField] private GameObject winScreen;
     [SerializeField] private PlayerMagicStone playerMagicStone;
     //public Toggle easyModeToggle;
 
@@ -58,7 +63,7 @@ public class GameManager : MonoBehaviour
         //Call the InitGame function to initialize the first stageLevel 
         InitGame();
         originalWeaponSizeDelta = weaponImage.rectTransform.sizeDelta;
-
+        originalStoneSizeDelta = stoneImage.rectTransform.sizeDelta;
     }
 
     public int GetStageLevel()
@@ -128,7 +133,7 @@ public class GameManager : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = elapsed / blackScreenFadeTime;
             blackScreen.color = new Color(0, 0, 0, 1 - t);
-            weaponImage.color = new Color(1, 1, 1, 1 - t);
+            //weaponImage.color = new Color(1, 1, 1, 1 - t);
             congratulationsText.color = new Color(1, 1, 1, 1 - t);
             yield return null;
         }
@@ -157,6 +162,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("level", stageLevel);
         //Set the level and all related variables back to normals
+        PlayerPrefs.SetInt("magicStones", playerMagicStone.GetMagicStones());
+
         SceneManager.LoadScene("MainGame");
     }
 
@@ -224,6 +231,54 @@ public class GameManager : MonoBehaviour
     private IEnumerator GiveMagicStone()
     {
         yield return null;
+        
+
+        //Set the stone's initial location
+        stoneImage.transform.localPosition = Vector2.zero;
+        stoneImage.rectTransform.sizeDelta = originalStoneSizeDelta;
+
+        float elapsed = 0f;
+
+        //Fade in the new weapon
+        elapsed = 0f;
+        while (elapsed < weaponFadeTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / blackScreenFadeTime;
+            stoneImage.color = new Color(1, 1, 1, t);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(.5f);
+        congratulationsText.color = new Color(1, 1, 1, 0);
+        congratulationsText.text = $"Congratulations! You earned a magic stone!";
+        elapsed = 0f;
+        while (elapsed < weaponFadeTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / blackScreenFadeTime;
+            congratulationsText.color = new Color(1, 1, 1, t);
+            yield return null;
+        }
+
+         //Weapon image lerps size + position down into the slot it belongs t
+        float targetWidth = stoneTarget.GetComponent<RectTransform>().rect.width;
+        float targetHeight = stoneTarget.GetComponent<RectTransform>().rect.height;
+        RectTransform stoneRect = stoneImage.GetComponent<RectTransform>();
+        elapsed = 0f;
+        
+        Vector2 startPos = stoneRect.transform.position;
+        float startWidth = stoneRect.rect.width;
+        float startHeight = stoneRect.rect.height;
+        while (elapsed < weaponMoveTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / weaponMoveTime;
+            stoneRect.transform.position = Vector2.Lerp(startPos, stoneTarget.position, t);
+            stoneRect.sizeDelta = new Vector2(Mathf.Lerp(startWidth, targetWidth, t), Mathf.Lerp(startHeight, targetHeight, t));
+            yield return null;
+        }
+
         playerMagicStone.GainMagicStone(1);
 
     }
