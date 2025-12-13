@@ -1,14 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Video;
+using UnityEngine.EventSystems;
 
-public class WeaponLevelUI : MonoBehaviour
+public class WeaponLevelUI : MonoBehaviour, IPointerDownHandler
 {
     public TMP_Text weaponLevel;
+    public int weaponIndex;
+    public event Action<int> OnWeaponSlotClicked;
     public void ChangeWeaponLevelText(int num)
     {
         weaponLevel.text = num.ToString();
     }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        OnWeaponSlotClicked?.Invoke(weaponIndex);
+    }
+        
+    
 }

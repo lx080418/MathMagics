@@ -24,6 +24,8 @@ public class PlayerHealth : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+
+        loseScreen.SetActive(false);
     }
 
     private void Start()

@@ -1,16 +1,6 @@
 
 
-be able to bring up the settings menuin the game
-easy mode!
-start implementing the currency
-
-
-Current Issues
-- Can keep moving after entering the portal (thats cheating)
-- You Lose screen didnt appear when dying
-
 Next Steps
-- Easy Mode
 - "You Win" Screen
     - AFter beating level 4, a special screen appea
     - Special character that congratulates the player when winning ("You have mastered the basic 4 operations!")
@@ -19,23 +9,21 @@ Next Steps
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
 - Update all/most sound effects
     -Fine for now, just need player attack
-- Main Menu Settings
-- Ready button on Main Menu visuals need fixing
 - Red arrow on the floor/on players foot telling them which way theyre facing
 
-Magic Stone Currency
-- Rewarded with a stone IF they beat a level they already have the weapon unlocked for
-- With a stone, they can upgrade a weapon that they have unlocked
-- Click on the weaponUI, if you have a stone, a popup appears saying "Do you want to upgrade this?" 
-- Magic stone count somewhere in the corner
+
+- Click on the weaponUI, if you have a stone, a popup appears saying "Do you want to upgrade the {weapn name}?" 
+    - Requirement to upgrade level increases by 1 each time
+    - 
+
+Weapon slots need to be clickable.
+- 
 
 
 Order of Operations
 2. "You Win" screen
 3. New Itch build + page
-4. Easy Mode + Settings Screen (volume, whatever else)
 5. Sound Effects / Background music update
-6. Saving (see above)
 
 
 Audio
@@ -68,3 +56,13 @@ Audio
 
     - Player Win   
         https://pixabay.com/music/introoutro-playful-ukulele-summer-melody-341821/
+
+
+DONE
+Easy Mode
+Main Menu Settings
+button on Main Menu visuals need fixing
+DONE Magic Stone Currency
+- Rewarded with a stone IF they beat a level they already have the weapon unlocked for
+- With a stone, they can upgrade a weapon that they have unlocked
+- Magic stone count somewhere in the corner

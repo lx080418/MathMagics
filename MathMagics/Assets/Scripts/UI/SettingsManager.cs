@@ -28,7 +28,7 @@ public class SettingsManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-
+        settingsMenu.SetActive(false);
     }
 
     private void Update()

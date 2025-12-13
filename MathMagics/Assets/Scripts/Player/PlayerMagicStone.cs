@@ -29,10 +29,23 @@ public class PlayerMagicStone : MonoBehaviour
         onMagicStonesChanged?.Invoke(_magicStones);
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            GainMagicStone(1);
+        }   
+    }
 
     public void GainMagicStone(int amount)
     {
         _magicStones += amount;
+        onMagicStonesChanged?.Invoke(_magicStones);
+    }
+
+    public void LoseMagicStone(int amount)
+    {
+        _magicStones -= amount;
         onMagicStonesChanged?.Invoke(_magicStones);
     }
 
