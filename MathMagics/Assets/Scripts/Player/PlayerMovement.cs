@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 targetPosition;
     [Header("Audio")]
     [SerializeField] private AudioClip playerWalkSFX;
+
+    public event Action<Vector2> OnMovementInput;
 
     void OnEnable()
     {
@@ -35,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 proposedPosition = transform.position + new Vector3(direction.x, direction.y, 0f);
         Debug.Log($"{proposedPosition} with size {collisionBoxSize}");
+
+        OnMovementInput?.Invoke(direction);
+
         // Wall check using OverlapBox
         Collider2D hit = Physics2D.OverlapBox(new Vector3(proposedPosition.x + .5f, proposedPosition.y + .5f), collisionBoxSize, 0f, wallLayer);
         if (hit != null && (hit.CompareTag("Wall") || hit.CompareTag("Player") || hit.CompareTag("Enemy")))

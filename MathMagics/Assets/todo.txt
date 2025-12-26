@@ -12,9 +12,7 @@ Next Steps
 - Red arrow on the floor/on players foot telling them which way theyre facing
 
 
-- Click on the weaponUI, if you have a stone, a popup appears saying "Do you want to upgrade the {weapn name}?" 
-    - Requirement to upgrade level increases by 1 each time
-    - 
+
 
 Weapon slots need to be clickable.
 - 
@@ -66,3 +64,6 @@ DONE Magic Stone Currency
 - Rewarded with a stone IF they beat a level they already have the weapon unlocked for
 - With a stone, they can upgrade a weapon that they have unlocked
 - Magic stone count somewhere in the corner
+- Click on the weaponUI, if you have a stone, a popup appears saying "Do you want to upgrade the {weapn name}?" 
+    - Requirement to upgrade level increases by 1 each time
+    - 
