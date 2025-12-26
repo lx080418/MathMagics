@@ -134,7 +134,7 @@ public class WeaponHandler : MonoBehaviour
 
         //AudioManager.Instance.PlayOneShotVariedPitch(playerAttackSFX, 1f, AudioManager.Instance.sfxAMG, .03f);
         GameObject hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
-
+        hitbox.GetComponent<WeaponHitbox2D>().PlayAnimation(currentWeapon);
         Destroy(hitbox, hitboxLifetime);
         TurnManager.Instance.EndPlayerTurn();
     }

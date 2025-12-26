@@ -7749,6 +7749,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1663429420052575660, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: hitboxLifetime
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815302516207882721, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.004
+      objectReference: {fileID: 0}
     - target: {fileID: 4887476282293675373, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

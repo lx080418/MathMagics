@@ -7,9 +7,15 @@ Next Steps
         - In the very beginning of each level, talks to the player, introduces new weapon/operation
             - Player has dialogue options, for example
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
+
 - Update all/most sound effects
     -Fine for now, just need player attack
-- Red arrow on the floor/on players foot telling them which way theyre facing
+
+- Animation for player attack
+    - Depends on the weapon we're holding
+    - Addition animation done, need other theyre    
+    - Need SFX for all of them
+
 
 
 
@@ -67,3 +73,4 @@ DONE Magic Stone Currency
 - Click on the weaponUI, if you have a stone, a popup appears saying "Do you want to upgrade the {weapn name}?" 
     - Requirement to upgrade level increases by 1 each time
     - 
+- Red arrow on the floor/on players foot telling them which way theyre facing
