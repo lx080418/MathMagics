@@ -15,7 +15,10 @@ public class SettingsManager : MonoBehaviour
     public AudioMixerGroup sfxAMG;
     public string exposedMusicParamString = "MusicVolume";
     public string exposedSFXParamString = "SFXVolume";
+    [SerializeField] private AudioClip uiClickSFX;
     public bool easyMode = false;
+
+    
     private void Awake()
     {
         if(Instance == null)
@@ -52,6 +55,7 @@ public class SettingsManager : MonoBehaviour
     public void ToggleMenu()
     {
         settingsMenu.SetActive(!settingsMenu.activeSelf);
+        PlayUIClick();
     }
 
     public void OnEasyModeToggled()
@@ -64,5 +68,10 @@ public class SettingsManager : MonoBehaviour
         {
             easyMode = true;
         }
+    }
+
+    public void PlayUIClick()
+    {
+        AudioManager.Instance.PlayOneShot(uiClickSFX, 1f, AudioManager.Instance.uiAMG);
     }
 }
