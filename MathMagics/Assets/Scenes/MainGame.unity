@@ -7498,6 +7498,26 @@ PrefabInstance:
       propertyPath: hitboxLifetime
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 1663429420052575660, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: playerAttackSFX.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663429420052575660, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: playerAttackSFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9605af5b732ef36428830b533526dafa, type: 3}
+    - target: {fileID: 1663429420052575660, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: playerAttackSFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 55f97d56000ffeb459b909a41aac515e, type: 3}
+    - target: {fileID: 1663429420052575660, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: playerAttackSFX.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 98055514ec8c9d14d8d306246ab3be7a, type: 3}
+    - target: {fileID: 1663429420052575660, guid: f70718885782e0846800f2da234dade6, type: 3}
+      propertyPath: playerAttackSFX.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f6cf1956dca7ce4697a265d38b4d925, type: 3}
     - target: {fileID: 4815302516207882721, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.004

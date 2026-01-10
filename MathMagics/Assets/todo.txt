@@ -9,19 +9,14 @@ Next Steps
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
 
 - Update all/most sound effects
-    -Fine for now, just need player attack
-
-- Animation for player attack
-    - Depends on the weapon we're holding
-    - Addition animation done, need other theyre    
-    - Need SFX for all of them
-
+    -Fine for now, just need player attack sfx for each weapon
+    Subtraction - Sharp Slicing sound (shwinggg) HAVE
+    Addition - Woosh/zoom HAVE
+    Multiplication - Growing plant sounds (wjshwshw) HAVE
+    Division - Explosion
 
 
 
-
-Weapon slots need to be clickable.
-- 
 
 
 Order of Operations

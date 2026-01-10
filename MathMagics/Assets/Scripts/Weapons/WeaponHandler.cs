@@ -38,9 +38,10 @@ public class WeaponHandler : MonoBehaviour
     public event Action<int> weaponSelected;
     public event Action<Weapon> HandleWeaponLevelChanged;
     public event Action<int> weaponForceUnlocked;
+    private int currentWeaponIndex;
 
     [Header("Audio")]
-    [SerializeField] private AudioClip playerAttackSFX;
+    [SerializeField] private AudioClip[] playerAttackSFX;
 
 
 
@@ -121,6 +122,7 @@ public class WeaponHandler : MonoBehaviour
             currentWeapon = weapons[index];
             Debug.Log($"[WeaponHandler] Switched to: {currentWeapon.getName()}");
             weaponSelected?.Invoke(index);
+            currentWeaponIndex = index;
         }
     }
 
@@ -132,7 +134,8 @@ public class WeaponHandler : MonoBehaviour
         Vector3 spawnDirection = new Vector3(PlayerInput.lastDirection.x, PlayerInput.lastDirection.y, 0f);
         Vector3 spawnPosition = hitboxSpawnPoint.position + spawnDirection;
 
-        //AudioManager.Instance.PlayOneShotVariedPitch(playerAttackSFX, 1f, AudioManager.Instance.sfxAMG, .03f);
+        AudioManager.Instance.PlayOneShotVariedPitch(playerAttackSFX[currentWeaponIndex], 1f, AudioManager.Instance.sfxAMG, .03f);
+        
         GameObject hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
         hitbox.GetComponent<WeaponHitbox2D>().PlayAnimation(currentWeapon);
         Destroy(hitbox, hitboxLifetime);
