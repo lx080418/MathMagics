@@ -8,12 +8,6 @@ Next Steps
             - Player has dialogue options, for example
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
 
-- When attacking, show the equation as a "damage floater"
-
-bug where hit by attack twice
-
-
-
 
 Order of Operations
 1. "You Win" screen

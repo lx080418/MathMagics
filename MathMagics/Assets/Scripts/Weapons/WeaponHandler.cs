@@ -39,6 +39,8 @@ public class WeaponHandler : MonoBehaviour
     public event Action<Weapon> HandleWeaponLevelChanged;
     public event Action<int> weaponForceUnlocked;
     private int currentWeaponIndex;
+    private float timeSinceLastAttack;
+    [SerializeField]private float attackCooldownTime;
 
     [Header("Audio")]
     [SerializeField] private AudioClip[] playerAttackSFX;
@@ -94,6 +96,7 @@ public class WeaponHandler : MonoBehaviour
 
     public void Update()
     {
+        timeSinceLastAttack += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
@@ -128,6 +131,9 @@ public class WeaponHandler : MonoBehaviour
 
     private void PerformAttack()
     {
+        if(timeSinceLastAttack < attackCooldownTime) return;
+
+        timeSinceLastAttack = 0f;
         string damageExpr = currentWeapon.GetDamageExpression();
         Debug.Log($"[WeaponHandler] Attacking with: {damageExpr}");
 
