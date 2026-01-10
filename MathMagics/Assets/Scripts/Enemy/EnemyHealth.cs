@@ -12,6 +12,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Transform damageFloaterParent;
     private int level;
     private int numOfEnemy;
+
+    //Events
+    public event Action OnGotHit;
     private void Awake()
     {
         level = GameManager.instance.stageLevel;
@@ -107,6 +110,7 @@ public class EnemyHealth : MonoBehaviour
        
     }
 
+
     public void ApplyDamageExpression(string expression)
     {
         Debug.Log($"[EnemyHealth] ApplyDamageExpression called on {gameObject.name} with expression: {expression}");
@@ -121,7 +125,7 @@ public class EnemyHealth : MonoBehaviour
 
         DamageFloater df = Instantiate(damageFloater, damageFloaterParent);
         df.Initialize($"{leftHandSide} = {rightHandSide}");
-
+        OnGotHit?.Invoke();
         if (currentHealth.Numerator == 0)
         {
             Die();

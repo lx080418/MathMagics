@@ -9,6 +9,15 @@ Next Steps
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
 
 
+Over the course of the game, trck how many attacks they used throughout the whole thing.
+    (only actual enemy hits, not missed swings)
+    Shown on both the "You Died" and "You Win" screen
+
+Proper way to hook this up ^^
+    RoomPreset is what spawns the enemies right now, can use that as a middleman. Something like:
+        Enemy.OnWasHit += HitCounter.AddOne;
+        (started in RoomPreset) EnemyHealth and HitCounter are relevant;
+
 Order of Operations
 1. "You Win" screen
 2. New Itch build + page

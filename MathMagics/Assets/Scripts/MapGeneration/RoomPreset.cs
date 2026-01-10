@@ -10,6 +10,7 @@ public class RoomPreset : MonoBehaviour
     public List<Vector2> enemySpawnPositions = new();
     public GameObject enemyPrefab;
     public int maxNumEnemies = 2;
+    
 
 
     private void Start()
@@ -28,6 +29,10 @@ public class RoomPreset : MonoBehaviour
             Vector2 randomLocation = tempList[Random.Range(0, tempList.Count)];
 
             GameObject enemy = Instantiate(enemyPrefab, transform);
+            EnemyHealth eh = enemy.GetComponent<EnemyHealth>();
+
+            eh.OnGotHit += HitCounter.Instance.AddOne; //STARTED TRACKING ENEMY HITS
+
             enemies.Add(enemy);
             GameManager.instance.numOfEnemy++;
             enemy.transform.localPosition = randomLocation;
