@@ -8,22 +8,40 @@ Next Steps
             - Player has dialogue options, for example
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
 
+- When attacking, show the equation as a "damage floater"
+
+bug where hit by attack twice
+
+
+
+
+Order of Operations
+1. "You Win" screen
+2. New Itch build + page
+
+
+
+
+
+DONEgun
+Easy Mode
+Main Menu Settings
+button on Main Menu visuals need fixing
+DONE Magic Stone Currency
+- Rewarded with a stone IF they beat a level they already have the weapon unlocked for
+- With a stone, they can upgrade a weapon that they have unlocked
+- Magic stone count somewhere in the corner
+- Click on the weaponUI, if you have a stone, a popup appears saying "Do you want to upgrade the {weapn name}?" 
+    - Requirement to upgrade level increases by 1 each time
+    - 
+- Red arrow on the floor/on players foot telling them which way theyre facing
+
 - Update all/most sound effects
     -Fine for now, just need player attack sfx for each weapon
     Subtraction - Sharp Slicing sound (shwinggg) HAVE
     Addition - Woosh/zoom HAVE
     Multiplication - Growing plant sounds (wjshwshw) HAVE
     Division - Explosion
-
-
-
-
-
-Order of Operations
-2. "You Win" screen
-3. New Itch build + page
-5. Sound Effects / Background music update
-
 
 Audio
 1. Background music
@@ -55,17 +73,3 @@ Audio
 
     - Player Win   
         https://pixabay.com/music/introoutro-playful-ukulele-summer-melody-341821/
-
-
-DONE
-Easy Mode
-Main Menu Settings
-button on Main Menu visuals need fixing
-DONE Magic Stone Currency
-- Rewarded with a stone IF they beat a level they already have the weapon unlocked for
-- With a stone, they can upgrade a weapon that they have unlocked
-- Magic stone count somewhere in the corner
-- Click on the weaponUI, if you have a stone, a popup appears saying "Do you want to upgrade the {weapn name}?" 
-    - Requirement to upgrade level increases by 1 each time
-    - 
-- Red arrow on the floor/on players foot telling them which way theyre facing

@@ -7,7 +7,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private string startingHealth = "3";
     private Fraction currentHealth;
     public event Action OnEnemyDied;
-
+    [Header("Damage Floater")]
+    [SerializeField] private DamageFloater damageFloater;
+    [SerializeField] private Transform damageFloaterParent;
     private int level;
     private int numOfEnemy;
     private void Awake()
@@ -110,9 +112,15 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log($"[EnemyHealth] ApplyDamageExpression called on {gameObject.name} with expression: {expression}");
         ExpressionTree tree = new ExpressionTree();
         tree.BuildFromInfix(currentHealth.ToString() + expression);
+        string leftHandSide = currentHealth.ToString() + expression;
+        
         currentHealth = tree.Evaluate();
-
+        string rightHandSide = currentHealth.ToString();
         Debug.Log($"[EnemyHealth] New HP: {currentHealth}");
+        Debug.Log($"{leftHandSide} = {rightHandSide}");
+
+        DamageFloater df = Instantiate(damageFloater, damageFloaterParent);
+        df.Initialize($"{leftHandSide} = {rightHandSide}");
 
         if (currentHealth.Numerator == 0)
         {
