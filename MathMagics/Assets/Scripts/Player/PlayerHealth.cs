@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     // Events
     public delegate void HealthChanged(Fraction newHealth);
     public event HealthChanged OnHealthChanged;
+    public event Action OnPlayerDeath;
 
     private void Awake()
     {
@@ -63,9 +64,7 @@ public class PlayerHealth : MonoBehaviour
     private void HandleDeath()
     {
         Debug.Log("[PlayerHealth] Player has died!");
-        if (loseScreen != null)
-            loseScreen.SetActive(true);
-        
+        OnPlayerDeath?.Invoke();
         Destroy(playerParentObject);
     }
 

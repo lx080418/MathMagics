@@ -7,7 +7,7 @@ public class HitCounter : MonoBehaviour
     public static HitCounter Instance;
 
     
-    private int numHits;
+    [SerializeField] private int numHits;
 
     private void Awake()
     {
@@ -24,5 +24,10 @@ public class HitCounter : MonoBehaviour
     public void AddOne()
     {
         numHits++;
+    }
+
+    public int GetNumHits()
+    {
+        return numHits;
     }
 }

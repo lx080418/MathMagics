@@ -1,11 +1,14 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class WeaponHitbox2D : MonoBehaviour
 {
 
     [SerializeField] private Animator _anim;
+    [SerializeField] private Collider2D _col;
 
 
     public void PlayAnimation(Weapon w)
@@ -42,7 +45,21 @@ public class WeaponHitbox2D : MonoBehaviour
         }
     }
 
+    public void DoAttack(Weapon w, float lifetime)
+    {
+        PlayAnimation(w);
+        StartCoroutine(CollisionDisable(lifetime));
+    }
 
+
+    private IEnumerator CollisionDisable(float lifetime)
+    {
+        _col.enabled = true;
+        yield return new WaitForSeconds(lifetime);
+        _col.enabled = false;
+        yield return new WaitForSeconds(.7f);
+        Destroy(gameObject);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

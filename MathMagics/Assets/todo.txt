@@ -9,14 +9,9 @@ Next Steps
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
 
 
-Over the course of the game, trck how many attacks they used throughout the whole thing.
-    (only actual enemy hits, not missed swings)
-    Shown on both the "You Died" and "You Win" screen
 
-Proper way to hook this up ^^
-    RoomPreset is what spawns the enemies right now, can use that as a middleman. Something like:
-        Enemy.OnWasHit += HitCounter.AddOne;
-        (started in RoomPreset) EnemyHealth and HitCounter are relevant;
+
+
 
 Order of Operations
 1. "You Win" screen
@@ -45,6 +40,17 @@ DONE Magic Stone Currency
     Addition - Woosh/zoom HAVE
     Multiplication - Growing plant sounds (wjshwshw) HAVE
     Division - Explosion
+
+
+
+Over the course of the game, trck how many attacks they used throughout the whole thing.
+    (only actual enemy hits, not missed swings)
+    Shown on both the "You Died" and "You Win" screen
+
+Proper way to hook this up ^^
+    RoomPreset is what spawns the enemies right now, can use that as a middleman. Something like:
+        Enemy.OnWasHit += HitCounter.AddOne;
+        (started in RoomPreset) EnemyHealth and HitCounter are relevant;
 
 Audio
 1. Background music

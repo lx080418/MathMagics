@@ -24,7 +24,7 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject weaponHitboxPrefab;
+    [SerializeField] private WeaponHitbox2D weaponHitboxPrefab;
     [SerializeField] private Transform hitboxSpawnPoint;
     [SerializeField] private float hitboxLifetime = 0.2f;
 
@@ -41,6 +41,7 @@ public class WeaponHandler : MonoBehaviour
     private int currentWeaponIndex;
     private float timeSinceLastAttack;
     [SerializeField]private float attackCooldownTime;
+    [SerializeField] private List<WeaponLevelUI> weaponLevelUIs;
 
     [Header("Audio")]
     [SerializeField] private AudioClip[] playerAttackSFX;
@@ -82,10 +83,18 @@ public class WeaponHandler : MonoBehaviour
             w.OnWeaponLevelChanged += HandleWeaponLevelChangedWrapper;
         }
 
+
+        foreach(WeaponLevelUI wlui in weaponLevelUIs)
+        {
+            wlui.OnWeaponSlotClicked += HandleWeaponSlotClicked;
+        }
         
         StartCoroutine(DelayWeaponUnlock());
 
     }
+
+    
+
 
     private void HandleWeaponLevelChangedWrapper(Weapon w)
     {
@@ -142,9 +151,8 @@ public class WeaponHandler : MonoBehaviour
 
         AudioManager.Instance.PlayOneShotVariedPitch(playerAttackSFX[currentWeaponIndex], 1f, AudioManager.Instance.sfxAMG, .03f);
         
-        GameObject hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
-        hitbox.GetComponent<WeaponHitbox2D>().PlayAnimation(currentWeapon);
-        Destroy(hitbox, hitboxLifetime);
+        WeaponHitbox2D hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
+        hitbox.DoAttack(currentWeapon, .1f);
         TurnManager.Instance.EndPlayerTurn();
     }
 
@@ -202,6 +210,11 @@ public class WeaponHandler : MonoBehaviour
         {
             Debug.Log("Key: level not found");
         }
+    }
+
+    private void HandleWeaponSlotClicked(int index)
+    {
+        SwitchWeapon(index);
     }
 
 }
