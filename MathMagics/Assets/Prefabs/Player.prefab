@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45172264cf4c2d94397b612b3fc6d4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 10
   loseScreen: {fileID: 0}
   playerParentObject: {fileID: 9069846600061701338}
   playerHurtSFX: {fileID: 8300000, guid: 93f0e75a7ca3078479afed49ec0f1df1, type: 3}
@@ -573,10 +573,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b2e56a08c735941894b293af6362c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHitboxPrefab: {fileID: 3258990012020736522, guid: cdfb122cbe682274b90aa9a1d840a2fe, type: 3}
+  weaponHitboxPrefab: {fileID: 758307633128241345, guid: cdfb122cbe682274b90aa9a1d840a2fe, type: 3}
   hitboxSpawnPoint: {fileID: 4815302516207882721}
   hitboxLifetime: 0.2
-  playerAttackSFX: {fileID: 8300000, guid: 145d712b632090c4496a4fb766f2d245, type: 3}
+  attackCooldownTime: 0
+  weaponLevelUIs: []
+  playerAttackSFX:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &103964496412927464
 MonoBehaviour:
   m_ObjectHideFlags: 0

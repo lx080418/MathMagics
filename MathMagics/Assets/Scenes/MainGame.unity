@@ -7752,7 +7752,7 @@ PrefabInstance:
       objectReference: {fileID: 1045722549}
     - target: {fileID: 8842655569662571958, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: startingHealth
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9069846600061701338, guid: f70718885782e0846800f2da234dade6, type: 3}
       propertyPath: m_Name
