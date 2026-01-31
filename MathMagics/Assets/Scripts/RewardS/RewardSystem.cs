@@ -20,6 +20,9 @@ public class RewardSystem : MonoBehaviour
     public event Action OnPotionHitRewardSelected;
     public event Action OnPotionHitConfirmed;
 
+
+    private PlayerPotion playerPotion;
+
     private Dictionary<int, Dictionary<string, float>> weaponDropChances = new Dictionary<int, Dictionary<string, float>>()
     {
         { 1, new Dictionary<string, float>
@@ -66,6 +69,7 @@ public class RewardSystem : MonoBehaviour
     void Start()
     {
         rewardUI.SetActive(false);
+        playerPotion = FindObjectOfType<PlayerPotion>();
         
     }
 
@@ -186,22 +190,12 @@ public class RewardSystem : MonoBehaviour
             //If this is the Epic Health reward, do the whole combat potion thing
             if(chosen.rarity == Rarity.Special)
             {
-                //Do the potion combat thing
-
-                //Make a new hittable potion class.
-                //Lerp the UI potion to wherever the player is facing
-
-                //After the lerp, listen to the player's next attack.
-                //AFter the attack happens, stop listening to that event
-
-                //UI teleports back to the original spot.
 
                 OnPotionHitRewardSelected?.Invoke();
                 WeaponHandler.Instance.OnAttackPerformed += HandleAttackPerformed;
             }
             else
             {
-                PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
                 if (playerPotion != null)
                 {
                     if (playerPotion.HasPotion())
@@ -299,8 +293,19 @@ private void GenerateBossRewardPool()
     for (int i = 0; i < 3; i++)
     {
         Rarity rarity = Rarity.Epic; // Always epic
-
-        if (UnityEngine.Random.value < 0.2f) // 20% chance to offer health reward
+        if(i == 1  && playerPotion != null && playerPotion.HasPotion())
+        {
+            rarity = Rarity.Special;
+            rewardPool.Add(new RewardOption(
+                "Potion",
+                $"Attack your potion",
+                rarity,
+                0,
+                RewardType.Health
+            ));
+            
+        }
+        else if (UnityEngine.Random.value < 0.2f) // 20% chance to offer health reward
         {
             int healthAmount = 15; // Epic value
 
