@@ -105,13 +105,26 @@ public class RewardSystem : MonoBehaviour
                 PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
                 if (playerPotion != null && playerPotion.HasPotion())
                 {
-                    rewardPool.Add(new RewardOption(
-                        "Potion",
-                        $"Upgrade Potion by {healthAmount}",
-                        rarity,
-                        healthAmount,
-                        RewardType.Health
-                    ));  
+                    if(rarity != Rarity.Special)
+                    {
+                        rewardPool.Add(new RewardOption(
+                            "Potion",
+                            $"Upgrade Potion by {healthAmount}",
+                            rarity,
+                            healthAmount,
+                            RewardType.Health
+                        ));  
+                    }
+                    else
+                    {
+                        rewardPool.Add(new RewardOption(
+                            "Potion",
+                            $"Attack your health potion!",
+                            rarity,
+                            healthAmount,
+                            RewardType.Health
+                        ));  
+                    }
                 }
                 else
                 {
@@ -128,6 +141,10 @@ public class RewardSystem : MonoBehaviour
             {
                 string chosenWeapon = GetRandomWeaponByDropChance();
                 Rarity rarity = GetRandomRarity();
+                while(rarity == Rarity.Special)
+                {
+                    rarity = GetRandomRarity();
+                }
                 int level = rarity switch
                 {
                     Rarity.Common => 1,
@@ -145,9 +162,10 @@ public class RewardSystem : MonoBehaviour
     private Rarity GetRandomRarity()
     {
         float roll = UnityEngine.Random.value;
-        if (roll < 0.6f) return Rarity.Common;
-        if (roll < 0.75) return Rarity.Rare;
-        return Rarity.Epic;
+        if (roll < 0.4f) return Rarity.Common;
+        if (roll < 0.7) return Rarity.Rare;
+        if (roll < 0.9f) return Rarity.Epic;
+        return Rarity.Special;
     }
 
     public void SelectReward(int index)
@@ -166,7 +184,7 @@ public class RewardSystem : MonoBehaviour
         else if (chosen.rewardType == RewardType.Health)
         {
             //If this is the Epic Health reward, do the whole combat potion thing
-            if(chosen.rarity == Rarity.Epic)
+            if(chosen.rarity == Rarity.Special)
             {
                 //Do the potion combat thing
 

@@ -16,7 +16,7 @@ public class RewardCard : MonoBehaviour
     public void Initialize(RewardOption option)
     {
         descriptionText.text = option.description;
-
+        descriptionText.color = Color.black;
         switch (option.rarity)
         {
             case Rarity.Common:
@@ -28,6 +28,10 @@ public class RewardCard : MonoBehaviour
             case Rarity.Epic:
                 background.color = rarityColors[2];
                 break;
+            case Rarity.Special:
+                background.color = rarityColors[3];
+                descriptionText.color = Color.white;
+                break; 
         }
 
         switch (option.weaponName)

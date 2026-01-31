@@ -1,4 +1,4 @@
-public enum Rarity { Common, Rare, Epic }
+public enum Rarity { Common, Rare, Epic, Special }
 public enum RewardType{Weapon,Health}
 
 

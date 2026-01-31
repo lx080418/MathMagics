@@ -421,7 +421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &36331299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4862,9 +4862,9 @@ RectTransform:
   - {fileID: 1982635147}
   m_Father: {fileID: 36331299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80.283325, y: -77}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50.50985, y: 79.67131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1105437343
@@ -4986,6 +4986,7 @@ MonoBehaviour:
   - {r: 0.87169814, g: 0.87169814, b: 0.87169814, a: 1}
   - {r: 0.32941177, g: 0.8, b: 0.85882354, a: 1}
   - {r: 0.91764706, g: 0.87058824, b: 0.25490198, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &1130911844
 GameObject:
   m_ObjectHideFlags: 0
@@ -5022,9 +5023,9 @@ RectTransform:
   - {fileID: 1403131955}
   m_Father: {fileID: 36331299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -77}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50.50985, y: 79.67131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1130911846
@@ -5052,6 +5053,7 @@ MonoBehaviour:
   - {r: 0.87169814, g: 0.87169814, b: 0.87169814, a: 1}
   - {r: 0.32941177, g: 0.8, b: 0.85882354, a: 1}
   - {r: 0.91764706, g: 0.87058824, b: 0.25490198, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1130911847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5257,9 +5259,9 @@ RectTransform:
   - {fileID: 52538985}
   m_Father: {fileID: 36331299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 239.71663, y: -77}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50.50985, y: 79.67131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1154700432
@@ -5287,6 +5289,7 @@ MonoBehaviour:
   - {r: 0.87169814, g: 0.87169814, b: 0.87169814, a: 1}
   - {r: 0.32941177, g: 0.8, b: 0.85882354, a: 1}
   - {r: 0.91764706, g: 0.87058824, b: 0.25490198, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1154700433
 MonoBehaviour:
   m_ObjectHideFlags: 0
