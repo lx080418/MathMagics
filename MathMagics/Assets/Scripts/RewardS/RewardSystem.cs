@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,17 @@ using UnityEngine;
 
 public class RewardSystem : MonoBehaviour
 {
+    public static RewardSystem Instance;
+
     public GameObject rewardUI;
     public RewardCard[] rewardCards;
     private List<RewardOption> rewardPool = new();
     [Header("Audio")]
     [SerializeField] private AudioClip rewardSFX;
+
+    // -------- Events -------
+    public event Action OnPotionHitRewardSelected;
+    public event Action OnPotionHitConfirmed;
 
     private Dictionary<int, Dictionary<string, float>> weaponDropChances = new Dictionary<int, Dictionary<string, float>>()
     {
@@ -51,9 +58,15 @@ public class RewardSystem : MonoBehaviour
 
     };
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         rewardUI.SetActive(false);
+        
     }
 
     public void ShowRewardOptions()
@@ -78,14 +91,14 @@ public class RewardSystem : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            if (Random.value < 0.2f) // 25% chance to include a health reward
+            if (UnityEngine.Random.value < 0.2f) // 25% chance to include a health reward
             {
                 Rarity rarity = GetRandomRarity();
                 int healthAmount = rarity switch
                 {
                     Rarity.Common => 5,
                     Rarity.Rare => 10,
-                    Rarity.Epic => 15,
+                    Rarity.Epic => 20, //This will do nothing now actually
                     _ => 5
                 };
 
@@ -94,17 +107,17 @@ public class RewardSystem : MonoBehaviour
                 {
                     rewardPool.Add(new RewardOption(
                         "Potion",
-                        $"Upgrade Potion (+{healthAmount} HP)",
+                        $"Upgrade Potion by {healthAmount}",
                         rarity,
                         healthAmount,
                         RewardType.Health
-                    ));
+                    ));  
                 }
                 else
                 {
                     rewardPool.Add(new RewardOption(
                         "Potion",
-                        $"Gain Potion",
+                        $"Gain Potion healing {healthAmount} HP",
                         rarity,
                         healthAmount,
                         RewardType.Health
@@ -131,7 +144,7 @@ public class RewardSystem : MonoBehaviour
 
     private Rarity GetRandomRarity()
     {
-        float roll = Random.value;
+        float roll = UnityEngine.Random.value;
         if (roll < 0.6f) return Rarity.Common;
         if (roll < 0.75) return Rarity.Rare;
         return Rarity.Epic;
@@ -152,22 +165,48 @@ public class RewardSystem : MonoBehaviour
         }
         else if (chosen.rewardType == RewardType.Health)
         {
-            PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
-            if (playerPotion != null)
+            //If this is the Epic Health reward, do the whole combat potion thing
+            if(chosen.rarity == Rarity.Epic)
             {
-                if (playerPotion.HasPotion())
+                //Do the potion combat thing
+
+                //Make a new hittable potion class.
+                //Lerp the UI potion to wherever the player is facing
+
+                //After the lerp, listen to the player's next attack.
+                //AFter the attack happens, stop listening to that event
+
+                //UI teleports back to the original spot.
+
+                OnPotionHitRewardSelected?.Invoke();
+                WeaponHandler.Instance.OnAttackPerformed += HandleAttackPerformed;
+            }
+            else
+            {
+                PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
+                if (playerPotion != null)
                 {
-                    playerPotion.ModifyPotionAmount("+" + chosen.levelIncrease.ToString());
-                }
-                else
-                {
-                    playerPotion.SetPotion(chosen.levelIncrease.ToString());
+                    if (playerPotion.HasPotion())
+                    {
+                        playerPotion.ModifyPotionAmount("+" + chosen.levelIncrease.ToString());
+                    }
+                    else
+                    {
+                        playerPotion.SetPotion(chosen.levelIncrease.ToString());
+                    }
                 }
             }
         }
 
         rewardUI.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    private void HandleAttackPerformed()
+    {
+        WeaponHandler.Instance.OnAttackPerformed -= HandleAttackPerformed;
+        PlayerPotion.Instance.ModifyPotionAmount(WeaponHandler.Instance.GetCurrentWeapon().GetDamageExpression());
+        OnPotionHitConfirmed?.Invoke();
     }
 
 
@@ -184,7 +223,7 @@ public class RewardSystem : MonoBehaviour
         var dropTable = weaponDropChances[stage];
 
         float total = dropTable.Values.Sum();
-        float roll = Random.value * total;
+        float roll = UnityEngine.Random.value * total;
         float cumulative = 0f;
 
         foreach (var pair in dropTable)
@@ -243,7 +282,7 @@ private void GenerateBossRewardPool()
     {
         Rarity rarity = Rarity.Epic; // Always epic
 
-        if (Random.value < 0.2f) // 20% chance to offer health reward
+        if (UnityEngine.Random.value < 0.2f) // 20% chance to offer health reward
         {
             int healthAmount = 15; // Epic value
 

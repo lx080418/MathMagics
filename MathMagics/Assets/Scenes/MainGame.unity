@@ -563,6 +563,8 @@ MonoBehaviour:
   playerPotion: {fileID: 1062824858}
   potionAmountText: {fileID: 528921526}
   potionImage: {fileID: 905803718}
+  moveTime: 1
+  potionParent: {fileID: 46838116}
 --- !u!114 &46838119
 MonoBehaviour:
   m_ObjectHideFlags: 0

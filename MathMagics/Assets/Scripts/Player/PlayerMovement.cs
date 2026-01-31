@@ -18,14 +18,24 @@ public class PlayerMovement : MonoBehaviour
     void OnEnable()
     {
         PlayerInput.OnMoveInput += TryMove;
-        GameManager.beatLevel += ResetPlayerPosition;
+        GameManager.beatLevel += ResetPlayerPosition;        
+    }
+
+    private void Start()
+    {
+        RewardSystem.Instance.OnPotionHitRewardSelected += HandlePotionRewardChosen;
+        RewardSystem.Instance.OnPotionHitConfirmed += HandlePotionRewardComplete;       
     }
 
     void OnDisable()
     {
         PlayerInput.OnMoveInput -= TryMove;
         GameManager.beatLevel -= ResetPlayerPosition;
+        RewardSystem.Instance.OnPotionHitRewardSelected -= HandlePotionRewardChosen;
+        RewardSystem.Instance.OnPotionHitConfirmed -= HandlePotionRewardComplete;
     }
+
+   
 
 
 
@@ -119,5 +129,15 @@ public class PlayerMovement : MonoBehaviour
     {
         StopAllCoroutines();
         transform.position = Vector3.zero;
+    }
+
+    private void HandlePotionRewardChosen()
+    {
+        PlayerInput.LockMovement();
+    }
+
+    private void HandlePotionRewardComplete()
+    {
+        PlayerInput.UnlockMovement();
     }
 }

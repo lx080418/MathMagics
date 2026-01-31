@@ -1,8 +1,10 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerPotion : MonoBehaviour
 {
+    public static PlayerPotion Instance;
     [SerializeField] private PlayerHealth playerHealth;
     private Fraction potionHealth = new Fraction(0);
     private bool hasPotion = false;
@@ -10,6 +12,11 @@ public class PlayerPotion : MonoBehaviour
     public AudioClip potionDrinkSFX;
     public delegate void PotionChanged(Fraction potionAmount, bool hasPotion);
     public event PotionChanged OnPotionChanged;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -32,7 +39,7 @@ public class PlayerPotion : MonoBehaviour
         tree.BuildFromInfix(potionHealth.ToString() + expression);
         potionHealth = tree.Evaluate();
 
-        hasPotion = potionHealth.Numerator > 0;
+        hasPotion = potionHealth.Numerator != 0;
         OnPotionChanged?.Invoke(potionHealth, hasPotion);
     }
 
@@ -51,6 +58,7 @@ public class PlayerPotion : MonoBehaviour
         playerHealth.UpdatePlayerHP("+" + potionHealth.ToString());
         potionHealth = new Fraction(0);
         hasPotion = false;
+        
         OnPotionChanged?.Invoke(potionHealth, false);
     }
 

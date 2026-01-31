@@ -11,6 +11,8 @@ public class PlayerInput : MonoBehaviour
     // Events for movement and attack
     public static event System.Action<Vector2> OnMoveInput;
     public static event System.Action OnAttackInput;
+    public static bool canMove = true;
+
 
     void Update()
     {
@@ -23,6 +25,7 @@ public class PlayerInput : MonoBehaviour
 
     private void TriggerMove(Vector2 direction)
     {
+        if(!canMove) return;
         Debug.Log($"Move input received: {direction}");
         lastDirection = direction;
         OnMoveInput?.Invoke(direction);
@@ -32,6 +35,18 @@ public class PlayerInput : MonoBehaviour
     {
         OnAttackInput?.Invoke();
     }
+
+    public static void LockMovement()
+    {
+        canMove = false;
+    }
+
+
+    public static void UnlockMovement()
+    {
+        canMove = true;
+    }
+    
 
     
 }

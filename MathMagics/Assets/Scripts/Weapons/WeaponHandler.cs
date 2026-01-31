@@ -38,6 +38,7 @@ public class WeaponHandler : MonoBehaviour
     public event Action<int> weaponSelected;
     public event Action<Weapon> HandleWeaponLevelChanged;
     public event Action<int> weaponForceUnlocked;
+    public event Action OnAttackPerformed;
     private int currentWeaponIndex;
     private float timeSinceLastAttack;
     [SerializeField]private float attackCooldownTime;
@@ -150,7 +151,7 @@ public class WeaponHandler : MonoBehaviour
         Vector3 spawnPosition = hitboxSpawnPoint.position + spawnDirection;
 
         AudioManager.Instance.PlayOneShotVariedPitch(playerAttackSFX[currentWeaponIndex], 1f, AudioManager.Instance.sfxAMG, .03f);
-        
+        OnAttackPerformed?.Invoke();
         WeaponHitbox2D hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
         hitbox.DoAttack(currentWeapon, .1f);
         TurnManager.Instance.EndPlayerTurn();

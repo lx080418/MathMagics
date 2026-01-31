@@ -1,3 +1,6 @@
+BUG
+-when going through the portal for the first time, if you keep moving, when you enter the next level your movement will be locked
+
 
 
 Next Steps
@@ -10,8 +13,12 @@ Next Steps
 
 
 
+Potion UI movement
+- mostly done, just need to fix the event hookup and test with the actual potion reward. Most work is in @weaponHandler, @PlayerPotion, @PotionUI, and @PlayerMovement
 
 
+lock player's movement
+potion disappears after hitting it
 
 Order of Operations
 1. "You Win" screen
