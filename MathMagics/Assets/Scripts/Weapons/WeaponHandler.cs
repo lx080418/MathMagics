@@ -51,7 +51,7 @@ public class WeaponHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInput.OnAttackInput += PerformAttack;
+        PlayerInput.OnAttackInput += PerformAttack; //Change this to HandleSpacePressed or something
         GameManager.beatLevel += HandleBeatLevel;
     }
 
@@ -93,9 +93,6 @@ public class WeaponHandler : MonoBehaviour
         StartCoroutine(DelayWeaponUnlock());
 
     }
-
-    
-
 
     private void HandleWeaponLevelChangedWrapper(Weapon w)
     {
@@ -141,6 +138,10 @@ public class WeaponHandler : MonoBehaviour
 
     private void PerformAttack()
     {
+
+        //For next class, this should be routed into a function called HandleSpacePressed
+
+
         if(timeSinceLastAttack < attackCooldownTime) return;
 
         timeSinceLastAttack = 0f;

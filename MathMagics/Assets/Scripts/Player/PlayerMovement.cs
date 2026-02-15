@@ -128,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
     private void ResetPlayerPosition(int level)
     {
         StopAllCoroutines();
+        isMoving = false;
         transform.position = Vector3.zero;
     }
 

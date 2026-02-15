@@ -12,13 +12,22 @@ Next Steps
                 - "Do you think Math is fun?" Y/N -> Leads to different dialogue
 
 
+Weapon Hitbox area increasing
+    Keep some sort of 3x3 grid stored, 0 = not unlocked, 1 = unlocked (this can be in WeaponHandler)
+    When attacking, foreach position in that array that's a 1, spawn a Hitbox
+    THe hard part will be the movement around choosing an array
 
-Potion UI movement
-- mostly done, just need to fix the event hookup and test with the actual potion reward. Most work is in @weaponHandler, @PlayerPotion, @PotionUI, and @PlayerMovement
+When they choose that reward
+    Lock player movement
+    Face them to the right
+    Listen to arrow key presses to move around our 'example' Hitbox (this can come from a new script that handles this logic, or maybe even in WeaponHandler?) Notes written into weaponhandler
+    Each time they input, we need to check: (Some of this logic can go into a HitboxUpgradePreview object or something like that)
+        Is the new proposed location in our 3x3 grid adjacent to a 1?
+        If so, we can move the preview theyre
+        If not, ignore the input
+    Hit space to confirm their selection
 
 
-lock player's movement
-potion disappears after hitting it
 
 Order of Operations
 1. "You Win" screen
@@ -32,6 +41,7 @@ DONEgun
 Easy Mode
 Main Menu Settings
 button on Main Menu visuals need fixing
+Potion UI movement
 DONE Magic Stone Currency
 - Rewarded with a stone IF they beat a level they already have the weapon unlocked for
 - With a stone, they can upgrade a weapon that they have unlocked
