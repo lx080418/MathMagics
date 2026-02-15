@@ -10,11 +10,21 @@ public class RewardSystem : MonoBehaviour
 {
     public static RewardSystem Instance;
 
+    [Header("UI")]
     public GameObject rewardUI;
     public RewardCard[] rewardCards;
-    private List<RewardOption> rewardPool = new();
+    public GameObject rewardOutline;
+    
+
     [Header("Audio")]
     [SerializeField] private AudioClip rewardSFX;
+
+
+
+    //* -------- Internal -------- */
+    private int hoveredReward = 0;
+    private List<RewardOption> rewardPool = new();
+    private bool isShowingRewards = false;
 
     // -------- Events -------
     public event Action OnPotionHitRewardSelected;
@@ -22,6 +32,7 @@ public class RewardSystem : MonoBehaviour
 
 
     private PlayerPotion playerPotion;
+
 
     private Dictionary<int, Dictionary<string, float>> weaponDropChances = new Dictionary<int, Dictionary<string, float>>()
     {
@@ -64,20 +75,56 @@ public class RewardSystem : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
     }
 
     void Start()
     {
         rewardUI.SetActive(false);
-        playerPotion = FindObjectOfType<PlayerPotion>();
         
+        rewardOutline.SetActive(false);
+        playerPotion = FindObjectOfType<PlayerPotion>();
+        PlayerInput.OnMoveInput += HandlePlayerMoveInput;
+        PlayerInput.OnSpaceInput += HandlePlayerSpaceInput;
     }
+
+    private void OnDestroy()
+    {
+        PlayerInput.OnMoveInput -= HandlePlayerMoveInput;
+        PlayerInput.OnSpaceInput -= HandlePlayerSpaceInput;
+    }
+
+
+
+    private void HandlePlayerMoveInput(Vector2 vector)
+    {
+        if(!isShowingRewards) return;
+        hoveredReward += (int)vector.x;
+        hoveredReward = Mathf.Clamp(hoveredReward,0,2);
+        HighlightRewardCard(hoveredReward);
+    }
+
+    private void HandlePlayerSpaceInput()
+    {
+        if(!isShowingRewards) return;
+        SelectReward(hoveredReward);
+    }
+
+    private void HighlightRewardCard(int index)
+    {
+        rewardOutline.transform.position = rewardCards[index].transform.position;
+    }
+
 
     public void ShowRewardOptions()
     {
         Time.timeScale = 0f;
+        PlayerInput.LockMovement();
+        isShowingRewards = true;
         rewardUI.SetActive(true);
-
+        
+        
+        hoveredReward = 0;
         GenerateRewardPool();
 
         for (int i = 0; i < rewardCards.Length; i++)
@@ -85,6 +132,14 @@ public class RewardSystem : MonoBehaviour
             RewardOption option = rewardPool[i];
             rewardCards[i].Initialize(option);
         }
+        rewardOutline.SetActive(true);
+        StartCoroutine(DelayHighlightOneFrame());
+    }
+
+    private IEnumerator DelayHighlightOneFrame()
+    {
+        yield return null;
+        HighlightRewardCard(0);
     }
 
     private void GenerateRewardPool()
@@ -209,8 +264,10 @@ public class RewardSystem : MonoBehaviour
                 }
             }
         }
-
+        rewardOutline.SetActive(false);
         rewardUI.SetActive(false);
+        isShowingRewards = false;
+         PlayerInput.UnlockMovement();
         Time.timeScale = 1f;
     }
 
@@ -274,7 +331,7 @@ public void ShowBossRewardOptions()
 {
     Time.timeScale = 0f;
     rewardUI.SetActive(true);
-
+    rewardOutline.SetActive(true);
     GenerateBossRewardPool();
 
     for (int i = 0; i < rewardCards.Length; i++)
@@ -282,6 +339,7 @@ public void ShowBossRewardOptions()
         RewardOption option = rewardPool[i];
         rewardCards[i].Initialize(option);
     }
+    HighlightRewardCard(0);
 }
 
 private void GenerateBossRewardPool()

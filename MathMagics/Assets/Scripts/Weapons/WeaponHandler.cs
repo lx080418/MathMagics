@@ -51,13 +51,13 @@ public class WeaponHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInput.OnAttackInput += PerformAttack; //Change this to HandleSpacePressed or something
+        PlayerInput.OnSpaceInput += HandleSpacePressed; //Change this to HandleSpacePressed or something
         GameManager.beatLevel += HandleBeatLevel;
     }
 
     private void OnDisable()
     {
-        PlayerInput.OnAttackInput -= PerformAttack;
+        PlayerInput.OnSpaceInput -= HandleSpacePressed;
         GameManager.beatLevel -= HandleBeatLevel;
     }
 
@@ -134,6 +134,14 @@ public class WeaponHandler : MonoBehaviour
             weaponSelected?.Invoke(index);
             currentWeaponIndex = index;
         }
+    }
+
+    private void HandleSpacePressed()
+    {
+        //Whether we should attack
+        PerformAttack();
+
+        //Or do the selection of a new hitbox
     }
 
     private void PerformAttack()

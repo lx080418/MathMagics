@@ -10,7 +10,7 @@ public class PlayerInput : MonoBehaviour
 
     // Events for movement and attack
     public static event System.Action<Vector2> OnMoveInput;
-    public static event System.Action OnAttackInput;
+    public static event System.Action OnSpaceInput;
     public static bool canMove = true;
 
 
@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.DownArrow)) TriggerMove(Vector2.down);
         else if (Input.GetKeyDown(KeyCode.LeftArrow)) TriggerMove(Vector2.left);
         else if (Input.GetKeyDown(KeyCode.RightArrow)) TriggerMove(Vector2.right);
-        else if (Input.GetKeyDown(KeyCode.Space)) TriggerAttack();
+        else if (Input.GetKeyDown(KeyCode.Space)) TriggerSpacePressed();
     }
 
     private void TriggerMove(Vector2 direction)
@@ -31,9 +31,9 @@ public class PlayerInput : MonoBehaviour
         OnMoveInput?.Invoke(direction);
     }
 
-    private void TriggerAttack()
+    private void TriggerSpacePressed()
     {
-        OnAttackInput?.Invoke();
+        OnSpaceInput?.Invoke();
     }
 
     public static void LockMovement()

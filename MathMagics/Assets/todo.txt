@@ -15,7 +15,7 @@ Next Steps
 Weapon Hitbox area increasing
     Keep some sort of 3x3 grid stored, 0 = not unlocked, 1 = unlocked (this can be in WeaponHandler)
     When attacking, foreach position in that array that's a 1, spawn a Hitbox
-    THe hard part will be the movement around choosing an array
+    The hard part will be the movement around choosing an array
 
 When they choose that reward
     Lock player movement
