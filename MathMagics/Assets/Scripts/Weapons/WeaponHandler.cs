@@ -43,6 +43,8 @@ public class WeaponHandler : MonoBehaviour
     private float timeSinceLastAttack;
     [SerializeField]private float attackCooldownTime;
     [SerializeField] private List<WeaponLevelUI> weaponLevelUIs;
+    private Dictionary<Weapon, int[,]> weaponHitboxGrids = new();
+    [HideInInspector] public bool attacksEnabled = true;
 
     [Header("Audio")]
     [SerializeField] private AudioClip[] playerAttackSFX;
@@ -76,7 +78,7 @@ public class WeaponHandler : MonoBehaviour
         
         currentWeapon = weapons[0];
         weapons[0].UnlockWeapon();
-
+        InitializeWeaponHitboxGrids();
         Debug.Log($"[WeaponHandler] Starting weapon: {currentWeapon.getName()}");
 
         foreach(Weapon w in weapons)
@@ -146,10 +148,7 @@ public class WeaponHandler : MonoBehaviour
 
     private void PerformAttack()
     {
-
-        //For next class, this should be routed into a function called HandleSpacePressed
-
-
+        if(!attacksEnabled) return;
         if(timeSinceLastAttack < attackCooldownTime) return;
 
         timeSinceLastAttack = 0f;
@@ -161,8 +160,25 @@ public class WeaponHandler : MonoBehaviour
 
         AudioManager.Instance.PlayOneShotVariedPitch(playerAttackSFX[currentWeaponIndex], 1f, AudioManager.Instance.sfxAMG, .03f);
         OnAttackPerformed?.Invoke();
-        WeaponHitbox2D hitbox = Instantiate(weaponHitboxPrefab, spawnPosition, Quaternion.identity);
-        hitbox.DoAttack(currentWeapon, .1f);
+
+        Vector2 dir = PlayerInput.lastDirection;
+        Vector2 sideAxis = (dir.x != 0) ? Vector2.up : Vector2.right;
+
+        for(int i = 0; i < 3; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                if(weaponHitboxGrids[currentWeapon][i,j] == 1)
+                {
+                    float forward = j;
+                    float side = i - 1;
+                    float offsetX = forward * dir.x + side * sideAxis.x;
+                    float offsetY = forward * dir.y + side * sideAxis.y;
+                    WeaponHitbox2D hitbox = Instantiate(weaponHitboxPrefab, new Vector3(spawnPosition.x + offsetX, spawnPosition.y + offsetY), Quaternion.identity);
+                    hitbox.DoAttack(currentWeapon, .1f);
+                }
+            }
+        }
         TurnManager.Instance.EndPlayerTurn();
     }
 
@@ -225,6 +241,25 @@ public class WeaponHandler : MonoBehaviour
     private void HandleWeaponSlotClicked(int index)
     {
         SwitchWeapon(index);
+    }
+
+    private void InitializeWeaponHitboxGrids()
+    {
+        foreach(Weapon w in weapons)
+        {
+            weaponHitboxGrids[w] = new int[3,3] { {0, 0, 0}, {1, 0, 0}, {0, 0, 0}};
+        }
+    }
+
+    public void ShowWeaponHitboxGrid(Weapon w)
+    {
+        HitboxGrid.Singleton.Initialize(weaponHitboxGrids[w]);
+    }
+
+    public void SelectWeaponHitbox(Pair p, Weapon w)
+    {
+        Debug.Log($"[WeaponHandler] Weapon Hitbox {w.getName()} ({p.x}, {p.y}) selected");
+        weaponHitboxGrids[w][p.x,p.y] = 1;
     }
 
 }

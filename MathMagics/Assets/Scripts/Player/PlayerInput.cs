@@ -25,10 +25,10 @@ public class PlayerInput : MonoBehaviour
 
     private void TriggerMove(Vector2 direction)
     {
+        OnMoveInput?.Invoke(direction);
         if(!canMove) return;
         Debug.Log($"Move input received: {direction}");
         lastDirection = direction;
-        OnMoveInput?.Invoke(direction);
     }
 
     private void TriggerSpacePressed()

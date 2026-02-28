@@ -25,6 +25,7 @@ public class RewardSystem : MonoBehaviour
     private int hoveredReward = 0;
     private List<RewardOption> rewardPool = new();
     private bool isShowingRewards = false;
+    private Weapon currentHitboxWeapon;
 
     // -------- Events -------
     public event Action OnPotionHitRewardSelected;
@@ -92,6 +93,8 @@ public class RewardSystem : MonoBehaviour
     {
         PlayerInput.OnMoveInput -= HandlePlayerMoveInput;
         PlayerInput.OnSpaceInput -= HandlePlayerSpaceInput;
+        PlayerInput.OnMoveInput -= HandleMoveInputForHitboxes;
+        PlayerInput.OnSpaceInput -= HandeSpaceInputForHitboxSelect;
     }
 
 
@@ -150,7 +153,7 @@ public class RewardSystem : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            if (UnityEngine.Random.value < 0.2f) // 25% chance to include a health reward
+            if (UnityEngine.Random.value < 0.3f) // 30% chance to include a health reward
             {
                 Rarity rarity = GetRandomRarity();
                 int healthAmount = rarity switch
@@ -198,12 +201,8 @@ public class RewardSystem : MonoBehaviour
             }
             else
             {
-                string chosenWeapon = GetRandomWeaponByDropChance();
+                string chosenWeapon = GetRandomWeaponByDropChance(); 
                 Rarity rarity = GetRandomRarity();
-                while(rarity == Rarity.Special)
-                {
-                    rarity = GetRandomRarity();
-                }
                 int level = rarity switch
                 {
                     Rarity.Common => 1,
@@ -212,7 +211,16 @@ public class RewardSystem : MonoBehaviour
                     _ => 1
                 };
 
-                rewardPool.Add(new RewardOption(chosenWeapon, $"Upgrade {chosenWeapon} by {level} level", rarity, level, RewardType.Weapon));
+                if(rarity != Rarity.Special)
+                {
+                    rewardPool.Add(new RewardOption(chosenWeapon, $"Upgrade {chosenWeapon} by {level} level", rarity, level, RewardType.Weapon));
+                }
+                else
+                {
+                    rewardPool.Add(new RewardOption(chosenWeapon, $"Upgrade {chosenWeapon} wand's hitbox", rarity, 0, RewardType.Hitbox));
+                }
+
+                
             }
         }
     }
@@ -220,6 +228,7 @@ public class RewardSystem : MonoBehaviour
 
     private Rarity GetRandomRarity()
     {
+        return Rarity.Special;
         float roll = UnityEngine.Random.value;
         if (roll < 0.4f) return Rarity.Common;
         if (roll < 0.7) return Rarity.Rare;
@@ -264,12 +273,51 @@ public class RewardSystem : MonoBehaviour
                 }
             }
         }
+        else if (chosen.rewardType == RewardType.Hitbox)
+        {
+            currentHitboxWeapon = WeaponHandler.Instance.GetWeaponByName(chosen.weaponName);
+            WeaponHandler.Instance.attacksEnabled = false;
+            PlayerInput.OnMoveInput += HandleMoveInputForHitboxes;
+            PlayerInput.OnSpaceInput += HandeSpaceInputForHitboxSelect;
+
+            WeaponHandler.Instance.ShowWeaponHitboxGrid(currentHitboxWeapon);
+        }
+
+        if(chosen.rewardType != RewardType.Hitbox)
+        {
+           PlayerInput.UnlockMovement();
+        }
+    
+
         rewardOutline.SetActive(false);
         rewardUI.SetActive(false);
         isShowingRewards = false;
-         PlayerInput.UnlockMovement();
         Time.timeScale = 1f;
+        
     }
+
+    private void HandeSpaceInputForHitboxSelect()
+    {
+        Debug.Log($"[RewardSystem] Selecting hitbox {HitboxGrid.Singleton.currentPosition.x}, {HitboxGrid.Singleton.currentPosition.y}");
+        WeaponHandler.Instance.SelectWeaponHitbox(HitboxGrid.Singleton.currentPosition, currentHitboxWeapon);
+
+        PlayerInput.OnSpaceInput -= HandeSpaceInputForHitboxSelect;
+        PlayerInput.OnMoveInput -= HandleMoveInputForHitboxes;
+        currentHitboxWeapon = null;
+        HitboxGrid.Singleton.Clear();
+        WeaponHandler.Instance.attacksEnabled = true;
+        PlayerInput.lastDirection = Vector2.right;
+        PlayerInput.UnlockMovement();
+    }
+
+
+    private void HandleMoveInputForHitboxes(Vector2 vector)
+    {
+        //Logic goes here for moving around the hitbox visuals
+        Debug.Log("[RewardSystem] Calling move in HitboxGrid");
+        HitboxGrid.Singleton.Move(vector);
+    }
+
 
     private void HandleAttackPerformed()
     {
@@ -327,85 +375,83 @@ public class RewardSystem : MonoBehaviour
         }
     }
 
-public void ShowBossRewardOptions()
-{
-    Time.timeScale = 0f;
-    rewardUI.SetActive(true);
-    rewardOutline.SetActive(true);
-    GenerateBossRewardPool();
-
-    for (int i = 0; i < rewardCards.Length; i++)
+    public void ShowBossRewardOptions()
     {
-        RewardOption option = rewardPool[i];
-        rewardCards[i].Initialize(option);
-    }
-    HighlightRewardCard(0);
-}
+        Time.timeScale = 0f;
+        rewardUI.SetActive(true);
+        rewardOutline.SetActive(true);
+        GenerateBossRewardPool();
 
-private void GenerateBossRewardPool()
-{
-    rewardPool.Clear();
-
-    string[] weaponNames = new string[] { "Subtraction", "Addition", "Multiply", "Divide" };
-
-    for (int i = 0; i < 3; i++)
-    {
-        Rarity rarity = Rarity.Epic; // Always epic
-        if(i == 1  && playerPotion != null && playerPotion.HasPotion())
+        for (int i = 0; i < rewardCards.Length; i++)
         {
-            rarity = Rarity.Special;
-            rewardPool.Add(new RewardOption(
-                "Potion",
-                $"Attack your potion",
-                rarity,
-                0,
-                RewardType.Health
-            ));
-            
+            RewardOption option = rewardPool[i];
+            rewardCards[i].Initialize(option);
         }
-        else if (UnityEngine.Random.value < 0.2f) // 20% chance to offer health reward
-        {
-            int healthAmount = 15; // Epic value
+        HighlightRewardCard(0);
+    }
 
-            PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
-            if (playerPotion != null && playerPotion.HasPotion())
+    private void GenerateBossRewardPool()
+    {
+        rewardPool.Clear();
+
+        string[] weaponNames = new string[] { "Subtraction", "Addition", "Multiply", "Divide" };
+
+        for (int i = 0; i < 3; i++)
+        {
+            Rarity rarity = Rarity.Epic; // Always epic
+            if(i == 1  && playerPotion != null && playerPotion.HasPotion())
             {
+                rarity = Rarity.Special;
                 rewardPool.Add(new RewardOption(
                     "Potion",
-                    $"Upgrade Potion (+{healthAmount} HP)",
+                    $"Attack your potion",
                     rarity,
-                    healthAmount,
+                    0,
                     RewardType.Health
                 ));
+                
+            }
+            else if (UnityEngine.Random.value < 0.2f) // 20% chance to offer health reward
+            {
+                int healthAmount = 15; // Epic value
+
+                PlayerPotion playerPotion = FindObjectOfType<PlayerPotion>();
+                if (playerPotion != null && playerPotion.HasPotion())
+                {
+                    rewardPool.Add(new RewardOption(
+                        "Potion",
+                        $"Upgrade Potion (+{healthAmount} HP)",
+                        rarity,
+                        healthAmount,
+                        RewardType.Health
+                    ));
+                }
+                else
+                {
+                    rewardPool.Add(new RewardOption(
+                        "Potion",
+                        $"Gain Potion",
+                        rarity,
+                        healthAmount,
+                        RewardType.Health
+                    ));
+                }
             }
             else
             {
+                string chosenWeapon = GetRandomWeaponByDropChance();
+                int level = 3; // Epic level
+
                 rewardPool.Add(new RewardOption(
-                    "Potion",
-                    $"Gain Potion",
+                    chosenWeapon,
+                    $"Upgrade {chosenWeapon} by {level} level",
                     rarity,
-                    healthAmount,
-                    RewardType.Health
+                    level,
+                    RewardType.Weapon
                 ));
             }
         }
-        else
-        {
-            string chosenWeapon = GetRandomWeaponByDropChance();
-            int level = 3; // Epic level
-
-            rewardPool.Add(new RewardOption(
-                chosenWeapon,
-                $"Upgrade {chosenWeapon} by {level} level",
-                rarity,
-                level,
-                RewardType.Weapon
-            ));
-        }
     }
-}
 
-
-
-
+   
 }

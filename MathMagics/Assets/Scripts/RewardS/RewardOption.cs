@@ -1,5 +1,5 @@
 public enum Rarity { Common, Rare, Epic, Special }
-public enum RewardType{Weapon,Health}
+public enum RewardType{Weapon,Health,Hitbox}
 
 
 public class RewardOption

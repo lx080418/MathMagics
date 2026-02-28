@@ -28,6 +28,15 @@ When they choose that reward
     Hit space to confirm their selection
 
 
+2/27 Notes
+- Reward selection hooked up, still need to
+    - Lock player movement when selecting hitbox position
+    - Fix logic with moving around the hitbox selection, it feels a little wonky in some spots.
+    - Hitbox position is slightly off-centered from a 1x1 grid, enemies sometimes take double damage because they're being hit by two hitboxes at once.
+    - Already-upgraded hitbox positions turning black doesn't quite work, its close though. This is in @HitboxGrid.
+        - This is because the loop goes back over already-checked spots when checking around each adjacent position.
+    - When selecting a hitbox, it's y position seems to be flipped, so selecting one on the top actually moves it to the bottom.
+    
 
 Order of Operations
 1. "You Win" screen
